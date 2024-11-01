@@ -54,7 +54,8 @@
                     <div class="col-lg-8 d-none d-lg-flex justify-content-center col-custom">
                         <nav class="main-nav d-none d-lg-flex">
                             <ul class="nav">
-                                <li>
+                                @await Component.InvokeAsync("MenuTop")
+                                @* <li>
                                     <a class="active" href="index.html">
                                         <span class="menu-text"> Home</span>
                                         <i class="fa fa-angle-down"></i>
@@ -141,7 +142,7 @@
                                     <a href="contact-us.html">
                                         <span class="menu-text">Contact Us</span>
                                     </a>
-                                </li>
+                                </li> *@
                             </ul>
                         </nav>
                     </div>
