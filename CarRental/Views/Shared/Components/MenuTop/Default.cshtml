@@ -1,0 +1,17 @@
+﻿
+@model IEnumerable<CarRental.Models.Menu>
+@foreach(var item in Model)
+{
+    
+<li>
+    <a class="active" href="index.html">
+        <span class="menu-text"> @item.Title</span>
+        @* <i class="fa fa-angle-down"></i> *@
+    </a>
+    @* <ul class="dropdown-submenu dropdown-hover">
+        <li><a class="active" href="index.html">Home Page - 1</a></li>
+        <li><a href="index-2.html">Home Page - 2</a></li>
+        <li><a href="index-3.html">Home Page - 3</a></li>
+    </ul> *@
+</li>
+}
