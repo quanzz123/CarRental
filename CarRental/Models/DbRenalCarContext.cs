@@ -52,6 +52,9 @@ public partial class DbRenalCarContext : DbContext
             entity.HasKey(e => e.CarId).HasName("PK__Cars__68A0340E10AA00BE");
 
             entity.Property(e => e.CarId).HasColumnName("CarID");
+            entity.Property(e => e.Alias)
+                .HasMaxLength(50)
+                .HasColumnName("alias");
             entity.Property(e => e.CarBrand).HasMaxLength(50);
             entity.Property(e => e.CarName).HasMaxLength(100);
             entity.Property(e => e.CarTypeId).HasColumnName("CarTypeID");
@@ -61,6 +64,7 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.LicensePlate).HasMaxLength(20);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Rate).HasColumnName("rate");
+            entity.Property(e => e.SalePrice).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.CarType).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.CarTypeId)

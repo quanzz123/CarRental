@@ -31,6 +31,12 @@ public partial class Car
 
     public string? CarBrand { get; set; }
 
+    public string? Image { get; set; }
+
+    public decimal? SalePrice { get; set; }
+
+    public string? Alias { get; set; }
+
     public virtual CarType CarType { get; set; } = null!;
 
     public virtual ICollection<ContractSettlementDetail> ContractSettlementDetails { get; set; } = new List<ContractSettlementDetail>();
