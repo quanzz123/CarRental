@@ -18,7 +18,7 @@
                         <a href="wishlist.html" title="Add To Wishlist">
                             <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="left" title="Wishlist"></i>
                         </a>
-                        <a href="#exampleModalCenter" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                        <a href="#exampleModalCenter-@item.CarId" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModalCenter-@item.CarId">
                             <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="left" title="Quick View"></i>
                         </a>
                     </div>
@@ -70,7 +70,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal flosun-modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal flosun-modal fade" id="exampleModalCenter-@item.CarId" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="close close-button" data-bs-dismiss="modal" aria-label="Close">
