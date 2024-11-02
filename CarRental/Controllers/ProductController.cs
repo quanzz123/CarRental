@@ -23,13 +23,14 @@ namespace CarRental.Controllers
             {
                 return NotFound();
             }
-            var product = await _context.Cars.FirstOrDefaultAsync(m => m.CarId == id);
+            var product = await _context.Cars.Include(i=>i.CarType).FirstOrDefaultAsync(m => m.CarId == id);
 
             if (product == null)
             {
                 return NotFound();
             }
-            ViewBag.productFeatured = _context.Cars.Where(i => i.Rate >= 3).OrderByDescending(i => i.Rate).ToList();
+            
+            ViewBag.productFeatured = _context.Cars.Where(i => i.Rate >= 3  && i.CarTypeId == product.CarTypeId).OrderByDescending(i => i.Rate).ToList();
             return View(product);
         }
 

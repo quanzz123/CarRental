@@ -1,4 +1,8 @@
-﻿ <!-- Slider/Intro Section Start -->
+﻿@model Car
+@{
+    List<Car> productFeatured = ViewBag.productFeatured;
+}
+<!-- Slider/Intro Section Start -->
 <div class="intro11-slider-wrap section">
     <div class="intro11-slider swiper-container">
         <div class="swiper-wrapper">
@@ -106,6 +110,7 @@
                 <div class="product-slider swiper-container anime-element-multi">
                     <div class="swiper-wrapper">
                         <div class="single-item swiper-slide">
+                            
                             <!--Single Product Start-->
                             <div class="single-product position-relative mb-30">
                                 <div class="product-image">
