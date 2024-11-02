@@ -11,7 +11,7 @@ namespace CarRental.Controllers
         {
             _context = context;
         }
-        [Route("/shop.html")]
+        /*[Route("/Product/Index.html")]*/
         public IActionResult Index()
         {
             return View();

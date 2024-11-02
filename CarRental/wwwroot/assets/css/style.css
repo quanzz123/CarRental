@@ -7190,22 +7190,23 @@ mark {
 /*    Components - Breadcrumb
 /*----------------------------------------*/
 .breadcrumbs-area {
-  padding: 100px 0;
-  background: #f6f6f6 url(../images/bg/breadcrumb.jpg) no-repeat scroll center center/cover;
+    padding: 100px 0;
+   /* background: #f6f6f6 url(../images/bg/breadcrumb.jpg) no-repeat scroll center center/cover;*/
+    background:  url(../images/bg/breadcrumb.jpg) no-repeat scroll center center/cover !important;
 }
-
+#ffffff
 .breadcrumbs-area:before {
-  background: #ffffff none repeat scroll 0 0;
-  opacity: .3;
-  content: "";
-  height: 100%;
-  left: 0;
-  top: 0;
-  -webkit-transition: .3s;
-  -o-transition: .3s;
-  transition: .3s;
-  width: 100%;
-  position: absolute;
+    background: none repeat scroll 0 0;
+    opacity: .3;
+    content: "";
+    height: 100%;
+    left: 0;
+    top: 0;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    width: 100%;
+    position: absolute;
 }
 
 .breadcrumbs-area .breadcrumb-content .title-3 {

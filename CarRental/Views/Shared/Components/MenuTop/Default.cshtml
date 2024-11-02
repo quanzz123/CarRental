@@ -2,7 +2,7 @@
 @model IEnumerable<CarRental.Models.Menu>
 @foreach(var item in Model)
 {
-    string murl = $"/{item.Alias}.html";
+    string murl = $"/{item.Alias} ";
     
 <li>
     <a class="active" href="@murl">

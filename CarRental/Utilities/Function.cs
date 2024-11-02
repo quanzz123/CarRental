@@ -1,4 +1,5 @@
-﻿namespace CarRental.Utilities
+﻿using SlugGenerator;
+namespace CarRental.Utilities
 {
     public class Function
     {

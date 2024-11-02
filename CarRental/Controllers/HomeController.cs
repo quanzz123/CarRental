@@ -12,7 +12,7 @@ namespace CarRental.Controllers
         {
             _logger = logger;
         }
-        [Route("/{alias}.html")]
+        
         public IActionResult Index()
         {
             return View();
