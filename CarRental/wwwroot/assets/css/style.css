@@ -5948,17 +5948,17 @@ mark {
 }
 
 .slide-1 {
-  background-image: url("../images/slider/1-1.jpg");
+  background-image: url("../images/banner/carbaner4.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 }
 
 .slide-2 {
-  background-image: url("../images/slider/1-2.jpg");
+  background-image: url("../images/banner/baner-car2.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 }
 
 .slide-3 {
-  background-image: url("../images/slider/2-1.jpg");
+  background-image: url("../images/banner/carbanner3.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 }
 
@@ -6760,7 +6760,7 @@ mark {
 /*    Product Countdown Scss
 /*----------------------------------------*/
 .product-countdown-area {
-  background: url(../images/bg/1.jpg);
+  background: url(../images/banner/salebaner.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

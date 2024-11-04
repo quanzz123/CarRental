@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CarRental.Models.CarType>
+  <!-- Vòng lặp để hiển thị từng slide -->
+@for (int i = 0; i < Model.Count(); i += 4)
+{
+    <div class="swiper-slide">
+        <div class="row">
+            @foreach(var item in Model.Skip(i).Take(4))
+            {
+                string murl = $"/product";
+                
+            <div class=" col-6 col-custom mb-4">
+                <div class="categories-img mb-30">
+                        @* <a href="#"><img src="~/assets/images/category/home1-category-2.jpg" alt=""></a> *@
+                   <a href="@murl"><img src="~/assets/images/CarImage/CarTypes/@item.Image" alt=""></a>
+                    <div class="categories-content">
+                        <h3>@item.CarTypeName</h3>
+                        <h4>@item.Quantity items</h4>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+}
+
+
+                
+  

@@ -13,8 +13,9 @@ namespace CarRental.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var cartype = _context.CarTypes;
-            return await Task.FromResult<IViewComponentResult>(View());
+            var cartype = _context.CarTypes.OrderByDescending(m=> m.Quantity);
+            return await Task.FromResult<IViewComponentResult>(View(cartype));
         }
     }
 }
+ 

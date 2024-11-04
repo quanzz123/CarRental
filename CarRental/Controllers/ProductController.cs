@@ -31,6 +31,7 @@ namespace CarRental.Controllers
             }
             
             ViewBag.productFeatured = _context.Cars.Where(i => i.Rate >= 3  && i.CarTypeId == product.CarTypeId).OrderByDescending(i => i.Rate).ToList();
+            ViewBag.productRelated = _context.Cars.Include(i=>i.CarType).Where(i => i.CarTypeId == product.CarTypeId && i.CarId != id).ToList();
             return View(product);
         }
 
