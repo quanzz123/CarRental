@@ -1,6 +1,9 @@
-﻿using CarRental.Models;
+﻿using CarRental.Extensions;
+using CarRental.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CarRental.Controllers
 {
@@ -16,6 +19,8 @@ namespace CarRental.Controllers
         {
             return View();
         }
+        
+
         [Route("/product/{alias}-{id}.html")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -29,9 +34,29 @@ namespace CarRental.Controllers
             {
                 return NotFound();
             }
-            
-            ViewBag.productFeatured = _context.Cars.OrderByDescending(i => i.Rate).ToList();
+
+            //ViewBag.productFeatured = _context.CarTypes.OrderByDescending(i=>i.CarTypeId).ToList();
+
+
             ViewBag.productRelated = _context.Cars.Include(i=>i.CarType).Where(i => i.CarTypeId == product.CarTypeId && i.CarId != id).ToList();
+
+            // Lấy danh sách sản phẩm đã xem gần đây từ session
+            var recentProducts = HttpContext.Session.Get<List<int>>("RecentProducts") ?? new List<int>();
+
+            // Thêm ID sản phẩm vào danh sách nếu chưa có
+            if (!recentProducts.Contains(id.Value))
+            {
+                recentProducts.Add(id.Value);
+
+                // Giữ danh sách giới hạn số lượng sản phẩm (ví dụ: 5 sản phẩm gần đây)
+                if (recentProducts.Count > 5)
+                {
+                    recentProducts.RemoveAt(0);
+                }
+
+                // Cập nhật session
+                HttpContext.Session.Set("RecentProducts", recentProducts);
+            }
             return View(product);
         }
                  
