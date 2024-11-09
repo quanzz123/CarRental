@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<CarRental.Models.Car>
 @foreach(var item in Model.Take(3))
 {
+    string url = $"/product/{item.Alias}-{item.CarId}.html";
     <div class="sidebar-product align-items-center">
-        <a href="product-details.html" class="image">
+        <a href="@url" class="image">
             <img src="~/assets/images/CarImage/@item.Image" alt="product">
         </a>
         <div class="product-content">
