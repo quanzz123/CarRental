@@ -15,19 +15,20 @@ namespace CarRental.Controllers
         {
             return View();
         }
+        [Route("/blog/{alias}-{id}.html")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
-            var blog = await _context.Blogs.Include(i => i.BlogId).FirstOrDefaultAsync(m => m.BlogId == id);
+            var blog = await _context.Blogs.Include(i => i.BlogComments).FirstOrDefaultAsync(i => i.BlogId == id);
 
             if (blog == null)
             {
                 return NotFound();
             }
-            return View();
+            return View(blog);
         }
     }
 }

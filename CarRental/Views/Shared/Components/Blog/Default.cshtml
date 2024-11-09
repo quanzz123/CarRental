@@ -1,17 +1,18 @@
 ﻿@model IEnumerable<Blog>
 @foreach(var item in Model)
 {
+    string url = $"/blog/{item.Alias}-{item.BlogId}.html";
     <div class="col-12 col-custom mb-30">
         <div class="blog-lst">
             <div class="single-blog">
                 <div class="blog-image">
                     <a class="d-block" href="blog-details-fullwidth.html">
-                        <img src="assets/images/blog/@item.Image" alt="Blog Image" class="w-100">
+                        <img src="~/assets/images/blog/@item.Image" alt="Blog Image" class="w-100">
                     </a>
                 </div>
                 <div class="blog-content">
                     <div class="blog-text">
-                        <h4><a href="blog-details-fullwidth.html">@item.Title</a></h4>
+                        <h4><a href="@url">@item.Title</a></h4>
                         <div class="blog-post-info">
                             <span><a href="#">By @item.CreatedBy</a></span>
                             <span>@item.CreatedDate.Value.ToString("dd/MM/yyyy")</span>
