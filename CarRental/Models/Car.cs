@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Models;
 
 public partial class Car
 {
     public int CarId { get; set; }
-
+    [Required(ErrorMessage = "Please select a valid Car Type.")]
     public int CarTypeId { get; set; }
 
     public string? CarName { get; set; }

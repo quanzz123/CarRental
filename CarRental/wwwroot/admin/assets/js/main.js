@@ -1,120 +1,51 @@
-// Loading
-$(function () {
-	$("#loading-wrapper").fadeOut(2000);
+function slideToggle(t,e,o){0===t.clientHeight?j(t,e,o,!0):j(t,e,o)}function slideUp(t,e,o){j(t,e,o)}function slideDown(t,e,o){j(t,e,o,!0)}function j(t,e,o,i){void 0===e&&(e=400),void 0===i&&(i=!1),t.style.overflow="hidden",i&&(t.style.display="block");var p,l=window.getComputedStyle(t),n=parseFloat(l.getPropertyValue("height")),a=parseFloat(l.getPropertyValue("padding-top")),s=parseFloat(l.getPropertyValue("padding-bottom")),r=parseFloat(l.getPropertyValue("margin-top")),d=parseFloat(l.getPropertyValue("margin-bottom")),g=n/e,y=a/e,m=s/e,u=r/e,h=d/e;window.requestAnimationFrame(function l(x){void 0===p&&(p=x);var f=x-p;i?(t.style.height=g*f+"px",t.style.paddingTop=y*f+"px",t.style.paddingBottom=m*f+"px",t.style.marginTop=u*f+"px",t.style.marginBottom=h*f+"px"):(t.style.height=n-g*f+"px",t.style.paddingTop=a-y*f+"px",t.style.paddingBottom=s-m*f+"px",t.style.marginTop=r-u*f+"px",t.style.marginBottom=d-h*f+"px"),f>=e?(t.style.height="",t.style.paddingTop="",t.style.paddingBottom="",t.style.marginTop="",t.style.marginBottom="",t.style.overflow="",i||(t.style.display="none"),"function"==typeof o&&o()):window.requestAnimationFrame(l)})}
+
+let sidebarItems = document.querySelectorAll('.sidebar-item.has-sub');
+for(var i = 0; i < sidebarItems.length; i++) {
+    let sidebarItem = sidebarItems[i];
+	sidebarItems[i].querySelector('.sidebar-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        let submenu = sidebarItem.querySelector('.submenu');
+        if( submenu.classList.contains('active') ) submenu.style.display = "block"
+
+        if( submenu.style.display == "none" ) submenu.classList.add('active')
+        else submenu.classList.remove('active')
+        slideToggle(submenu, 300)
+    })
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    var w = window.innerWidth;
+    if(w < 1200) {
+        document.getElementById('sidebar').classList.remove('active');
+    }
+});
+window.addEventListener('resize', (event) => {
+    var w = window.innerWidth;
+    if(w < 1200) {
+        document.getElementById('sidebar').classList.remove('active');
+    }else{
+        document.getElementById('sidebar').classList.add('active');
+    }
 });
 
-// Toggle sidebar
-$("#toggle-sidebar").on("click", function () {
-	$(".page-wrapper").toggleClass("toggled");
-});
+document.querySelector('.burger-btn').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('active');
+})
+document.querySelector('.sidebar-hide').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('active');
 
-// Toggle sidebar fullscreen
-$("#toggle-sidebar-fullscreen").on("click", function () {
-	$(".page-wrapper.fullscreen").toggleClass("toggled-fullscreen");
-});
+})
 
-// Toggle sidebar togglescreen
-$("#sidebar-togglescreen").on("click", function () {
-	$(".page-wrapper.togglescreen").toggleClass("toggled-togglescreen");
-});
 
-// Sidebars JS
-jQuery(function ($) {
-	$(".sidebar-dropdown > a").on("click", function () {
-		$(".sidebar-submenu").slideUp(200);
-		if ($(this).parent().hasClass("active")) {
-			$(".sidebar-dropdown").removeClass("active");
-			$(this).parent().removeClass("active");
-		} else {
-			$(".sidebar-dropdown").removeClass("active");
-			$(this).next(".sidebar-submenu").slideDown(200);
-			$(this).parent().addClass("active");
-		}
-	});
+// Perfect Scrollbar Init
+if(typeof PerfectScrollbar == 'function') {
+    const container = document.querySelector(".sidebar-wrapper");
+    const ps = new PerfectScrollbar(container, {
+        wheelPropagation: false
+    });
+}
 
-	// Added by Srinu
-	$(function () {
-		// When the window is resized,
-		$(window).resize(function () {
-			// When the width and height meet your specific requirements or lower
-			if ($(window).width() <= 768) {
-				$(".page-wrapper").removeClass("pinned");
-			}
-		});
-		// When the window is resized,
-		$(window).resize(function () {
-			// When the width and height meet your specific requirements or lower
-			if ($(window).width() >= 768) {
-				$(".page-wrapper").removeClass("toggled");
-			}
-		});
-	});
-});
-
-// Toggle graph day selection
-$(function () {
-	$(".graph-day-selection .btn").on("click", function () {
-		$(".graph-day-selection .btn").removeClass("active");
-		$(this).addClass("active");
-	});
-});
-
-// Download File
-$(".download-reports").on("click", function () {
-	$.ajax({
-		url: "sample.txt",
-		crossOrigin: null,
-		xhrFields: {
-			responseType: "blob",
-		},
-		success: function (blob) {
-			console.log(blob.size);
-			var link = document.createElement("a");
-			link.href = window.URL.createObjectURL(blob);
-			link.download = "Reports" + ".txt";
-			link.click();
-		},
-	});
-});
-
-// Todays Date
-$(function () {
-	var interval = setInterval(function () {
-		var momentNow = moment();
-		$(".todaysDate").html(momentNow.format("LLLL"));
-	}, 100);
-});
-
-// Toggle Pricing Plan
-$(".pricing-change-plan a").on("click", function () {
-	if ($(this).hasClass("active-plan")) {
-		$(".pricing-change-plan a").removeClass("active-plan");
-	} else {
-		$(".pricing-change-plan a").removeClass("active-plan");
-		$(this).addClass("active-plan");
-	}
-});
-
-/***********
-***********
-***********
-	Bootstrap JS 
-***********
-***********
-***********/
-
-// Tooltip
-var tooltipTriggerList = [].slice.call(
-	document.querySelectorAll('[data-bs-toggle="tooltip"]')
-);
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	return new bootstrap.Tooltip(tooltipTriggerEl);
-});
-
-// Popover
-var popoverTriggerList = [].slice.call(
-	document.querySelectorAll('[data-bs-toggle="popover"]')
-);
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-	return new bootstrap.Popover(popoverTriggerEl);
-});
+// Scroll into active sidebar
+document.querySelector('.sidebar-item.active').scrollIntoView(false)

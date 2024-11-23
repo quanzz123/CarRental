@@ -1,524 +1,288 @@
-﻿<!-- Content wrapper scroll start -->
-<div class="content-wrapper-scroll">
+﻿<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
 
-    <!-- Main header starts -->
-    <div class="main-header d-flex align-items-center justify-content-between position-relative">
-        <div class="d-flex align-items-center justify-content-center">
-            <div class="page-icon pe-3">
-                <i class="bi bi-house"></i>
-            </div>
-            <div class="page-title d-none d-md-block">
-                <h5>Welcome back, David</h5>
-            </div>
-        </div>
-        <!-- Live updates start -->
-        <ul class="updates d-flex align-items-end flex-column overflow-hidden" id="updates">
-            <li>
-                <a href="javascript:void(0)">
-                    <i class="bi bi-envelope-paper text-red font-1x me-2"></i>
-                    <span>12 emails from David Michaiah.</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0)">
-                    <i class="bi bi-bar-chart text-blue font-1x me-2"></i>
-                    <span>15 new features updated successfully.</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0)">
-                    <i class="bi bi-folder-check text-yellow font-1x me-2"></i>
-                    <span>The media folder is created successfully.</span>
-                </a>
-            </li>
-        </ul>
-        <!-- Live updates end -->
+    <div class="page-heading">
+        <h3>Profile Statistics</h3>
     </div>
-    <!-- Main header ends -->
-    <!-- Content wrapper start -->
-    <div class="content-wrapper">
-        <div class="hero-header shade-primary">
-            <div class="container-fluid">
-                <!-- Row start -->
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 col-md-8 col-sm-9 col-10">
-                        <div class="text-center">
-                            <h2 class="text-white mb-3">What are you looking for?</h2>
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-lg" id="SearchData" placeholder="Search">
-                                <button class="btn btn-success btn-lg" type="button">
-                                    Search
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Row end -->
-            </div>
-        </div>
-
-        <div class="hero-body">
-            <!-- Row start -->
-            <div class="row g-3 mb-3">
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="contacts.html" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/users.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Users</h5>
-                        <p>Manage admin people</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/group.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Groups</h5>
-                        <p>Create grouping lists</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="dashboard5.html"
-                       class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/dashboard.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Dashboard</h5>
-                        <p>Insights about company</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/devices.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Devices</h5>
-                        <p>Secure data devices</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/apps.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Apps</h5>
-                        <p>Manage app settings</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="account-settings.html"
-                       class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/security.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Security</h5>
-                        <p>Configure security logs</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/payments.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Billing</h5>
-                        <p>Manage subscribe bills</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/roles.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Roles</h5>
-                        <p>Manage admin roles</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/buildings.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Buildings</h5>
-                        <p>Manage building rooms</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/resources.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Resources</h5>
-                        <p>Manage our resources</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="#" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/domains.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Domains</h5>
-                        <p>Manage our domains</p>
-                    </a>
-                </div>
-                <div class="col-xxl-2 col-lg-3 col-sm-4 col-12">
-                    <a href="support.html" class="tile-link d-flex align-items-center flex-column text-center rounded-2">
-                        <img src="~/admin/assets/images/support.svg" class="img-3x m-auto mb-4" alt="Admin Dashboards">
-                        <h5>Support</h5>
-                        <p>Talk to tech support</p>
-                    </a>
-                </div>
-            </div>
-            <!-- Row end -->
-            <!-- Row start -->
-            <div class="row gx-3">
-                <div class="col-xxl-6 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Account Summary</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row gx-3">
-                                <div class="col-xxl-5 col-sm-6 col-12">
-                                    <div class="mt-5">
-                                        <h3 class="d-flex align-items-center">
-                                            <i class="bi bi-globe text-blue font-2xx me-2"></i>
-                                            $9500
-                                            <i class="bi bi-arrow-up-right text-green ms-2"></i>
-                                        </h3>
-                                        <p class="mt-5">
-                                            This dashboard unquestionably the largest visitors
-                                            in the world with TWO million monthly active users
-                                            and ONE million daily active users.
-                                        </p>
-                                        <button class="btn btn-info mt-3">
-                                            Download Reports
-                                        </button>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row">
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon purple">
+                                            <i class="iconly-boldShow"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-7 col-sm-6 col-12">
-                                    <div id="statement"></div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Profile Views</h6>
+                                        <h6 class="font-extrabold mb-0">112.000</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xxl-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Income</div>
-                        </div>
-                        <div class="card-body">
-                            <div id="income"></div>
-                            <div class="row gx-3">
-                                <div class="col-sm-6 col-6">
-                                    <div class="d-flex p-3 mt-2 flex-column box-bdr-blue rounded-2">
-                                        <h6 class="text-truncate">
-                                            Q3 - <span>$7200</span>
-                                        </h6>
-                                        <div class="progress small">
-                                            <div class="progress-bar shade-blue" role="progressbar" style="width: 60%"
-                                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon blue">
+                                            <i class="iconly-boldProfile"></i>
                                         </div>
                                     </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Followers</h6>
+                                        <h6 class="font-extrabold mb-0">183.000</h6>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6 col-6">
-                                    <div class="d-flex p-3 mt-2 flex-column box-bdr-blue rounded-2">
-                                        <h6 class="text-truncate">
-                                            Q4 - <span>$4800</span>
-                                        </h6>
-                                        <div class="progress small">
-                                            <div class="progress-bar shade-blue" role="progressbar" style="width: 70%"
-                                                 aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon green">
+                                            <i class="iconly-boldAdd-User"></i>
                                         </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Following</h6>
+                                        <h6 class="font-extrabold mb-0">80.000</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon red">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Saved Post</h6>
+                                        <h6 class="font-extrabold mb-0">112</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Tickets</div>
-                        </div>
-                        <div class="card-body">
-                            <div id="tickets"></div>
-                            <div class="text-center mt-4">
-                                <h3>
-                                    333
-                                    <i class="bi bi-arrow-up-right-circle-fill text-blue"></i>
-                                </h3>
-                                <p class="text-truncate m-0">
-                                    21% higher than last month
-                                </p>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Profile Visit</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-profile-visit"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Revenue</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row gx-3">
-                                <div class="col-lg-6 col-sm-12 col-12">
-                                    <div class="m-0">
-                                        <div class="box-light-blue rounded-circle icon-box xl">
-                                            <span class="bi bi-cash font-2xx text-blue"></span>
-                                        </div>
-                                        <h3 class="mt-4">$4200</h3>
-                                        <p class="">Revenue improved by 27% in 1 week.</p>
-                                        <div class="d-flex p-3 mt-2 flex-column box-bdr-blue rounded-2">
-                                            <h6>Target - <span>90/100</span></h6>
-                                            <div class="progress small">
-                                                <div class="progress-bar shade-blue" role="progressbar" style="width: 90%"
-                                                     aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-12 col-12">
-                                    <div id="revenueGraph"></div>
-                                </div>
+                <div class="row">
+                    <div class="col-12 col-xl-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Profile Visit</h4>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-4 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Sales</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row gx-3">
-                                <div class="col-lg-6 col-sm-12 col-12">
-                                    <div class="m-0">
-                                        <div class="box-light-blue rounded-circle icon-box xl">
-                                            <span class="bi bi-bar-chart-line font-2xx text-blue"></span>
-                                        </div>
-                                        <h3 class="mt-4">$9800</h3>
-                                        <p>Highest sales growth in last two years.</p>
-                                        <div class="d-flex p-3 mt-2 flex-column box-bdr-blue rounded-2">
-                                            <h6>Target - <span>75/100</span></h6>
-                                            <div class="progress small">
-                                                <div class="progress-bar shade-blue" role="progressbar" style="width: 75%"
-                                                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                                 style="width:10px">
+                                                <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                            </svg>
+                                            <h5 class="mb-0 ms-3">Europe</h5>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-12 col-12">
-                                    <div id="incomeGraph"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-4 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Target</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row gx-3">
-                                <div class="col-12">
-                                    <div id="qtrTarget"></div>
-                                </div>
-                                <div class="col-sm-3 col-6">
-                                    <div class="d-flex py-3 px-2 mt-2 flex-column box-bdr-blue rounded-2">
-                                        <h6 class="text-truncate">Q1 - <span>$3k</span></h6>
-                                        <div class="progress small">
-                                            <div class="progress-bar shade-blue" role="progressbar" style="width: 60%"
-                                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-0">862</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div id="chart-europe"></div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-6">
-                                    <div class="d-flex py-3 px-2 mt-2 flex-column box-bdr-blue rounded-2">
-                                        <h6 class="text-truncate">Q2 - <span>$4k</span></h6>
-                                        <div class="progress small">
-                                            <div class="progress-bar shade-blue" role="progressbar" style="width: 70%"
-                                                 aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <svg class="bi text-success" width="32" height="32" fill="blue"
+                                                 style="width:10px">
+                                                <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                            </svg>
+                                            <h5 class="mb-0 ms-3">America</h5>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-3 col-6">
-                                    <div class="d-flex py-3 px-2 mt-2 flex-column box-bdr-blue rounded-2">
-                                        <h6 class="text-truncate">Q3 - <span>$7k</span></h6>
-                                        <div class="progress small">
-                                            <div class="progress-bar shade-blue" role="progressbar" style="width: 80%"
-                                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-0">375</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div id="chart-america"></div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-6">
-                                    <div class="d-flex py-3 px-2 mt-2 flex-column box-bdr-red rounded-2">
-                                        <h6 class="text-truncate">Q4 - <span>$9k</span></h6>
-                                        <div class="progress small">
-                                            <div class="progress-bar shade-red" role="progressbar" style="width: 90%"
-                                                 aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                                 style="width:10px">
+                                                <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                            </svg>
+                                            <h5 class="mb-0 ms-3">Indonesia</h5>
                                         </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-0">1025</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div id="chart-indonesia"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xxl-4 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Activity</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="scroll370">
-                                <div class="my-2">
-                                    <div class="activity-block d-flex position-relative">
-                                        <img src="~/admin/assets/images/user3.png" class="img-5x me-3 rounded-circle activity-user"
-                                             alt="Admin Dashboard">
-                                        <div class="mb-5">
-                                            <h5>Sophie Michiels</h5>
-                                            <p class="m-0">3 day ago</p>
-                                            <p>Paid invoice ref. #26788</p>
-                                            <span class="badge shade-blue">Sent</span>
-                                        </div>
-                                    </div>
-                                    <div class="activity-block d-flex position-relative">
-                                        <img src="~/admin/assets/images/user4.png" class="img-5x me-3 rounded-circle activity-user"
-                                             alt="Admin Dashboard">
-                                        <div class="mb-5">
-                                            <h5>Sunny Desmet</h5>
-                                            <p class="m-0">3 hours ago</p>
-                                            <p>Sent invoice ref. #23457</p>
-                                            <span class="badge shade-blue">Sent</span>
-                                        </div>
-                                    </div>
-                                    <div class="activity-block d-flex position-relative">
-                                        <img src="~/admin/assets/images/user3.png" class="img-5x me-3 rounded-circle activity-user"
-                                             alt="Admin Dashboard">
-                                        <div class="mb-5">
-                                            <h5>Ilyana Maes</h5>
-                                            <p class="m-0">One week ago</p>
-                                            <p>Paid invoice ref. #34546</p>
-                                            <span class="badge shade-blue">Invoice</span>
-                                        </div>
-                                    </div>
-                                    <div class="activity-block d-flex position-relative">
-                                        <img src="~/admin/assets/images/user3.png" class="img-5x me-3 rounded-circle activity-user"
-                                             alt="Admin Dashboard">
-                                        <div class="mb-5">
-                                            <h5>Remssy Wilson</h5>
-                                            <p class="m-0">7 hours ago</p>
-                                            <p>Paid invoice ref. #23459</p>
-                                            <span class="badge shade-blue">Payments</span>
-                                        </div>
-                                    </div>
-                                    <div class="activity-block d-flex position-relative">
-                                        <img src="~/admin/assets/images/user3.png" class="img-5x me-3 rounded-circle activity-user"
-                                             alt="Admin Dashboard">
-                                        <div class="mb-5">
-                                            <h5>Elliott Hermans</h5>
-                                            <p class="m-0">1 day ago</p>
-                                            <p>Paid invoice ref. #23473</p>
-                                            <span class="badge shade-blue">Paid</span>
-                                        </div>
-                                    </div>
+                    <div class="col-12 col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Latest Comments</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/5.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Congratulations on your graduation!</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/2.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">
+                                                        Wow amazing design! Can you make another
+                                                        tutorial for
+                                                        this design?
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-4 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Issues</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="scroll370">
-                                <div class="my-2">
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Server down</h6>
-                                        <div class="log-dot rounded-5 high">High</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">
-                                            Notification from bank
-                                        </h6>
-                                        <div class="log-dot rounded-5 medium">Medium</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">
-                                            Transaction success alert
-                                        </h6>
-                                        <div class="log-dot rounded-5 low">Low</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Critical issue</h6>
-                                        <div class="log-dot rounded-5 high">High</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Bug fix</h6>
-                                        <div class="log-dot rounded-5 medium">Medium</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">OS update</h6>
-                                        <div class="log-dot rounded-5 low">Low</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Server down</h6>
-                                        <div class="log-dot rounded-5 high">High</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">App down</h6>
-                                        <div class="log-dot rounded-5 low">Low</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Service information</h6>
-                                        <div class="log-dot rounded-5 medium">Medium</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">OS installation</h6>
-                                        <div class="log-dot rounded-5 high">High</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Patch release</h6>
-                                        <div class="log-dot rounded-5 medium">Medium</div>
-                                    </div>
-                                    <div class="log-list d-flex align-items-center justify-content-between">
-                                        <h6 class="m-0 fw-normal">Software update</h6>
-                                        <div class="log-dot rounded-5 low">Low</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-4 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Reports</div>
-                        </div>
-                        <div class="card-body">
-                            <div id="reports"></div>
-
-                            <!-- Row start -->
-                            <div class="row gx-3">
-                                <div class="col-sm-4 col-4 v-curve-seperator">
-                                    <div class="d-flex align-items-center flex-column">
-                                        <div class="box-bdr-blue icon-box md rounded-2 mb-3">
-                                            <i class="bi bi-check-circle text-blue font-1xx"></i>
-                                        </div>
-                                        <h3>24</h3>
-                                        <p class="m-0">Completed</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 col-4 v-curve-seperator">
-                                    <div class="d-flex align-items-center flex-column">
-                                        <div class="box-bdr-blue icon-box md rounded-2 mb-3">
-                                            <i class="bi bi-disc text-blue font-1xx"></i>
-                                        </div>
-                                        <h3>56</h3>
-                                        <p class="m-0">Pending</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 col-4">
-                                    <div class="d-flex align-items-center flex-column">
-                                        <div class="box-bdr-blue icon-box md rounded-2 mb-3">
-                                            <i class="bi bi-code-square text-blue font-1xx"></i>
-                                        </div>
-                                        <h3>36</h3>
-                                        <p class="m-0">New</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Row end -->
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Row end -->
-        </div>
+            <div class="col-12 col-lg-3">
+                <div class="card">
+                    <div class="card-body py-4 px-5">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-xl">
+                                <img src="assets/images/faces/1.jpg" alt="Face 1">
+                            </div>
+                            <div class="ms-3 name">
+                                <h5 class="font-bold">John Duck</h5>
+                                <h6 class="text-muted mb-0">John Duck</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Recent Messages</h4>
+                    </div>
+                    <div class="card-content pb-4">
+                        <div class="recent-message d-flex px-4 py-3">
+                            <div class="avatar avatar-lg">
+                                <img src="assets/images/faces/4.jpg">
+                            </div>
+                            <div class="name ms-4">
+                                <h5 class="mb-1">Hank Schrader</h5>
+                                <h6 class="text-muted mb-0">John Duck</h6>
+                            </div>
+                        </div>
+                        <div class="recent-message d-flex px-4 py-3">
+                            <div class="avatar avatar-lg">
+                                <img src="assets/images/faces/5.jpg">
+                            </div>
+                            <div class="name ms-4">
+                                <h5 class="mb-1">Dean Winchester</h5>
+                                <h6 class="text-muted mb-0">imdean</h6>
+                            </div>
+                        </div>
+                        <div class="recent-message d-flex px-4 py-3">
+                            <div class="avatar avatar-lg">
+                                <img src="assets/images/faces/1.jpg">
+                            </div>
+                            <div class="name ms-4">
+                                <h5 class="mb-1">John Dodol</h5>
+                                <h6 class="text-muted mb-0">dodoljohn</h6>
+                            </div>
+                        </div>
+                        <div class="px-4">
+                            <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>
+                                Start
+                                Conversation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Visitors Profile</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="chart-visitors-profile"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <!-- Content wrapper end -->
 
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2021 &copy; Mazer</p>
+            </div>
+            <div class="float-end">
+                <p>
+                    Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
+                </p>
+            </div>
+        </div>
+    </footer>
 </div>
-<!-- Content wrapper scroll end -->
