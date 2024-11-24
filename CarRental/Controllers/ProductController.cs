@@ -28,7 +28,8 @@ namespace CarRental.Controllers
             {
                 return NotFound();
             }
-            var product = await _context.Cars.Include(i=>i.CarType).FirstOrDefaultAsync(m => m.CarId == id);
+            //var product = await _context.Cars.Include(i=>i.Type).FirstOrDefaultAsync(m => m.CarId == id);
+            var product = await _context.Cars.FirstOrDefaultAsync(m => m.CarId == id);
 
             if (product == null)
             {
@@ -38,7 +39,8 @@ namespace CarRental.Controllers
             //ViewBag.productFeatured = _context.CarTypes.OrderByDescending(i=>i.CarTypeId).ToList();
 
 
-            ViewBag.productRelated = _context.Cars.Include(i=>i.CarType).Where(i => i.CarTypeId == product.CarTypeId && i.CarId != id).ToList();
+            //ViewBag.productRelated = _context.Cars.Include(i=>i.Type).Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
+            //ViewBag.productRelated = _context.Cars.Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
 
             // Lấy danh sách sản phẩm đã xem gần đây từ session
             var recentProducts = HttpContext.Session.Get<List<int>>("RecentProducts") ?? new List<int>();

@@ -19,7 +19,5 @@ public partial class ContractSettlementDetail
 
     public decimal? Total { get; set; }
 
-    public virtual Car Car { get; set; } = null!;
-
     public virtual ContractSettlement Settlement { get; set; } = null!;
 }

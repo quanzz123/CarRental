@@ -47,9 +47,14 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
 
+    public virtual DbSet<Product> Products { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
-   
+  /*  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("data source= NEYAQUAN\\HONGQUAN; initial catalog=DbRenalCar; integrated security=True; TrustServerCertificate=True;");
+*/
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -115,27 +120,19 @@ public partial class DbRenalCarContext : DbContext
 
         modelBuilder.Entity<Car>(entity =>
         {
-            entity.HasKey(e => e.CarId).HasName("PK__Cars__68A0340E10AA00BE");
-
             entity.Property(e => e.CarId).HasColumnName("CarID");
-            entity.Property(e => e.Alias)
-                .HasMaxLength(50)
-                .HasColumnName("alias");
+            entity.Property(e => e.Alias).HasMaxLength(50);
             entity.Property(e => e.CarBrand).HasMaxLength(50);
             entity.Property(e => e.CarName).HasMaxLength(100);
-            entity.Property(e => e.CarTypeId).HasColumnName("CarTypeID");
             entity.Property(e => e.Color).HasMaxLength(50);
-            entity.Property(e => e.Condition).HasMaxLength(100);
-            entity.Property(e => e.Deposit).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.LicensePlate).HasMaxLength(20);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Rate).HasColumnName("rate");
             entity.Property(e => e.SalePrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.TypeId).HasColumnName("TypeID");
 
-            entity.HasOne(d => d.CarType).WithMany(p => p.Cars)
-                .HasForeignKey(d => d.CarTypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Cars__CarTypeID__286302EC");
+            entity.HasOne(d => d.Type).WithMany(p => p.Cars)
+                .HasForeignKey(d => d.TypeId)
+                .HasConstraintName("FK_Cars_CarTypes");
         });
 
         modelBuilder.Entity<CarRentalOrder>(entity =>
@@ -160,9 +157,9 @@ public partial class DbRenalCarContext : DbContext
 
         modelBuilder.Entity<CarType>(entity =>
         {
-            entity.HasKey(e => e.CarTypeId).HasName("PK__CarTypes__2B2E84BDA5A9E5DA");
+            entity.HasKey(e => e.TypeId).HasName("PK__CarTypes__2B2E84BDA5A9E5DA");
 
-            entity.Property(e => e.CarTypeId).HasColumnName("CarTypeID");
+            entity.Property(e => e.TypeId).HasColumnName("TypeID");
             entity.Property(e => e.CarTypeName).HasMaxLength(100);
             entity.Property(e => e.Manufacturer).HasMaxLength(100);
         });
@@ -246,11 +243,6 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.SettlementId).HasColumnName("SettlementID");
             entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
 
-            entity.HasOne(d => d.Car).WithMany(p => p.ContractSettlementDetails)
-                .HasForeignKey(d => d.CarId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ContractS__CarID__3F466844");
-
             entity.HasOne(d => d.Settlement).WithMany(p => p.ContractSettlementDetails)
                 .HasForeignKey(d => d.SettlementId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -309,11 +301,6 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
-            entity.HasOne(d => d.Car).WithMany(p => p.OrderDetails)
-                .HasForeignKey(d => d.CarId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderDeta__CarID__34C8D9D1");
-
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -328,6 +315,13 @@ public partial class DbRenalCarContext : DbContext
 
             entity.Property(e => e.StatusId).HasColumnName("StatusID");
             entity.Property(e => e.StatusDescription).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Title).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Role>(entity =>

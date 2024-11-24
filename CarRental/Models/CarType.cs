@@ -5,13 +5,11 @@ namespace CarRental.Models;
 
 public partial class CarType
 {
-    public int CarTypeId { get; set; }
+    public int TypeId { get; set; }
 
     public string? CarTypeName { get; set; }
 
     public int? Seats { get; set; }
-
-    public int? Quantity { get; set; }
 
     public string? Manufacturer { get; set; }
 

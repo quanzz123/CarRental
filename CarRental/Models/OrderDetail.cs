@@ -17,7 +17,5 @@ public partial class OrderDetail
 
     public int? Quantity { get; set; }
 
-    public virtual Car Car { get; set; } = null!;
-
     public virtual CarRentalOrder Order { get; set; } = null!;
 }
