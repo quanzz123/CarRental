@@ -41,11 +41,76 @@ namespace CarRental.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                c.Alias = CarRental.Utilities.Function.TitleSlugGenerationAlias(c.CarName);
                 _context.Cars.Add(c);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(c);
+        }
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var car = _context.Cars.Find(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+            var carType = (from c in _context.CarTypes
+                           select new SelectListItem()
+                           {
+                               Text = c.CarTypeName,
+                               Value = c.TypeId.ToString(),
+                           }).ToList();
+            carType.Insert(0, new SelectListItem()
+            {
+                Text = "--select--",
+                Value = string.Empty,
+            });
+            ViewBag.carType = carType;
+            return View(car);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Car c)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                _context.Cars.Update(c);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(c);
+        }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var car = _context.Cars.Find(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return View(car);
+        }
+        [HttpPost]
+        public IActionResult Delete (int id)
+        {
+            var deleCar = _context.Cars.Find(id);
+            if (deleCar == null) {
+                return NotFound();
+            }
+            _context.Cars.Remove(deleCar);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

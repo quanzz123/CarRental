@@ -28,8 +28,8 @@ namespace CarRental.Controllers
             {
                 return NotFound();
             }
-            //var product = await _context.Cars.Include(i=>i.Type).FirstOrDefaultAsync(m => m.CarId == id);
-            var product = await _context.Cars.FirstOrDefaultAsync(m => m.CarId == id);
+            var product = await _context.Cars.Include(i=>i.Type).FirstOrDefaultAsync(m => m.CarId == id);
+            //var product = await _context.Cars.FirstOrDefaultAsync(m => m.CarId == id);
 
             if (product == null)
             {

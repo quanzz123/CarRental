@@ -15,8 +15,8 @@ namespace CarRental.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            //var items = _context.Cars.Include(m => m.Type).OrderByDescending(m => m.CarId);
-            var items = _context.Cars.OrderByDescending(m => m.CarId);
+            var items = _context.Cars.Include(m => m.Type).OrderByDescending(m => m.CarId);
+            //var items = _context.Cars.OrderByDescending(m => m.CarId);
 
             return await Task.FromResult<IViewComponentResult>(View(items));
         }

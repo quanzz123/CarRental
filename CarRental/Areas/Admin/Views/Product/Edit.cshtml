@@ -1,8 +1,11 @@
 ﻿@model CarRental.Models.Car
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
+
+
 <div id="main">
     <header class="mb-3">
         <a href="#" class="burger-btn d-block d-xl-none">
@@ -40,13 +43,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md">
-                            <form method="post">
+                            <form asp-action="Edit" >
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                                
+                                <input type="hidden" asp-for="CarId" />
                                 <div class="form-group">
                                     <label asp-for="CarName">Tên xe</label>
                                     <input asp-for="CarName" type="text" class="form-control" id="basicInput"
-                                           placeholder="Nhập tên xe">
+                                          >
                                     <span asp-validation-for="CarName" class="text-danger"></span>
 
                                 </div>
@@ -55,7 +59,7 @@
                                     <select asp-items="ViewBag.carType" class="form-select" id="basicSelect">
                                         <option selected></option>
                                     </select>
-                                    
+
                                     <span asp-validation-for="Type" class="text-danger"></span>
 
                                 </div>
@@ -108,7 +112,7 @@
                                                 id="button-addon1">
                                             Chọn ảnh
                                         </button>
-                                        <input asp-for="Image" type="text" class="form-control" id="file_input" 
+                                        <input asp-for="Image" type="text" class="form-control" id="file_input"
                                                aria-label="Example text with button addon"
                                                aria-describedby="button-addon1">
                                     </div>
@@ -157,18 +161,18 @@
 
                                     </div>
                                 </div>
-                              
+
                             </form>
 
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </section>
 
-        
+
 
     </div>
 
@@ -185,80 +189,6 @@
         </div>
     </footer>
 </div>
-@*  <div id="main">
-    <h1>Create</h1>
-
-    <h4>Product</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-              
-                <div class="form-group">
-                    <label asp-for="CarName" class="control-label"></label>
-                    <input asp-for="CarName" class="form-control" />
-                    <span asp-validation-for="CarName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Alias" class="control-label"></label>
-                    <input asp-for="Alias" class="form-control" />
-                    <span asp-validation-for="Alias" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TypeId" class="control-label"></label>
-                    <select asp-for="TypeId" class="form-control" asp-items="ViewBag.carType">
-                        <option value="0" selected></option>
-                    </select>
-                    
-                    <span asp-validation-for="TypeId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SalePrice" class="control-label"></label>
-                    <input asp-for="SalePrice" class="form-control" />
-                    <span asp-validation-for="SalePrice" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Image" class="control-label">Ảnh</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-success" onclick="openDialog()">Choose a picture</button>
-                        </div>
-                        <!--btn group-->
-                        <input type="text" class="form-control " id="file_input" asp-for="Image" aria-describedby="button-addon2" />
-                    </div>
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Details" class="control-label"></label>
-                    <textarea asp-for="Details" class="form-control"></textarea>
-                    
-                    <span asp-validation-for="Details" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="IsActive" class="control-label">
-                        @Html.CheckBox("IsActive", false)
-                        Hiển thị
-                    </label>
-                    
-                    <span asp-validation-for="IsActive" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input  type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-</div> *@
 
 @{
     var summernote = new CarRental.Areas.Admin.Models.SummerNote("#Details");
