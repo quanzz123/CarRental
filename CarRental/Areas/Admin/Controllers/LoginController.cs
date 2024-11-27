@@ -17,6 +17,8 @@ namespace CarRental.Areas.Admin.Controllers
         {
             return View();
         }
+        [Area("Admin")]
+
         [HttpPost]
         public IActionResult Index(Account acc)
         {
@@ -33,6 +35,11 @@ namespace CarRental.Areas.Admin.Controllers
                 Function._Message = "sai mat khau hoac emai";
                 return RedirectToAction("Index", "Login");
             }
+            // vao trang admin neu dung usernam va pasw
+            Function._Message = string.Empty;
+            Function._AccountId = check.AccountId;
+            Function._UserName  = string.IsNullOrEmpty(check.Username) ? string.Empty : check.Username; 
+            Function._Email = string.IsNullOrEmpty(check.Email) ? string.Empty : check.Email;
             return RedirectToAction("Index", "Home");
         }
     }

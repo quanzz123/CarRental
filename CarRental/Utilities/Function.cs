@@ -38,5 +38,13 @@ namespace CarRental.Utilities
             }
             return str;
         }
+        public static bool IsLogin()
+        {
+            if (string.IsNullOrEmpty(Function._UserName) || string.IsNullOrEmpty(Function._Email) || (Function._AccountId <= 0))
+            {
+                return false;
+            }
+            return true;     
+        }
     }
 }

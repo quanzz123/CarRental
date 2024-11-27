@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarRental.Models;
+using CarRental.Utilities;
 
 namespace CarRental.Areas.Admin.Controllers
 {
@@ -22,6 +23,11 @@ namespace CarRental.Areas.Admin.Controllers
         // GET: Admin/Menus
         public async Task<IActionResult> Index()
         {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View(await _context.Menus.ToListAsync());
         }
 

@@ -55,7 +55,8 @@ namespace CarRental.Areas.Admin.Controllers
 
             // https://localhost:5001/files/
             string url = $"/{pathroot}/";
-            string urlthumb = $"{uri.Scheme}://Admin/el-finder-file-system/thumb/";
+            ///*string urlthumb = $"{uri.Scheme}://Admin/el-finder-file-system/thumb/";*/
+            string urlthumb = $"{Request.Scheme}://{Request.Host}/Admin/el-finder-file-system/thumb/";
 
 
             var root = new RootVolume(rootDirectory, url, urlthumb)
