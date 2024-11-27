@@ -51,17 +51,16 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-  /*  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("data source= NEYAQUAN\\HONGQUAN; initial catalog=DbRenalCar; integrated security=True; TrustServerCertificate=True;");
-*/
+    public virtual DbSet<User> Users { get; set; }
+
+    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
             entity.ToTable("Account");
 
-            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FullName).HasMaxLength(50);
             entity.Property(e => e.LastLogin)
@@ -70,10 +69,6 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(50);
             entity.Property(e => e.Username).HasMaxLength(50);
-
-            entity.HasOne(d => d.Customer).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK_Account_Customers");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Accounts)
                 .HasForeignKey(d => d.RoleId)
@@ -331,6 +326,14 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.RoleId).ValueGeneratedNever();
             entity.Property(e => e.Description).HasMaxLength(50);
             entity.Property(e => e.RoleName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.UserName).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -23,11 +23,7 @@ public partial class Account
 
     public bool? IsActive { get; set; }
 
-    public int? CustomerId { get; set; }
-
     public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
-
-    public virtual Customer? Customer { get; set; }
 
     public virtual Role? Role { get; set; }
 }
