@@ -30,7 +30,7 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <a class="w-100" href="assets/images/product/large-size/1.jpg">
-                                    <img class="w-100" src="~/assets/images/CarImage/@Model.Image" alt="Product">
+                                    <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                             <div class="swiper-slide">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="add-to_cart">
-                            <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">Add to cart</a>
+                            <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">Add to cart</a>
                             <a class="btn flosun-button secondary-btn secondary-border rounded-0" href="wishlist.html">Add to wishlist</a>
                         </div>
                     </div>

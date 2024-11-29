@@ -40,8 +40,8 @@ namespace CarRental.Controllers
 
 
             //ViewBag.productRelated = _context.Cars.Include(i=>i.Type).Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
-            //ViewBag.productRelated = _context.Cars.Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
-
+            ViewBag.productRelated = _context.Cars.Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
+          
             // Lấy danh sách sản phẩm đã xem gần đây từ session
             var recentProducts = HttpContext.Session.Get<List<int>>("RecentProducts") ?? new List<int>();
 

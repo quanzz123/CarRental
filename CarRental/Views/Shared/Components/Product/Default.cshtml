@@ -48,7 +48,7 @@
                         <span class="regular-price ">$@item.SalePrice</span>
                         <span class="old-price"><del>$@item.Price</del></span>
                     </div>
-                    <a href="cart.html" class="btn product-cart">Add to Cart</a>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.CarId" class="btn product-cart">Add to Cart</a>
                 </div>
                 <div class="product-content-listview">
                     <div class="product-title">
@@ -67,7 +67,7 @@
                     </div>
                     <p class="desc-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere metus vitae arcu imperdiet, id aliquet ante scelerisque. Sed sit amet sem vitae urna fringilla tempus.</p>
                     <div class="button-listview">
-                        <a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"> <span>Add to Cart</span> </a>
+                        <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.CarId" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"> <span>Add to Cart</span> </a>
                         <a class="list-icon" href="compare.html" title="Compare">
                             <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="Compare"></i>
                         </a>
