@@ -212,3 +212,40 @@
     </div>
 </div>
 <!-- Shop Main Area End Here -->
+@* Bỏ đây mới chạy dược *@
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+             $(".ajax-add-to-cart").click(function () {
+                 $.ajax({
+                       url: "/Cart/AddToCart",
+                      type: "POST",
+                      data: {
+                          id: $(this).data("id"),
+                          quantity: 1,
+                          type: "ajax"
+                      },
+                      success: function(data) {
+                          console.log(data);
+                                  Swal.fire({
+                                   position: "top-end",
+                                   icon: "success",
+                                   title: "Your work has been saved",
+                                   showConfirmButton: false,
+                                   timer: 1500
+                                 });
+                      },
+                       error: function() {
+                                   Swal.fire({
+                                     icon: "error",
+                                     title: "Oops...",
+                                     text: "Something went wrong!",
+                                     footer: '<a href="#">Why do I have this issue?</a>'
+                                 });
+                       }
+                 });
+             });
+        });
+    </script>
+}

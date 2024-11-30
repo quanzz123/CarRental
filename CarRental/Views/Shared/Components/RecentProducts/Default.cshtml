@@ -4,7 +4,7 @@
     string url = $"/product/{item.Alias}-{item.CarId}.html";
     <div class="sidebar-product align-items-center">
         <a href="@url" class="image">
-            <img src="~/assets/images/CarImage/@item.Image" alt="product">
+            <img src="@item.Image" alt="product">
         </a>
         <div class="product-content">
             <div class="product-title">

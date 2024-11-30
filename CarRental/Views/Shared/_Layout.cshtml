@@ -34,7 +34,7 @@
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="~/assets/css/style.css">
-    @RenderSection("Scripts", required: false)
+    
 
 </head>
 <body>
@@ -503,7 +503,8 @@
 
     <!-- Main JS -->
     <script src="~/assets/js/main.js"></script>
-    @section scripts {
+    @RenderSection("scripts", required: false)
+   @*  @section scripts {
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function () {
@@ -538,7 +539,7 @@
                  });
             });
         </script>
-    }
+    } *@
 
 
 </body>
