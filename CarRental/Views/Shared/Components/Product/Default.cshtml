@@ -25,7 +25,7 @@
                 </div>
                 <div class="product-content">
                     <div class="product-title">
-                        <h4 class="title-2"> <a href="product-details.html">@item.CarName</a></h4>
+                        <h4 class="title-2"> <a href="@url">@item.CarName</a></h4>
                     </div>
                     <div class="product-rating">
                         @for(int i = 0;i<=5; i++)
@@ -38,17 +38,13 @@
                                 <i class="fa fa-star-o"></i>
                             }
                         }
-                        @* <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i> *@
+                      
                     </div>
                     <div class="price-box">
                         <span class="regular-price ">$@item.SalePrice</span>
                         <span class="old-price"><del>$@item.Price</del></span>
                     </div>
-                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.CarId" class="btn product-cart">Add to Cart</a>
+                    <button type="button" data-id="@item.CarId" class="btn product-cart ajax-add-to-cart">Add to Cart</button>
                 </div>
                 <div class="product-content-listview">
                     <div class="product-title">
@@ -117,11 +113,7 @@
                                                     <i class="fa fa-star-o"></i>
                                                 }
                                             }
-                                           @*  <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i> *@
+                                         
                                             <span>1 Review</span>
                                         </div>
                                         <p class="desc-content">we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame bel...</p>
@@ -161,4 +153,41 @@
         </div>
     </div>
 }
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+             $(".ajax-add-to-cart").click(function () {
+                 $.ajax({
+                       url: "/Cart/AddToCart",
+                      type: "POST",
+                      data: {
+                          id: $(this).data("id"),
+                          quantity: 1,
+                          type: "ajax"
+                      },
+                      success: function(data) {
+                          console.log(data);
+                                  Swal.fire({
+                                   position: "top-end",
+                                   icon: "success",
+                                   title: "Your work has been saved",
+                                   showConfirmButton: false,
+                                   timer: 1500
+                                 });
+                      },
+                       error: function() {
+                                   Swal.fire({
+                                     icon: "error",
+                                     title: "Oops...",
+                                     text: "Something went wrong!",
+                                     footer: '<a href="#">Why do I have this issue?</a>'
+                                 });
+                       }
+                 });
+             });
+        });
+    </script>
+}
+
 

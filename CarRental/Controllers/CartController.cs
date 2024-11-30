@@ -18,8 +18,8 @@ namespace CarRental.Controllers
         {
             return View(CART);
         }
-
-        public IActionResult AddToCart(int id, int quantity = 1)
+        [HttpPost]
+        public IActionResult AddToCart(int id, int quantity = 1, string type = "Normal")
         {
             var cart = CART;
             // lấy thông tin sản phảm từ DB
@@ -57,6 +57,13 @@ namespace CarRental.Controllers
                 CarItem.Quantity += quantity;
             }
             HttpContext.Session.Set(CART_KEY, cart);
+
+            if (type == "ajax")
+            {
+               return Json( new {
+                    quantity = cart.Sum(p => p.Quantity)
+                });
+            }
             return RedirectToAction("Index");
         }
     }
