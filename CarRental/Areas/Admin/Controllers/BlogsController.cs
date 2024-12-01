@@ -1,4 +1,5 @@
 ﻿using CarRental.Models;
+using CarRental.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Areas.Admin.Controllers
@@ -13,6 +14,12 @@ namespace CarRental.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
             var blog = _context.Blogs.OrderBy(b=>b.BlogId).ToList();
             return View(blog);
         }

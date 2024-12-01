@@ -1,0 +1,133 @@
+﻿@model CarRental.Models.Blog
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Thêm mới</h3>
+                    @* <p class="text-subtitle text-muted">
+                        Give textual form controls like input upgrade with
+                        custom styles,
+                        sizing, focus states, and more.
+                    </p> *@
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Input</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Xoá xe</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md">
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="form-group">
+                                    <label>tiêu đề:</label> <br />
+                                @Html.DisplayFor(mode => mode.Title)
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Mô tả: </label> <br />
+                                @Html.DisplayFor(mode => mode.Description)
+
+                                </div>
+                                <div class="form-group">
+                                    <label >Hình ảnh: </label> <br />
+                              
+                                <img src="@Html.DisplayFor(mode => mode.Image)" width="200" height="200" />
+
+
+                                </div>
+                                  <div class="form-group">
+                                
+                                    <label  for="exampleFormControlTextarea1" class="form-label">
+                                        Chi tiết:
+                                    </label> <br />
+                                @Html.Raw(Model.Detail)
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Người tạo:</label>
+                                    @Html.DisplayFor(model => model.CreatedBy)
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Người sửa:</label>
+                                @Html.DisplayFor(model => model.ModifiedBy)
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">
+
+                                        Hiển thị:
+                                    </label>
+                                    @Html.DisplayFor(model => model.IsActive)
+
+
+                                </div>
+                               
+                                <form asp-action="Delete">
+                                <input type="hidden" asp-for="BlogId" />
+                                <div class="btn-group mb-3">
+                                    <div class="form-group">
+                                        <input type="submit" value="Delete" class="btn btn-primary" />
+                                    </div>|
+                                    <div class="form-group">
+                                        <a asp-action="Index" class="btn btn-danger">Quay lại</a>
+
+                                    </div>
+                                </div>
+                                </form>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2021 &copy; Mazer</p>
+            </div>
+            <div class="float-end">
+                <p>
+                    Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
