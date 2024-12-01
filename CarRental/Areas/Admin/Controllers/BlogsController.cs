@@ -27,6 +27,8 @@ namespace CarRental.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 b.Alias = CarRental.Utilities.Function.TitleSlugGenerationAlias(b.Title);
+                b.CreatedBy = CarRental.Utilities.Function._UserName;
+                b.CreatedDate = DateTime.Now;
                 _context.Blogs.Add(b);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -52,6 +54,8 @@ namespace CarRental.Areas.Admin.Controllers
         {
             if (ModelState.IsValid) {
                 b.Alias = CarRental.Utilities.Function.TitleSlugGenerationAlias(b.Title);
+                b.ModifiedBy = CarRental.Utilities.Function._UserName;
+                b.ModifiedDate = DateTime.Now;
                 _context.Blogs.Update(b);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
