@@ -35,5 +35,7 @@ public partial class Car
 
     public int? TypeId { get; set; }
 
+    public virtual ICollection<CarReview> CarReviews { get; set; } = new List<CarReview>();
+
     public virtual CarType? Type { get; set; }
 }

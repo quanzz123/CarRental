@@ -25,6 +25,8 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<CarRentalOrder> CarRentalOrders { get; set; }
 
+    public virtual DbSet<CarReview> CarReviews { get; set; }
+
     public virtual DbSet<CarType> CarTypes { get; set; }
 
     public virtual DbSet<Contact> Contacts { get; set; }
@@ -54,7 +56,6 @@ public partial class DbRenalCarContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -148,6 +149,21 @@ public partial class DbRenalCarContext : DbContext
             entity.HasOne(d => d.Status).WithMany(p => p.CarRentalOrders)
                 .HasForeignKey(d => d.StatusId)
                 .HasConstraintName("FK__CarRental__Statu__2E1BDC42");
+        });
+
+        modelBuilder.Entity<CarReview>(entity =>
+        {
+            entity.Property(e => e.CarReviewId).HasColumnName("CarReviewID");
+            entity.Property(e => e.CarId).HasColumnName("CarID");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Detail).HasMaxLength(200);
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Phone).HasMaxLength(50);
+
+            entity.HasOne(d => d.Car).WithMany(p => p.CarReviews)
+                .HasForeignKey(d => d.CarId)
+                .HasConstraintName("FK_CarReviews_Cars");
         });
 
         modelBuilder.Entity<CarType>(entity =>
