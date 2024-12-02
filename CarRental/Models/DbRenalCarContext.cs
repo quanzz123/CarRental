@@ -55,7 +55,6 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -177,11 +176,8 @@ public partial class DbRenalCarContext : DbContext
 
         modelBuilder.Entity<Contact>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Contact");
+            entity.ToTable("Contact");
 
-            entity.Property(e => e.ContactId).ValueGeneratedOnAdd();
             entity.Property(e => e.CreatedBy).HasMaxLength(150);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(150);
