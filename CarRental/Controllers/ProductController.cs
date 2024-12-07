@@ -41,6 +41,7 @@ namespace CarRental.Controllers
 
             //ViewBag.productRelated = _context.Cars.Include(i=>i.Type).Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
             ViewBag.productRelated = _context.Cars.Where(i => i.TypeId == product.TypeId && i.CarId != id).ToList();
+            ViewBag.productRviews = _context.CarReviews.Where(r => r.CarId == product.CarId).ToList();
           
             // Lấy danh sách sản phẩm đã xem gần đây từ session
             var recentProducts = HttpContext.Session.Get<List<int>>("RecentProducts") ?? new List<int>();
@@ -60,6 +61,48 @@ namespace CarRental.Controllers
                 HttpContext.Session.Set("RecentProducts", recentProducts);
             }
             return View(product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Reviews(string name,string email, string detail, int id, int star)
+        {
+            try
+            {
+                // Tạo đối tượng review mới
+                CarReview r = new CarReview
+                {
+                    Name = name,
+                    
+                    Email = email,
+                    CreatedDate = DateTime.Now,
+                    Detail= detail,
+                    CarId = id,
+                    Star = star
+
+                };
+
+                // Thêm vào DbSet và lưu vào cơ sở dữ liệu
+                _context.CarReviews.Add(r);
+                await _context.SaveChangesAsync(); // Sử dụng await để đảm bảo dữ liệu được lưu
+
+
+                // Trả về dữ liệu của review vừa được thêm
+                return Json(new
+                {
+                    status = true,
+                    review = new
+                    {
+                        r.Name,
+                        r.Detail,
+                        r.Star,
+                        CreatedDate = r.CreatedDate.Value.ToString("dd/MM/yyyy")
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi (nếu cần) và trả về trạng thái thất bại
+                return Json(new { status = false, message = ex.Message });
+            }
         }
                  
 

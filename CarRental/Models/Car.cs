@@ -9,6 +9,8 @@ public partial class Car
 
     public string? CarName { get; set; }
 
+    public int? Seat { get; set; }
+
     public string? LicensePlate { get; set; }
 
     public decimal? Price { get; set; }

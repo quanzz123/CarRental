@@ -69,6 +69,11 @@
             },
             //onlyMimes: ["image", "text/plain"] // Get files of requested mime types only
             lang: 'vi',
+            commandsOptions: {
+                upload: {
+                    multiple: true // Cho phép upload nhiều file
+                }
+            }
         };
         $('#elfinder').elfinder(options).elfinder('instance');
     });

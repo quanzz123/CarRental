@@ -2,17 +2,20 @@
 @{
     // List<Car> productFeatured = ViewBag.productFeatured;
     List<Car> productRelated = ViewBag.productRelated;
+    List<CarReview> productReviews = ViewBag.productRviews;
 }
+
+
 <!-- Breadcrumb Area Start Here -->
 <div class="breadcrumbs-area position-relative">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <div class="breadcrumb-content position-relative section-content">
-                    <h3 class="title-3">Product Details</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li>Product Details</li>
+                    <h3 class="title-3" style="color:aliceblue ">Product Details</h3>
+                    <ul style="color:aliceblue ">
+                        <li><a href="index.html" style="color:aliceblue ">Home</a></li>
+                        <li style="color:aliceblue ">Product Details</li>
                     </ul>
                 </div>
             </div>
@@ -29,33 +32,33 @@
                     <div class="single-product-img swiper-container gallery-top popup-gallery">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <a class="w-100" href="assets/images/product/large-size/1.jpg">
+                                <a class="w-100" href="@Model.Image">
                                     <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="w-100" href="assets/images/product/large-size/2.jpg">
-                                    <img class="w-100" src="assets/images/product/large-size/2.jpg" alt="Product">
+                                <a class="w-100" href="@Model.Image">
+                                    <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="w-100" href="assets/images/product/large-size/3.jpg">
-                                    <img class="w-100" src="assets/images/product/large-size/3.jpg" alt="Product">
+                                <a class="w-100" href="@Model.Image">
+                                    <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="w-100" href="assets/images/product/large-size/4.jpg">
-                                    <img class="w-100" src="assets/images/product/large-size/4.jpg" alt="Product">
+                                <a class="w-100" href="@Model.Image">
+                                    <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="w-100" href="assets/images/product/large-size/5.jpg">
-                                    <img class="w-100" src="assets/images/product/large-size/5.jpg" alt="Product">
+                                <a class="w-100" href="@Model.Image">
+                                    <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="w-100" href="assets/images/product/large-size/6.jpg">
-                                    <img class="w-100" src="assets/images/product/large-size/6.jpg" alt="Product">
+                                <a class="w-100" href="@Model.Image">
+                                    <img class="w-100" src="@Model.Image" alt="Product">
                                 </a>
                             </div>
                         </div>
@@ -164,24 +167,36 @@
                         <div class="product_tab_content  border p-3">
                             <div class="review_address_inner">
                                 <!-- Start Single Review -->
-                                <div class="pro_review mb-5">
-                                    <div class="review_thumb">
-                                        <img alt="review images" src="assets/images/review/1.jpg">
-                                    </div>
-                                    <div class="review_details">
-                                        <div class="review_info mb-2">
-                                            <div class="product-rating mb-2">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
-                                            <h5>Admin - <span> December 19, 2022</span></h5>
+                                @foreach (var item in productReviews)
+                                {
+
+                                    <div class="pro_review mb-5">
+                                        <div class="review_thumb">
+                                            <img alt="review images" src="assets/images/review/1.jpg">
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in viverra ex, vitae vestibulum arcu. Duis sollicitudin metus sed lorem commodo, eu dapibus libero interdum. Morbi convallis viverra erat, et aliquet orci congue vel. Integer in odio enim. Pellentesque in dignissim leo. Vivamus varius ex sit amet quam tincidunt iaculis.</p>
+                                        <div class="review_details">
+                                            <div class="review_info mb-2">
+                                                <div class="product-rating mb-2">
+                                                    @for (int i = 0; i < 5; i++)
+                                                    {
+                                                        if (i < item.Star)
+                                                        {
+                                                            <i class="fa fa-star"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="fa fa-star-o"></i>
+                                                        }
+                                                    }
+
+                                                </div>
+                                                <h5>@item.Name - <span> @item.CreatedDate.Value.ToString("dd/MM/yyyy")</span></h5>
+                                            </div>
+                                            <p>@item.Detail</p>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+
                                 <!-- End Single Review -->
                             </div>
                             <!-- Start RAting Area -->
@@ -191,12 +206,13 @@
                                 <h6 class="rating-title-2 mb-2">Your Rating</h6>
                                 <div class="rating_list mb-4">
                                     <div class="review_info">
-                                        <div class="product-rating mb-3">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
+                                        <div class="ajax-rating product-rating mb-3 ">
+                                            <!-- Thêm data-value cho từng sao -->
+                                            <i class="fa fa-star " data-value="1"></i>
+                                            <i class="fa fa-star " data-value="2"></i>
+                                            <i class="fa fa-star" data-value="3"></i>
+                                            <i class="fa fa-star-o " data-value="4"></i>
+                                            <i class="fa fa-star-o " data-value="5"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -205,25 +221,25 @@
                             <div class="comments-area comments-reply-area">
                                 <div class="row">
                                     <div class="col-lg-12 col-custom">
-                                        <form action="#" class="comment-form-area">
+                                        <div action="#" class="comment-form-area">
                                             <div class="row comment-input">
                                                 <div class="col-md-6 col-custom comment-form-author mb-3">
                                                     <label>Name <span class="required">*</span></label>
-                                                    <input type="text" required="required" name="Name">
+                                                    <input type="text" id="r_name" required="required" name="Name">
                                                 </div>
                                                 <div class="col-md-6 col-custom comment-form-emai mb-3">
                                                     <label>Email <span class="required">*</span></label>
-                                                    <input type="text" required="required" name="email">
+                                                    <input type="text" id="r_email" required="required" name="email">
                                                 </div>
                                             </div>
                                             <div class="comment-form-comment mb-3">
                                                 <label>Comment</label>
-                                                <textarea class="comment-notes" required="required"></textarea>
+                                                <textarea class="comment-notes" id="r_comment" required="required"></textarea>
                                             </div>
                                             <div class="comment-form-submit">
-                                                <button class="btn flosun-button secondary-btn rounded-0">Submit</button>
+                                                <button type="button" id="r_submit" class="btn flosun-button secondary-btn rounded-0" data-id="@Model.CarId">Submit</button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -249,49 +265,27 @@
                     </div>
                     <div class="tab-pane fade" id="connect-4" role="tabpanel" aria-labelledby="review-tab">
                         <div class="size-tab table-responsive-lg">
-                            <h4 class="title-3 mb-4">Size Chart</h4>
+                            <h4 class="title-3 mb-4">Đăc điểm</h4>
                             <table class="table border">
+                                <thead>
+                                    <tr>
+                                        <th> <i class="bi bi-sliders2-vertical" style="margin-right:10px"></i>Truyền động</th>
+                                        <th><i class="bi bi-person-wheelchair" style="margin-right:10px"></i>Số ghế</th>
+                                        <th><i class="bi bi-fuel-pump-fill" style="margin-right:10px"></i>Nhiên Liệu</th>
+                                        <th><i class="bi bi-fire" style="margin-right:10px"></i>Tiêu hao</th>
+                                    </tr>
+                          
+                                </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="cun-name"><span>UK</span></td>
-                                        <td>18</td>
-                                        <td>20</td>
-                                        <td>22</td>
-                                        <td>24</td>
-                                        <td>26</td>
+                                        <td>Số tự dộng</td>
+                                        <td>7 chỗ</td>
+                                        <td>Xăng</td>
+                                        <td>Số tự dộng</td>
                                     </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>European</span></td>
-                                        <td>46</td>
-                                        <td>48</td>
-                                        <td>50</td>
-                                        <td>52</td>
-                                        <td>54</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>usa</span></td>
-                                        <td>14</td>
-                                        <td>16</td>
-                                        <td>18</td>
-                                        <td>20</td>
-                                        <td>22</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>Australia</span></td>
-                                        <td>28</td>
-                                        <td>10</td>
-                                        <td>12</td>
-                                        <td>14</td>
-                                        <td>16</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>Canada</span></td>
-                                        <td>24</td>
-                                        <td>18</td>
-                                        <td>14</td>
-                                        <td>42</td>
-                                        <td>36</td>
-                                    </tr>
+                                    
+                                   
+                               
                                 </tbody>
                             </table>
                         </div>
@@ -319,7 +313,7 @@
             <div class="col-12 col-custom">
                 <div class="product-slider swiper-container anime-element-multi">
                     <div class="swiper-wrapper">
-                        @foreach(var item in productRelated)
+                        @foreach (var item in productRelated)
                         {
                             string Rurl = $"/product/{item.Alias}-{item.CarId}.html";
                             <div class="single-item swiper-slide">
@@ -327,8 +321,8 @@
                                 <div class="single-product position-relative mb-30">
                                     <div class="product-image">
                                         <a class="d-block" href="@Rurl">
-                                            <img src="~/assets/images/CarImage/@item.Image" alt="" class="product-image-1 w-100">
-                                            <img src="~/assets/images/CarImage/@item.Image" alt="" class="product-image-2 position-absolute w-100">
+                                            <img src="@item.Image" alt="" class="product-image-1 w-100">
+                                            <img src="@item.Image" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
                                         <span class="onsale">Sale!</span>
                                         <div class="add-action d-flex flex-column position-absolute">
@@ -433,9 +427,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         }
-                        
+
                     </div>
                     <!-- Slider pagination -->
                     <div class="swiper-pagination default-pagination"></div>
@@ -445,3 +439,103 @@
     </div>
 </div>
 <!--Product Area End-->
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            let selectedRating = 0; // Lưu số sao được chọn
+
+            $(".ajax-rating i").on("click", function () {
+                selectedRating = $(this).data("value"); // Lấy giá trị sao
+
+                // Đổi trạng thái các sao
+                $(".ajax-rating i").each(function () {
+                    if ($(this).data("value") <= selectedRating) {
+                        $(this).removeClass("fa-star-o").addClass("fa-star");
+                    } else {
+                        $(this).removeClass("fa-star").addClass("fa-star-o");
+                    }
+                });
+
+                console.log("Selected Rating: ", selectedRating); // Log ra số sao được chọn
+            });
+            $("#r_submit").click(function() {
+                const reviewData = {
+                    name: $("#r_name").val(),
+                    email: $("#r_email").val(),
+                    detail: $("#r_comment").val(),
+                    id: $(this).data("id"),
+                    star: selectedRating
+                };
+                $.ajax({
+                    url : "/Product/Reviews",
+                    type : "POST",
+                    data : reviewData,
+                    success: function(data) {
+                            console.log(data);
+                                    Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: "Your work has been saved",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                    });
+                                    // Thêm bình luận mới vào danh sách hiện tại
+                                    appendNewReview(reviewData);
+                                    // Xóa nội dung các ô input sau khi gửi
+                                    $("#r_name").val("");
+                                    $("#r_email").val("");
+                                    $("#r_comment").val("");
+                                    $(".ajax-rating i").removeClass("fa-star").addClass("fa-star-o");
+                                    selectedRating = 0; // Reset rating
+                        },
+                    error: function() {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something went wrong!",
+                                    footer: '<a href="#">Why do I have this issue?</a>'
+                                });
+                    }
+                });
+            });
+
+
+                 // Hàm thêm bình luận mới vào danh sách
+        function appendNewReview(review) {
+            const newReviewHtml = `
+                <div class="pro_review mb-5">
+                    <div class="review_thumb">
+                        <img alt="review images" src="assets/images/review/default-avatar.jpg">
+                    </div>
+                    <div class="review_details">
+                        <div class="review_info mb-2">
+                            <div class="product-rating mb-2">
+                                ${generateStarsHtml(review.star)}
+                            </div>
+                            <h5>${review.name} - <span>${new Date().toLocaleDateString()}</span></h5>
+                        </div>
+                        <p>${review.detail}</p>
+                    </div>
+                </div>
+            `;
+
+            // Thêm bình luận mới vào danh sách
+            $(".review_list").prepend(newReviewHtml); // Thêm vào đầu danh sách
+        }
+
+        // Hàm tạo HTML cho sao
+        function generateStarsHtml(starCount) {
+            let starsHtml = "";
+            for (let i = 1; i <= 5; i++) {
+                if (i <= starCount) {
+                    starsHtml += '<i class="fa fa-star"></i>';
+                } else {
+                    starsHtml += '<i class="fa fa-star-o"></i>';
+                }
+            }
+            return starsHtml;
+        }
+        });
+    </script>
+}

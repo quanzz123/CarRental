@@ -23,6 +23,8 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<Car> Cars { get; set; }
 
+    public virtual DbSet<CarImage> CarImages { get; set; }
+
     public virtual DbSet<CarRentalOrder> CarRentalOrders { get; set; }
 
     public virtual DbSet<CarReview> CarReviews { get; set; }
@@ -49,11 +51,11 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
-
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -128,6 +130,14 @@ public partial class DbRenalCarContext : DbContext
             entity.HasOne(d => d.Type).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.TypeId)
                 .HasConstraintName("FK_Cars_CarTypes");
+        });
+
+        modelBuilder.Entity<CarImage>(entity =>
+        {
+            entity.HasKey(e => e.ImageId);
+
+            entity.Property(e => e.ImageId).HasColumnName("ImageID");
+            entity.Property(e => e.CarId).HasColumnName("CarID");
         });
 
         modelBuilder.Entity<CarRentalOrder>(entity =>
@@ -322,13 +332,6 @@ public partial class DbRenalCarContext : DbContext
 
             entity.Property(e => e.StatusId).HasColumnName("StatusID");
             entity.Property(e => e.StatusDescription).HasMaxLength(100);
-        });
-
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
-            entity.Property(e => e.Title).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Role>(entity =>
