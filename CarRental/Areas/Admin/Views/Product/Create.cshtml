@@ -1,4 +1,5 @@
 ﻿@model CarRental.Models.Car
+
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -115,6 +116,9 @@
                                     <span asp-validation-for="Image" class="text-danger"></span>
 
                                 </div>
+                              
+
+                                
                                 <div class="form-group">
                                     <label asp-for="Descriptions">Mô tả</label>
                                     <input asp-for="Descriptions" type="text" class="form-control" id="basicInput"

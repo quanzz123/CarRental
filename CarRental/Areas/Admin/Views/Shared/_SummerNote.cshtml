@@ -122,12 +122,39 @@
             destroyOnClose: true,
             closeOnEditorCallback: true,
             getFileCallback: function (files) {
-                document.getElementById('file_input').value = files.url;
+                 // Kiểm tra nếu đã có giá trị trong input
+            var inputElement = document.getElementById('file_input');
+            var currentValue = inputElement.value;
+
+            if (Array.isArray(files)) {
+                // Nếu chọn nhiều file, thêm tất cả các đường dẫn
+                var urls = files.map(function (file) {
+                    return file.url;
+                });
+
+                // Gắn danh sách mới vào input, thêm các file mới vào cuối danh sách cũ
+                inputElement.value = currentValue
+                    ? currentValue + ', ' + urls.join(', ')
+                    : urls.join(', ');
+
+                // Hiển thị các file đã chọn
+                //displaySelectedFiles(urls);
+            } else {
+                // Nếu chọn 1 file
+                var fileUrl = files.url;
+                inputElement.value = currentValue
+                    ? currentValue + ', ' + fileUrl
+                    : fileUrl;
+
+                // Hiển thị file đã chọn
+                //displaySelectedFiles([fileUrl]);
+            }
             },
             commandsOptions: {
                 getfile: {
                     oncomplete: 'close',
-                    folders: false
+                    folders: false,
+                    multiple: true  // Cho phép chọn nhiều file
                 }
             },
             uiOptions: {

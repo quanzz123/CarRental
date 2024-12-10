@@ -58,12 +58,13 @@ namespace CarRental.Controllers
             }
             HttpContext.Session.Set(CART_KEY, cart);
 
-            if (type == "ajax")
+            if (type == "ajax") 
             {
                return Json( new {
                     quantity = cart.Sum(p => p.Quantity)
                 });
             }
+            ViewBag.MiniCart = cart;
             return RedirectToAction("Index");
         }
     }

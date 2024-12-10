@@ -1,0 +1,45 @@
+﻿@model List<CarRental.ViewModels.CartItemsVM>
+<li class="minicart-wrap">
+    <a href="#" class="minicart-btn toolbar-btn">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-item_count">3</span>
+    </a>
+    <div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2">
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="single-cart-item">
+                    <div class="cart-img">
+                        <a href="cart.html"><img src="@item.Image" alt=""></a>
+                    </div>
+                    <div class="cart-text">
+                        <h5 class="title"><a href="cart.html">@item.CarName</a></h5>
+                        <div class="cart-text-btn">
+                            <div class="cart-qty">
+                                <span>1×</span>
+                                <span class="cart-price">@item.Price.ToString("C")</span>
+                            </div>
+                            <button type="button"><i class="ion-trash-b"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+                <p class="empty-cart-message">Your cart is currently empty.</p>
+        }
+
+
+       
+        <div class="cart-price-total d-flex justify-content-between">
+            <h5>Total :</h5>
+            <h5>@Model.Sum(modelitem => modelitem.Price * modelitem.Quantity).ToString("")</h5>
+        </div>
+        <div class="cart-links d-flex justify-content-between">
+            <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">View cart</a>
+            <a class="btn flosun-button secondary-btn rounded-0" href="checkout.html">Checkout</a>
+        </div>
+    </div>
+</li>

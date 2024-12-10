@@ -43,13 +43,35 @@ namespace CarRental.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Car c)
+        public IActionResult Create(Car c, string filePaths)
         {
             if (ModelState.IsValid)
             {
                 c.Alias = CarRental.Utilities.Function.TitleSlugGenerationAlias(c.CarName);
                 _context.Cars.Add(c);
                 _context.SaveChanges();
+
+                // Xử lý danh sách filePaths (chuỗi đường dẫn, cách nhau bởi dấu phẩy)
+                if (!string.IsNullOrEmpty(filePaths))
+                {
+                    var filePathList = filePaths.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var filePath in filePathList)
+                    {
+                        // Tạo bản ghi mới trong bảng CarImage
+                        var carImage = new CarImage
+                        {
+                            CarId = c.CarId, // Liên kết với xe vừa tạo
+                            Image1 = filePath.Trim(), // Đường dẫn ảnh
+                            
+                        };
+
+                        _context.CarImages.Add(carImage);
+                    }
+
+                    // Lưu tất cả ảnh vào cơ sở dữ liệu
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             return View(c);
