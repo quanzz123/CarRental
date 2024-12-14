@@ -88,14 +88,12 @@ namespace CarRental.Controllers
                 // Trả về dữ liệu của review vừa được thêm
                 return Json(new
                 {
-                    status = true,
-                    review = new
-                    {
-                        r.Name,
-                        r.Detail,
-                        r.Star,
-                        CreatedDate = r.CreatedDate.Value.ToString("dd/MM/yyyy")
-                    }
+                    //status = true,
+                    name = r.Name,
+                    email = r.Email,
+                    detail = r.Detail,
+                    star = r.Star
+                   
                 });
             }
             catch (Exception ex)

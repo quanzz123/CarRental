@@ -473,29 +473,29 @@
                     data : reviewData,
                     success: function(data) {
                             console.log(data);
-                                    Swal.fire({
-                                    position: "top-end",
-                                    icon: "success",
-                                    title: "Your work has been saved",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    });
-                                    // Thêm bình luận mới vào danh sách hiện tại
-                                    appendNewReview(reviewData);
-                                    // Xóa nội dung các ô input sau khi gửi
-                                    $("#r_name").val("");
-                                    $("#r_email").val("");
-                                    $("#r_comment").val("");
-                                    $(".ajax-rating i").removeClass("fa-star").addClass("fa-star-o");
-                                    selectedRating = 0; // Reset rating
+                            Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                            });
+                            // Thêm bình luận mới vào danh sách hiện tại
+                            appendNewReview(reviewData);
+                            // Xóa nội dung các ô input sau khi gửi
+                            $("#r_name").val("");
+                            $("#r_email").val("");
+                            $("#r_comment").val("");
+                            $(".ajax-rating i").removeClass("fa-star").addClass("fa-star-o");
+                            selectedRating = 0; // Reset rating
                         },
                     error: function() {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Oops...",
-                                    text: "Something went wrong!",
-                                    footer: '<a href="#">Why do I have this issue?</a>'
-                                });
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Something went wrong!",
+                                footer: '<a href="#">Why do I have this issue?</a>'
+                            });
                     }
                 });
             });
@@ -521,7 +521,7 @@
             `;
 
             // Thêm bình luận mới vào danh sách
-            $(".review_list").prepend(newReviewHtml); // Thêm vào đầu danh sách
+            $(".review_address_inner").prepend(newReviewHtml); // Thêm vào đầu danh sách
         }
 
         // Hàm tạo HTML cho sao
