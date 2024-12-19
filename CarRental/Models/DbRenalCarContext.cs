@@ -55,8 +55,7 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-   
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -274,10 +273,12 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.AccountNumber).HasMaxLength(50);
             entity.Property(e => e.Bank).HasMaxLength(50);
             entity.Property(e => e.CompanyName).HasMaxLength(100);
+            entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.Idcard)
                 .HasMaxLength(20)
                 .HasColumnName("IDCard");
             entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);
         });
 
@@ -293,8 +294,6 @@ public partial class DbRenalCarContext : DbContext
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasNoKey();
-
             entity.Property(e => e.Alias).HasMaxLength(250);
             entity.Property(e => e.CreatedBy).HasMaxLength(150);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
@@ -302,7 +301,6 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.Image).HasMaxLength(500);
             entity.Property(e => e.ModifiedBy).HasMaxLength(150);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.NewsId).ValueGeneratedOnAdd();
             entity.Property(e => e.SeoDescription).HasMaxLength(500);
             entity.Property(e => e.SeoKeywords).HasMaxLength(250);
             entity.Property(e => e.SeoTitle).HasMaxLength(250);

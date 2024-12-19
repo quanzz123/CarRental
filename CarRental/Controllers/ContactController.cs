@@ -1,4 +1,5 @@
 ﻿using CarRental.Models;
+using CarRental.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
@@ -14,6 +15,12 @@ namespace CarRental.Controllers
         }
         public IActionResult Index()
         {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         [HttpPost]

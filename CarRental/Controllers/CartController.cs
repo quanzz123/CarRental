@@ -1,5 +1,6 @@
 ﻿using CarRental.Extensions;
 using CarRental.Models;
+using CarRental.Utilities;
 using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,12 @@ namespace CarRental.Controllers
         public List<CartItemsVM> CART => HttpContext.Session.Get<List<CartItemsVM>>(CART_KEY) ?? new List<CartItemsVM> ();
         public IActionResult Index()
         {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
             return View(CART);
         }
         [HttpPost]

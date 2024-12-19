@@ -1,5 +1,6 @@
 ﻿using CarRental.Extensions;
 using CarRental.Models;
+using CarRental.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,12 @@ namespace CarRental.Controllers
         /*[Route("/Product/Index.html")]*/
         public IActionResult Index()
         {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         
