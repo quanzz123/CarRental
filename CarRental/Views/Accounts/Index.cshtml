@@ -1,4 +1,5 @@
-﻿<!-- Breadcrumb Area Start Here -->
+﻿@using CarRental.Utilities
+<!-- Breadcrumb Area Start Here -->
 <div class="breadcrumbs-area position-relative">
     <div class="container">
         <div class="row">
@@ -17,7 +18,7 @@
 <!-- Breadcrumb Area End Here -->
 <!-- my account wrapper start -->
 <div class="my-account-wrapper mt-no-text">
-    <div class="container container-default-2 custom-area">
+    <div class="container container-default-2 custom-area mb-2">
         <div class="row">
             <div class="col-lg-12 col-custom">
                 <!-- My Account Page Start -->
@@ -35,7 +36,7 @@
                                 <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
                                 <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
                                 <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
-                                <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
+                                <a asp-controller="Accounts" asp-action="Logout"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
                         </div>
                         <!-- My Account Tab Menu End -->
@@ -47,7 +48,7 @@
                                     <div class="myaccount-content">
                                         <h3>Dashboard</h3>
                                         <div class="welcome">
-                                            <p>Hello, <strong>Alex Aya</strong> (If Not <strong>Aya !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+                                            <p>Hello, <strong>@Function._UserName</strong> (If Not <strong>@Function._UserName !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
                                         </div>
                                         <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
                                     </div>

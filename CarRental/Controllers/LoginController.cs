@@ -11,36 +11,51 @@ namespace CarRental.Controllers
         {
             _context = context;
         }
+        [HttpGet]
         public IActionResult Index()
         {
+           
             return View();
         }
         [HttpPost]
-        public IActionResult Index(Customer c)
+        public IActionResult Index(Customer c, string? ReturnUrl)
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             if (c == null)
             {
 
                 return NotFound();
             }
-
-            //mã hoá mật khẩu trc khi kiểm tra
-            string p = Function.MD5Password(c.Password);
-            //kiểm tra tài khoản có tồn tại trong cớ sở dữ liêu
-            var check = _context.Customers.Where(m => (m.Email == c.Email) && (m.Password == p)).FirstOrDefault();
-            if (check == null)
+            if (ModelState.IsValid)
             {
-                //hiên thị thông báo
-                Function._Message = "Sai thông tin đăng nhập";
-                return RedirectToAction("Index", "Login");
+                //mã hoá mật khẩu trc khi kiểm tra
+                string p = Function.MD5Password(c.Password);
+                //kiểm tra tài khoản có tồn tại trong cớ sở dữ liêu
+                var check = _context.Customers.Where(m => (m.Email == c.Email) && (m.Password == p)).FirstOrDefault();
+                if (check == null)
+                {
+                    //hiên thị thông báo
+                    Function._Message = "Sai thông tin đăng nhập";
+                    return RedirectToAction("Index", "Login");
+                }
+
+                //đăng nhập thành công
+                Function._Message = string.Empty;
+                Function._AccountId = check.CustomerId;
+                Function._UserName = string.IsNullOrEmpty(check.Name) ? string.Empty : check.Name;
+                Function._Email = string.IsNullOrEmpty(check.Email) ? string.Empty : check.Email;
+
+                if (Url.IsLocalUrl(ReturnUrl))
+                {
+                    return Redirect(ReturnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
-            //đăng nhập thành công
-            Function._Message  = string.Empty;
-            Function._AccountId = check.CustomerId;
-            Function._UserName = string.IsNullOrEmpty(check.Name) ? string.Empty : check.Name;
-            Function._Email = string.IsNullOrEmpty(check.Email) ? string.Empty : check.Email;
-            return RedirectToAction("Index", "Home");
+            return View();
         }
     }
 }

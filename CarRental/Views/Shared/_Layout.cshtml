@@ -75,9 +75,10 @@
                                         </li>
                                     </ul>
                                 </li>
+                                
                                 <li class="account-menu-wrap d-none d-lg-flex">
-                                    <a href="#" class="off-canvas-menu-btn">
-                                        <i class="fa fa-bars"></i>
+                                    <a asp-controller="Accounts" asp-action="Index" class="off-canvas-menu-btn">
+                                        <i class="bi bi-person-fill"></i>
                                     </a>
                                 </li>
                                 <li class="mobile-menu-btn d-lg-none">
@@ -238,7 +239,7 @@
         </aside>
         <!-- off-canvas menu end -->
         <!-- off-canvas menu start -->
-        <aside class="off-canvas-menu-wrapper" id="sideMenu">
+        @* <aside class="off-canvas-menu-wrapper" id="sideMenu">
             <div class="off-canvas-overlay"></div>
             <div class="off-canvas-inner-content">
                 <div class="off-canvas-inner">
@@ -303,7 +304,7 @@
                     <!-- offcanvas widget area end -->
                 </div>
             </div>
-        </aside>
+        </aside> *@
         <!-- off-canvas menu end -->
     </header>
     <!-- Header Area End Here -->

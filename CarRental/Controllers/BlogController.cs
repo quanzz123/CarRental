@@ -14,12 +14,7 @@ namespace CarRental.Controllers
         }
         public IActionResult Index()
         {
-            //kiem tra trang thai dang nhap
-            if (!Function.IsLogin())
-            {
-
-                return RedirectToAction("Index", "Login");
-            }
+            
             return View();
         }
         [Route("/blog/{alias}-{id}.html")]

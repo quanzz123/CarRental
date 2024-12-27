@@ -15,17 +15,18 @@ namespace CarRental.Controllers
         }
         public IActionResult Index()
         {
+            
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create( string name, string email, string phone, string message )
+        {
             //kiem tra trang thai dang nhap
             if (!Function.IsLogin())
             {
 
                 return RedirectToAction("Index", "Login");
             }
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Create( string name, string email, string phone, string message )
-        {
             try
             {
                 // Tạo đối tượng review mới

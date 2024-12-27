@@ -19,12 +19,7 @@ namespace CarRental.Controllers
         
         public IActionResult Index()
         {
-            //kiem tra trang thai dang nhap
-            if (!Function.IsLogin())
-            {
-
-                return RedirectToAction("Index", "Login");
-            }
+            
             ViewBag.productFeatured = _context.Cars.Where(i=>i.Rate > 3).OrderByDescending(i => i.CarId).ToList();
             ViewBag.productDealofDay = _context.Cars.Where(i => i.IsActive == true).OrderByDescending(i=>i.CarId).ToList();
             ViewBag.Blog = _context.Blogs.Where(i => i.IsActive == true).ToList();

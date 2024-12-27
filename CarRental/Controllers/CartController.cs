@@ -3,6 +3,7 @@ using CarRental.Models;
 using CarRental.Utilities;
 using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CarRental.Controllers
 {
@@ -17,17 +18,13 @@ namespace CarRental.Controllers
         public List<CartItemsVM> CART => HttpContext.Session.Get<List<CartItemsVM>>(CART_KEY) ?? new List<CartItemsVM> ();
         public IActionResult Index()
         {
-            //kiem tra trang thai dang nhap
-            if (!Function.IsLogin())
-            {
-
-                return RedirectToAction("Index", "Login");
-            }
+            
             return View(CART);
         }
         [HttpPost]
         public IActionResult AddToCart(int id, int quantity = 1, string type = "Normal")
         {
+
             var cart = CART;
             // lấy thông tin sản phảm từ DB
             var product = _context.Cars.FirstOrDefault(p => p.CarId == id);
@@ -73,6 +70,37 @@ namespace CarRental.Controllers
             }
             ViewBag.MiniCart = cart;
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            if (CART == null)
+            {
+                return View("/");
+            }
+            return View(CART);
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(Customer c)
+        {
+            //kiem tra trang thai dang nhap
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            if (CART == null)
+            {
+                return View("/");
+            }
+            return View(CART);
         }
     }
 }
