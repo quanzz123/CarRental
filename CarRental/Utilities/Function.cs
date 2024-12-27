@@ -10,7 +10,7 @@ namespace CarRental.Utilities
         public static string _Email = String.Empty;
         public static string _Message = string.Empty;
         public static string _MessageEmail = string.Empty;
-
+        //public static string CART_KEY = "MYCART";
         public static string TitleSlugGenerationAlias(string title)
         {
             return SlugGenerator.SlugGenerator.GenerateSlug(title);

@@ -12,9 +12,9 @@ namespace CarRental.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? ReturnUrl)
         {
-           
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
         [HttpPost]
@@ -47,7 +47,7 @@ namespace CarRental.Controllers
 
                 if (Url.IsLocalUrl(ReturnUrl))
                 {
-                    return Redirect(ReturnUrl);
+                     Redirect(ReturnUrl);
                 }
                 else
                 {

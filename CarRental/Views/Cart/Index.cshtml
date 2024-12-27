@@ -52,7 +52,7 @@
                                         </div>
                                     </td>
                                     <td class="pro-subtotal"><span>$@item.PriceTotal</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
+                                    <td class="pro-remove"><a asp-controller="Cart" asp-action="removeCart" asp-route-id="@item.CartId"><i class="lnr lnr-trash"></i></a></td>
                                 </tr>
 
                                 }

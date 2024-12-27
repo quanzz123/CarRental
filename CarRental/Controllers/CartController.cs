@@ -14,7 +14,7 @@ namespace CarRental.Controllers
         {
             _context = context;
         }
-        const string CART_KEY = "MYCART";
+        string CART_KEY = "MYCART";
         public List<CartItemsVM> CART => HttpContext.Session.Get<List<CartItemsVM>>(CART_KEY) ?? new List<CartItemsVM> ();
         public IActionResult Index()
         {
@@ -69,6 +69,17 @@ namespace CarRental.Controllers
                 });
             }
             ViewBag.MiniCart = cart;
+            return RedirectToAction("Index");
+        }
+        public IActionResult removeCart(int id)
+        {
+            var cart = CART;
+            var items = cart.FirstOrDefault(p => p.CartId == id);
+            if(items != null)
+            {
+                cart.Remove(items);
+                HttpContext.Session.Set(CART_KEY, cart);
+            }
             return RedirectToAction("Index");
         }
         [HttpGet]

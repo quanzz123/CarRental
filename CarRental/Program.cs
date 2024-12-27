@@ -1,4 +1,5 @@
-using CarRental.Models;
+﻿using CarRental.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,13 @@ builder.Services.AddDbContext<DbRenalCarContext>(optios =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
+    AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index";
+        //đăng nhập rồi nhưng chưa có quyền thì sẽ chuyển tới địa chỉ này
+        options.AccessDeniedPath = "/AccessDenied";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
