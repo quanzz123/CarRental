@@ -99,7 +99,7 @@ namespace CarRental.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(Customer c)
+        public IActionResult Checkout(CheckoutVM model)
         {
             //kiem tra trang thai dang nhap
             if (!Function.IsLogin())
@@ -107,11 +107,57 @@ namespace CarRental.Controllers
 
                 return RedirectToAction("Index", "Login");
             }
-            if (CART == null)
+            if (ModelState.IsValid)
             {
-                return View("/");
+                var cart = CART;
+                var customerID = Function._AccountId;
+                var customer = new Customer();
+                var order = new CarRentalOrder
+                {
+                    CustomerId = customerID,
+                    OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                    Deposit = model.Depostit,
+                    Payment = cart.Sum(p => p.Price),
+                    ReturnDate = DateOnly.FromDateTime((DateTime)model.OrderReturn),
+                    StatusId = 1
+
+                };
+                _context.Database.BeginTransaction();
+
+                try
+                {
+                    _context.Database.CommitTransaction();
+                    _context.Add(order);
+                    _context.SaveChanges();
+                    var oderDetails = new List<OrderDetail>();
+                    foreach (var item in cart)
+                    {
+                        oderDetails.Add(new OrderDetail
+                        {
+                            OrderId = order.OrderId,
+                            CarId = item.CartId,
+                            Price = item.Price,
+                            Quantity = item.Quantity,
+
+                        });
+                    }
+                        _context.Add(oderDetails);
+                        _context.SaveChanges();
+                        HttpContext.Session.Set<List<CartItemsVM>>(CART_KEY, new List<CartItemsVM>());
+                        return View("Success");
+                } 
+                catch
+                {
+                    _context.Database.RollbackTransaction();
+                }
+
             }
             return View(CART);
+        }
+
+        public IActionResult Success()
+        {
+            return View();
         }
     }
 }

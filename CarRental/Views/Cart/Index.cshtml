@@ -84,7 +84,7 @@
                                 <table class="table">
                                     <tr>
                                         <td>Sub Total</td>
-                                        <td>$230</td>
+                                        <td>$@Model.Sum(p=>p.PriceTotal)</td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>
@@ -92,12 +92,12 @@
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
-                                        <td class="total-amount">$300</td>
+                                        <td class="total-amount">$@Model.Sum(p=>p.PriceTotal)</td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <a href="checkout.html" class="btn flosun-button primary-btn rounded-0 black-btn w-100">Proceed To Checkout</a>
+                        <a asp-controller="Cart" asp-action="Checkout" class="btn flosun-button primary-btn rounded-0 black-btn w-100">Chuyển đến trang thanh toán</a>
                     </div>
                 </div>
             </div>
