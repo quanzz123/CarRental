@@ -111,7 +111,14 @@ namespace CarRental.Controllers
             {
                 var cart = CART;
                 var customerID = Function._AccountId;
-                var customer = new Customer();
+                var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == customerID);
+                //kiểm tra nếu khách hàng chưa cập nhật thôn tin địa chỉ thì phải quay về cập nhật
+                if (customer.Address == null)
+                {
+                    TempData["ErrorMessage"] = "vui lòng cập nhật dịa chỉ nhận xe";
+                    return RedirectToAction("Index", "Accounts");
+                }
+
                 var order = new CarRentalOrder
                 {
                     CustomerId = customerID,
