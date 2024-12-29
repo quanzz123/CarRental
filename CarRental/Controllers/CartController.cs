@@ -4,6 +4,7 @@ using CarRental.Utilities;
 using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Controllers
 {
@@ -95,10 +96,80 @@ namespace CarRental.Controllers
             {
                 return View("/");
             }
+
             return View(CART);
         }
-
         [HttpPost]
+        public IActionResult Checkout([FromBody] CheckoutVM model)
+        {
+            if (!Function.IsLogin())
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để tiếp tục." });
+            }
+
+            if (ModelState.IsValid)
+            {
+                var cart = CART;
+                var customerID = Function._AccountId;
+                var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == customerID);
+                ViewBag.Order =  _context.CarRentalOrders.Include(i => i.Status).Where(p => p.CustomerId == customerID).ToList();
+                if (customer == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy khách hàng." });
+                }
+
+                if (string.IsNullOrWhiteSpace(customer.Address))
+                {
+                    return Json(new { success = false, message = "Vui lòng cập nhật địa chỉ nhận xe." });
+                }
+
+                var order = new CarRentalOrder
+                {
+                    CustomerId = customerID,
+                    OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                    Deposit = model.Deposit,
+                    Payment = cart.Sum(p => p.Price * p.Quantity),
+                    ReturnDate = DateOnly.FromDateTime(model.OrderReturn.Value),
+                    StatusId = 1
+                };
+
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        _context.Add(order);
+                        _context.SaveChanges();
+
+                        var orderDetails = cart.Select(item => new OrderDetail
+                        {
+                            OrderId = order.OrderId,
+                            CarId = item.CartId,
+                            Price = item.Price,
+                            Quantity = item.Quantity
+                        }).ToList();
+
+                        _context.AddRange(orderDetails);
+                        _context.SaveChanges();
+
+                        HttpContext.Session.Set<List<CartItemsVM>>(CART_KEY, new List<CartItemsVM>());
+                        transaction.Commit();
+
+                        // Trả về URL của trang profile
+                        return Json(new { success = true, redirectUrl = Url.Action("Index", "Accounts") });
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        return Json(new { success = false, message = "Đã xảy ra lỗi. Vui lòng thử lại.", error = ex.Message });
+                    }
+                }
+                
+            }
+
+            return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+        }
+        #region test checkout
+        /*[HttpPost]
         public IActionResult Checkout(CheckoutVM model)
         {
             //kiem tra trang thai dang nhap
@@ -160,11 +231,13 @@ namespace CarRental.Controllers
 
             }
             return View(CART);
-        }
+        }*/
+        #endregion end test
 
         public IActionResult Success()
         {
             return View();
         }
     }
+    
 }

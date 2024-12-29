@@ -2,6 +2,7 @@
 using CarRental.Utilities;
 using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CarRental.Controllers
@@ -32,10 +33,11 @@ namespace CarRental.Controllers
             {
                 return RedirectToAction("Index", "Home"); // Redirect nếu không tìm thấy khách hàng
             }
-
+            ViewBag.Order = _context.CarRentalOrders.Include(i => i.Status).Where(p => p.CustomerId == customerId).ToList();
             // Truyền dữ liệu khách hàng sang View
+
             return View(customer);
-            
+
         }
         public IActionResult Logout()
         {
@@ -64,7 +66,7 @@ namespace CarRental.Controllers
             //lấy thông tin khách hàng từ DB
             var id = Function._AccountId;
             var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == id);
-            if(customer == null)
+            if (customer == null)
             {
                 return View();
             }
@@ -105,6 +107,26 @@ namespace CarRental.Controllers
             }
             return View();
         }
-
+        [HttpGet]
+        public IActionResult OrderDetails(int id)
+        {
+            var order = _context.CarRentalOrders.Where(p => p.OrderId == id);
+            var orderItems = _context.OrderDetails
+                .Where(od => od.OrderId == id)
+                .Join(_context.Cars,
+                        od => od.CarId,
+                        c => c.CarId,
+                        (od, c) => new OrderDetailVM
+                        {
+                            OrderDetailID = od.OrderId,
+                            CarName = c.CarName,
+                            Image = c.Image,
+                            Quantity = (int)od.Quantity,
+                            Price = (decimal)c.Price,
+                            
+                        })
+                .ToList();
+            return View(orderItems);
+        }
     }
 }

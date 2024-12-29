@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<CarRentalOrder> carRentalOrders = ViewBag.Order;
 }
 
 <!-- Breadcrumb Area Start Here -->
@@ -67,182 +68,29 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-12 col-custom">
-                <form action="#">
+                <form id="checkoutForm">
                     <div class="checkbox-form">
                         <h3>Billing Details</h3>
                         <div class="row">
-                            <div class="col-md-12 col-custom">
-                                <div class="country-select clearfix">
-                                    <label>Country <span class="required">*</span></label>
-                                    <select class="myniceselect nice-select wide rounded-0">
-                                        <option data-display="Bangladesh">Bangladesh</option>
-                                        <option value="uk">London</option>
-                                        <option value="rou">Romania</option>
-                                        <option value="fr">French</option>
-                                        <option value="de">Germany</option>
-                                        <option value="aus">Australia</option>
-                                    </select>
+
+                            <div class="col-md-6 col-custom">
+                                <div class="checkout-form-list">
+                                    <label>Tiền cọc <span class="required">*</span></label>
+                                    <input id="deposit" placeholder="Nhập tiền cọc" type="number">
                                 </div>
                             </div>
                             <div class="col-md-6 col-custom">
                                 <div class="checkout-form-list">
-                                    <label>First Name <span class="required">*</span></label>
-                                    <input placeholder="" type="text">
+                                    <label>Ngày trả <span class="required">*</span></label>
+                                    <input id="orderReturn" placeholder="Nhập ngày trả" type="date">
                                 </div>
                             </div>
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Last Name <span class="required">*</span></label>
-                                    <input placeholder="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Company Name</label>
-                                    <input placeholder="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Address <span class="required">*</span></label>
-                                    <input placeholder="Street address" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-custom">
-                                <div class="checkout-form-list">
-                                    <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Town / City <span class="required">*</span></label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>State / County <span class="required">*</span></label>
-                                    <input placeholder="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Postcode / Zip <span class="required">*</span></label>
-                                    <input placeholder="" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Email Address <span class="required">*</span></label>
-                                    <input placeholder="" type="email">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Phone <span class="required">*</span></label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-custom">
-                                <div class="checkout-form-list create-acc">
-                                    <input id="cbox" type="checkbox">
-                                    <label for="cbox">Create an account?</label>
-                                </div>
-                                <div id="cbox-info" class="checkout-form-list create-account">
-                                    <p class="mb-2">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                    <label>Account password <span class="required">*</span></label>
-                                    <input placeholder="password" type="password">
-                                </div>
-                            </div>
+                            <button type="submit" class="btn flosun-button secondary-btn black-color rounded-0 w-100">Place Order</button>
+
+
+
                         </div>
-                        <div class="different-address">
-                            <div class="ship-different-title">
-                                <div>
-                                    <input id="ship-box" type="checkbox">
-                                    <label for="ship-box">Ship to a different address?</label>
-                                </div>
-                            </div>
-                            <div id="ship-box-info" class="row mt-2">
-                                <div class="col-md-12 col-custom">
-                                    <div class="myniceselect country-select clearfix">
-                                        <label>Country <span class="required">*</span></label>
-                                        <select class="myniceselect nice-select wide rounded-0">
-                                            <option data-display="Bangladesh">Bangladesh</option>
-                                            <option value="uk">London</option>
-                                            <option value="rou">Romania</option>
-                                            <option value="fr">French</option>
-                                            <option value="de">Germany</option>
-                                            <option value="aus">Australia</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>First Name <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Last Name <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Company Name</label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Address <span class="required">*</span></label>
-                                        <input placeholder="Street address" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Town / City <span class="required">*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>State / County <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Postcode / Zip <span class="required">*</span></label>
-                                        <input placeholder="" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Email Address <span class="required">*</span></label>
-                                        <input placeholder="" type="email">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-custom">
-                                    <div class="checkout-form-list">
-                                        <label>Phone <span class="required">*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="order-notes mt-3">
-                                <div class="checkout-form-list checkout-form-list-2">
-                                    <label>Order Notes</label>
-                                    <textarea id="checkout-mess" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -258,7 +106,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model) {
+                                @foreach (var item in Model)
+                                {
                                     <tr class="cart_item">
                                         <td class="cart-product-name">
                                             @item.CarName<strong class="product-quantity">
@@ -269,12 +118,12 @@
                                     </tr>
 
                                 }
-                                
+
                             </tbody>
                             <tfoot>
                                 <tr class="cart-subtotal">
                                     <th>Cart Subtotal</th>
-                                    <td class="text-center"><span class="amount">£@Model.Sum(p=>p.PriceTotal)</span></td>
+                                    <td class="text-center"><span class="amount">£@Model.Sum(p => p.PriceTotal)</span></td>
                                 </tr>
                                 <tr class="order-total">
                                     <th>Order Total</th>
@@ -340,4 +189,39 @@
     </div>
 </div>
 <!-- Checkout Area End Here -->
+@section scripts {
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+                $(document).ready(function () {
+            $("#checkoutForm").submit(function (e) {
+                e.preventDefault(); // Ngăn chặn submit form mặc định
+
+                var formData = {
+                    Deposit: $("#deposit").val(),
+                    OrderReturn: $("#orderReturn").val(),
+                };
+
+                $.ajax({
+                    url: '/Cart/Checkout', // Đường dẫn đến action
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            // Chuyển hướng đến URL được trả về
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            alert(response.message); // Hiển thị lỗi nếu có
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                    }
+                });
+            });
+        });
+
+    </script>
+
+}
