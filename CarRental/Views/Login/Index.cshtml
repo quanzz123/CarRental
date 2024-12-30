@@ -29,6 +29,8 @@
                         <p class="desc-content">Please login using account detail bellow.</p>
                     </div>
                     <form asp-controller="Login" asp-action="Index" asp-route-returnurl="@ViewBag.ReturnUrl">
+                        <input type="hidden" name="ReturnUrl" value="@ViewData["ReturnUrl"]" />
+
                         <div class="single-input-item mb-3">
                             <input type="email" asp-for="Email" placeholder="Email or Username">
                         </div>

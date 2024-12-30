@@ -12,15 +12,15 @@ namespace CarRental.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Index(string? ReturnUrl)
+        public IActionResult Index(string? ReturnUrl = null)
         {
-            ViewBag.ReturnUrl = ReturnUrl;
+            ViewData["ReturnUrl"] = ReturnUrl;
             return View();
         }
         [HttpPost]
         public IActionResult Index(Customer c, string? ReturnUrl)
         {
-            ViewBag.ReturnUrl = ReturnUrl;
+           
             if (c == null)
             {
 
@@ -44,13 +44,17 @@ namespace CarRental.Controllers
                 Function._AccountId = check.CustomerId;
                 Function._UserName = string.IsNullOrEmpty(check.Name) ? string.Empty : check.Name;
                 Function._Email = string.IsNullOrEmpty(check.Email) ? string.Empty : check.Email;
+                Function._address = string.IsNullOrEmpty(check.Address) ? string.Empty : check.Address;
+                Function._Phone = string.IsNullOrEmpty(check.PhoneNumber) ? string.Empty : check.PhoneNumber;
 
-                if (Url.IsLocalUrl(ReturnUrl))
+                // Check if the ReturnUrl is not null and is a local URL
+                if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
                 {
-                     Redirect(ReturnUrl);
+                    return Redirect(ReturnUrl);
                 }
                 else
                 {
+                    // Redirect to default page
                     return RedirectToAction("Index", "Home");
                 }
             }

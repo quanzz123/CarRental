@@ -3,7 +3,6 @@ using CarRental.Utilities;
 using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CarRental.Controllers
 {
@@ -20,7 +19,7 @@ namespace CarRental.Controllers
             if (!Function.IsLogin())
             {
 
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login", new { returnUrl = HttpContext.Request.Path });
             }
             // Lấy ID khách hàng từ session hoặc hệ thống xác thực
             var customerId = Function._AccountId;
@@ -55,6 +54,72 @@ namespace CarRental.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
+        public IActionResult AccountDetails()
+        {
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            var customerId = Function._AccountId;
+            var customer = _context.Customers.FirstOrDefault(p => p.CustomerId == customerId);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult AccountDetails(Customer c)
+        {
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            if (ModelState.IsValid)
+            {
+                var customerId = Function._AccountId;
+                var customer = _context.Customers.FirstOrDefault(p => p.CustomerId == customerId);
+
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+
+                customer.Name = c.Name;
+                if (c.Email != customer.Email)
+                {
+                    // Kiểm tra xem email mới có tồn tại trong cơ sở dữ liệu không
+                    var emailExists = _context.Customers.Any(p => p.Email == c.Email);
+                    if (emailExists)
+                    {
+                        Function._MessageEmail = "Email đã tồn tại";
+                        return View(customer); // Trả về View với dữ liệu để người dùng chỉnh sửa
+                    }
+                    else
+                    {
+                        customer.Email = c.Email;
+                        Function._MessageEmail = string.Empty;
+                    }
+                }
+                Function._MessageEmail = string.Empty;
+
+                customer.Password = Function.MD5Password(c.Password);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Accounts");
+
+            }
+
+
+            return View();
+        }
+
+
+        [HttpGet]
         public IActionResult editAdress()
         {
             //kiem tra trang thai dang nhap
@@ -77,6 +142,7 @@ namespace CarRental.Controllers
                 Address = customer.Address,
                 Phone = customer.PhoneNumber,
             };
+
             return View(model);
         }
 
@@ -101,10 +167,13 @@ namespace CarRental.Controllers
                 //cập nhật địa chỉ và số điện thoại mới cho khách hàng
                 customer.Address = model.Address;
                 customer.PhoneNumber = model.Phone;
-                _context.SaveChanges();
 
+                _context.SaveChanges();
+                Function._address = customer.Address;
+                Function._Phone = customer.PhoneNumber;
                 return RedirectToAction("Index", "Accounts");
             }
+
             return View();
         }
         [HttpGet]
@@ -123,7 +192,7 @@ namespace CarRental.Controllers
                             Image = c.Image,
                             Quantity = (int)od.Quantity,
                             Price = (decimal)c.Price,
-                            
+
                         })
                 .ToList();
             return View(orderItems);

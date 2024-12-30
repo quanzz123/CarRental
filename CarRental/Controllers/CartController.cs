@@ -90,7 +90,7 @@ namespace CarRental.Controllers
             if (!Function.IsLogin())
             {
 
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login", new { ReturnUrl = Url.Action("Checkout", "Cart") });
             }
             if (CART == null)
             {
@@ -105,6 +105,7 @@ namespace CarRental.Controllers
             if (!Function.IsLogin())
             {
                 return Json(new { success = false, message = "Bạn cần đăng nhập để tiếp tục." });
+                
             }
 
             if (ModelState.IsValid)

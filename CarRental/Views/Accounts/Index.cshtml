@@ -38,8 +38,8 @@
                                 <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đơn hàng</a>
                                 <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
                                 <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
-                                <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-                                <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+                                <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i>Địa chỉ </a>
+                                <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i>Thông tin tài khoản</a>
                                 <a asp-controller="Accounts" asp-action="Logout"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
                         </div>
@@ -156,54 +156,41 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="account-info" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Account Details</h3>
+                                        <h3>Chi tiết tài khoản</h3>
                                         <div class="account-details-form">
-                                            <form action="#">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-custom">
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="first-name" class="required mb-1">First Name</label>
-                                                            <input type="text" id="first-name" placeholder="First Name" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-custom">
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="last-name" class="required mb-1">Last Name</label>
-                                                            <input type="text" id="last-name" placeholder="Last Name" />
-                                                        </div>
-                                                    </div>
+                                            <form asp-controller="Accounts" asp-action="AccountDetails">
+                                               <input type="hidden" asp-for="CustomerId"/>
+                                                <div class="single-input-item mb-3">
+                                                    <label for="display-name" class="required mb-1">Tên hiển thị</label>
+                                                    <input type="text" asp-for="Name"  placeholder="Tên hiển thị" />
                                                 </div>
                                                 <div class="single-input-item mb-3">
-                                                    <label for="display-name" class="required mb-1">Display Name</label>
-                                                    <input type="text" id="display-name" placeholder="Display Name" />
-                                                </div>
-                                                <div class="single-input-item mb-3">
-                                                    <label for="email" class="required mb-1">Email Addres</label>
-                                                    <input type="email" id="email" placeholder="Email Address" />
+                                                    <label for="email" class="required mb-1">Địa chỉ Email</label>
+                                                    <input type="email" asp-for="Email" placeholder="Địa chỉ Email" />
                                                 </div>
                                                 <fieldset>
-                                                    <legend>Password change</legend>
-                                                    <div class="single-input-item mb-3">
+                                                    <legend>Thay đổi Mật khẩu</legend>
+                                                    @* <div class="single-input-item mb-3">
                                                         <label for="current-pwd" class="required mb-1">Current Password</label>
                                                         <input type="password" id="current-pwd" placeholder="Current Password" />
-                                                    </div>
+                                                    </div> *@
                                                     <div class="row">
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
-                                                                <label for="new-pwd" class="required mb-1">New Password</label>
-                                                                <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                <label for="new-pwd" class="required mb-1">Mật khẩu mới</label>
+                                                                <input type="password" asp-for="Password"  placeholder="Mật khẩu mới" />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
-                                                                <label for="confirm-pwd" class="required mb-1">Confirm Password</label>
-                                                                <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                <label for="confirm-pwd" class="required mb-1">Nhập lại mật khẩu</label>
+                                                                <input type="password"  placeholder="Nhập lại mật khẩu" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
                                                 <div class="single-input-item single-item-button">
-                                                    <button class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
+                                                    <button type="submit" class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
                                                 </div>
                                             </form>
                                         </div>
