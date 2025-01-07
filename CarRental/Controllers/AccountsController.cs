@@ -73,7 +73,7 @@ namespace CarRental.Controllers
         }
 
         [HttpPost]
-        public IActionResult AccountDetails(Customer c)
+        public IActionResult AccountDetails(Customer c, IFormFile img)
         {
             if (!Function.IsLogin())
             {
@@ -109,6 +109,17 @@ namespace CarRental.Controllers
                 Function._MessageEmail = string.Empty;
 
                 customer.Password = Function.MD5Password(c.Password);
+
+                // Xử lý ảnh đại diện
+                if (img != null && img.Length > 0)
+                {
+                    // Gọi hàm UploadImage để lưu ảnh và lấy tên file
+                    var uploadedImagePath = Function.UploadImage(img, "Customer");
+                    if (!string.IsNullOrEmpty(uploadedImagePath))
+                    {
+                        customer.Avartar = uploadedImagePath; // Lưu đường dẫn hoặc tên file vào thuộc tính Avartar
+                    }
+                }
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Accounts");
 

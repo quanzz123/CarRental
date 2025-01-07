@@ -13,66 +13,81 @@ namespace CarRental.Areas.Admin.Controllers
         {
             _context = context;
         }
-        
+        [HttpGet]
         public async Task<IActionResult> Edit()
         {
+            // Kiểm tra trạng thái đăng nhập
+            if (!Function.IsLogin())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var ID = Function._AccountId;
             var accID = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == ID);
-            if ( accID == null)
+
+            if (accID == null)
             {
                 return NotFound();
             }
+
             return View(accID);
         }
+
         // Hành động để xử lý chỉnh sửa thông tin tài khoản
-        [Area("Admin")]
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Account userModel)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit(Account userModel)
         {
-            if (id != userModel.AccountId)
-            {
-                return NotFound();
-            }
+
+            
 
             if (ModelState.IsValid)
             {
+                
+                var id = Function._AccountId;
+                var user = _context.Accounts.FirstOrDefault(u => u.AccountId == id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                user.Username = userModel.Username;
+                //kiểm tra xem có tòn tại Email trong DB hay không
+
+                if(userModel.Email != user.Email)
+                {
+                    var emailExists = _context.Accounts.Any(p => p.Email == userModel.Email);
+                    if(emailExists)
+                    {
+                        Function._MessageEmail = "Email đã tồn tại";
+                        return View(user);
+                    } else
+                    {
+
+                        user.Email = userModel.Email;
+                        
+                    }
+                    
+
+
+                }
+                user.Phone = userModel.Phone;
+                Function._MessageEmail = string.Empty;
+                user.Password = Function.MD5Password(userModel.Password);
                 try
                 {
-                    var user = await _context.Accounts.FirstOrDefaultAsync(u => u.AccountId == id);
-                    if (user == null)
-                    {
-                        return NotFound();
-                    }
-
-                    // Cập nhật thông tin tài khoản
-                    user.Username = userModel.Username;
-                    user.Email = userModel.Email;
-                    // Cập nhật mật khẩu nếu cần (đảm bảo bạn mã hóa mật khẩu trước khi lưu vào DB)
-                    //if (!string.IsNullOrEmpty(userModel.))
-                    //{
-                    //    user.PasswordHash = userModel.PasswordHash; // Bạn cần sử dụng hàm mã hóa như BCrypt hoặc một thư viện bảo mật khác
-                    //}
-                    user.Password = Function.MD5Password(userModel.Password);
-
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-
-                    // Sau khi lưu thành công, chuyển hướng về trang chỉnh sửa
-                    return RedirectToAction(nameof(Edit));
-                    //return RedirectToAction("Index", "Home");
+                    _context.SaveChanges();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!UserExists(userModel.AccountId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    Console.WriteLine(ex.Message);
                 }
+
+                // Sau khi lưu thành công, chuyển hướng về trang chỉnh sửa
+                return RedirectToAction("Edit", "Account");
+                    //return RedirectToAction("Index", "Home");
+                
+               
             }
             return View(userModel);
         }

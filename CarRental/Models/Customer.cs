@@ -25,6 +25,8 @@ public partial class Customer
 
     public string? CompanyName { get; set; }
 
+    public string? Avartar { get; set; }
+
     public virtual ICollection<CarRentalOrder> CarRentalOrders { get; set; } = new List<CarRentalOrder>();
 
     public virtual ICollection<Contract> Contracts { get; set; } = new List<Contract>();

@@ -1,4 +1,5 @@
-﻿using SlugGenerator;
+﻿using elFinder.NetCore;
+using SlugGenerator;
 using System.Security.Cryptography;
 using System.Text;
 namespace CarRental.Utilities
@@ -47,6 +48,21 @@ namespace CarRental.Utilities
                 return false;
             }
             return true;     
+        }
+        public static string UploadImage(IFormFile image, string folder)
+        {
+            try
+            {
+                var FullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", folder, image.FileName);
+                using (var myfile = new FileStream(FullPath, FileMode.CreateNew))
+                {
+                    image.CopyTo(myfile);
+                }
+                return image.FileName;
+            } catch(Exception ex)
+            {
+                return string.Empty;
+            }
         }
     }
 }
