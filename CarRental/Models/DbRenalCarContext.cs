@@ -55,7 +55,8 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-  
+   
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -274,10 +275,13 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.Avartar).HasMaxLength(50);
             entity.Property(e => e.Bank).HasMaxLength(50);
             entity.Property(e => e.CompanyName).HasMaxLength(100);
+            entity.Property(e => e.DateofBirth).HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.FullName).HasMaxLength(50);
             entity.Property(e => e.Idcard)
                 .HasMaxLength(20)
                 .HasColumnName("IDCard");
+            entity.Property(e => e.LicenseNumber).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);

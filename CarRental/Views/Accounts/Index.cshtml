@@ -36,7 +36,7 @@
                                     Dashboard
                                 </a>
                                 <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đơn hàng</a>
-                                <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
+                                <a href="#download" data-bs-toggle="tab"> <i class="bi bi-card-checklist" style="margin-left:4px"></i> Giấy phép lái xe</a>
                                 <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
                                 <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i>Địa chỉ </a>
                                 <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i>Thông tin tài khoản</a>
@@ -100,32 +100,39 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="download" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Downloads</h3>
-                                        <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                    <tr>
-                                                        <th>Product</th>
-                                                        <th>Date</th>
-                                                        <th>Expire</th>
-                                                        <th>Download</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Haven - Free Real Estate PSD Template</td>
-                                                        <td>Aug 22, 2022</td>
-                                                        <td>Yes</td>
-                                                        <td><a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-cloud-download mr-2"></i>Download File</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>HasTech - Profolio Business Template</td>
-                                                        <td>Sep 12, 2022</td>
-                                                        <td>Never</td>
-                                                        <td><a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-cloud-download mr-2"></i>Download File</a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <h3>Chi tiết tài khoản</h3>
+                                        <div class="account-details-form">
+                                            <form asp-controller="Accounts" asp-action="licenseDetails" enctype="multipart/form-data" method="post">
+                                                <input type="hidden" asp-for="CustomerId" />
+                                                <div class="single-input-item mb-3">
+                                                    <label for="display-name" class="required mb-1">Họ và tên</label>
+                                                    <input type="text" asp-for="FullName" placeholder="Họ và tên" />
+                                                </div>
+                                                <div class="single-input-item mb-3">
+                                                    <label for="email" class="required mb-1">Số giấy phép lái xe</label>
+                                                    <input type="tel" asp-for="LicenseNumber" placeholder="số giấy phép lái xe" />
+                                                </div>
+                                                <div class="single-input-item mb-3">
+                                                    <label for="email" class="required mb-1">Ngày sinh</label>
+                                                    <input type="date" asp-for="DateofBirth" placeholder="Ngày sinh" />
+                                                </div>
+
+                                                <fieldset>
+                                                    <legend>Cập nhật Ảnh</legend>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="img" class="required mb-1">Ảnh đại diện</label>
+                                                        <input type="file" name="img"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <img src="~/files/license/@Model.LicenseImage" alt="Ảnh đại diện" style="max-width: 500px; max-height: 500px;" />
+                                                    </div>
+                                                </fieldset>
+
+
+                                                <div class="single-input-item single-item-button">
+                                                    <button type="submit" class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -158,15 +165,15 @@
                                     <div class="myaccount-content">
                                         <h3>Chi tiết tài khoản</h3>
                                         <div class="account-details-form">
-                                            <form asp-controller="Accounts" asp-action="AccountDetails" enctype="multipart/form-data">
+                                            <form asp-controller="Accounts" asp-action="AccountDetails" enctype="multipart/form-data" method="post">
                                                <input type="hidden" asp-for="CustomerId"/>
                                                 <div class="single-input-item mb-3">
                                                     <label for="display-name" class="required mb-1">Tên hiển thị</label>
-                                                    <input type="text" asp-for="Name"  placeholder="Tên hiển thị" />
+                                                    <input type="text" asp-for="@Model.Name"  placeholder="Tên hiển thị" />
                                                 </div>
                                                 <div class="single-input-item mb-3">
                                                     <label for="email" class="required mb-1">Địa chỉ Email</label>
-                                                    <input type="email" asp-for="Email" placeholder="Địa chỉ Email" />
+                                                    <input type="email" asp-for="@Model.Email" placeholder="Địa chỉ Email" />
                                                 </div>
                                                 <fieldset>
                                                     <legend>Thay đổi Mật khẩu</legend>
@@ -175,7 +182,7 @@
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
                                                                 <label for="new-pwd" class="required mb-1">Mật khẩu mới</label>
-                                                                <input type="password" asp-for="Password"  placeholder="Mật khẩu mới" />
+                                                                <input type="password" asp-for="@Model.Password"  placeholder="Mật khẩu mới" />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-custom">
@@ -187,7 +194,7 @@
                                                     </div>
                                                 </fieldset>
 
-                                                <fieldset>
+                                                @* <fieldset>
                                                     <legend>Cập nhật Ảnh</legend>
                                                     <div class="single-input-item mb-3">
                                                         <label for="img" class="required mb-1">Ảnh đại diện</label>
@@ -196,7 +203,7 @@
                                                     <div class="mb-3">
                                                         <img src="~/files/Customer/@Model.Avartar" alt="Ảnh đại diện" style="max-width: 500px; max-height: 500px;" />
                                                     </div>
-                                                </fieldset>
+                                                </fieldset> *@
 
                                                
                                                 <div class="single-input-item single-item-button">

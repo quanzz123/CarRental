@@ -73,7 +73,7 @@ namespace CarRental.Controllers
         }
 
         [HttpPost]
-        public IActionResult AccountDetails(Customer c, IFormFile img)
+        public IActionResult AccountDetails(Customer c)
         {
             if (!Function.IsLogin())
             {
@@ -111,7 +111,7 @@ namespace CarRental.Controllers
                 customer.Password = Function.MD5Password(c.Password);
 
                 // Xử lý ảnh đại diện
-                if (img != null && img.Length > 0)
+                /*if (img != null && img.Length > 0)
                 {
                     // Gọi hàm UploadImage để lưu ảnh và lấy tên file
                     var uploadedImagePath = Function.UploadImage(img, "Customer");
@@ -119,17 +119,76 @@ namespace CarRental.Controllers
                     {
                         customer.Avartar = uploadedImagePath; // Lưu đường dẫn hoặc tên file vào thuộc tính Avartar
                     }
-                }
+                }*/
+                
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Accounts");
 
             }
 
 
+            return View(c);
+        }
+        [HttpGet]
+        public IActionResult licenseDetails()
+        {
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            var customerId = Function._AccountId;
+            var customer = _context.Customers.FirstOrDefault(p => p.CustomerId == customerId);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+            
+        }
+        [HttpPost]
+        public IActionResult licenseDetails(Customer c, IFormFile img)
+        {
+            if (!Function.IsLogin())
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            if (ModelState.IsValid)
+            {
+                var customerId = Function._AccountId;
+                var customer = _context.Customers.FirstOrDefault(p => p.CustomerId == customerId);
+
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+
+                customer.FullName = c.FullName;
+                customer.DateofBirth = c.DateofBirth;
+                customer.LicenseNumber  = c.LicenseNumber;
+             
+
+
+
+                // Xử lý ảnh đại diện
+                if (img != null && img.Length > 0)
+                {
+                    // Gọi hàm UploadImage để lưu ảnh và lấy tên file
+                    var uploadedImagePath = Function.UploadImage(img, "license");
+                    if (!string.IsNullOrEmpty(uploadedImagePath))
+                    {
+                        customer.LicenseImage = uploadedImagePath; // Lưu đường dẫn hoặc tên file vào thuộc tính Avartar
+                    }
+                }
+
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Accounts");
+            }
             return View();
         }
-
-
         [HttpGet]
         public IActionResult editAdress()
         {
