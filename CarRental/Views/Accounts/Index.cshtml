@@ -128,7 +128,7 @@
                                                         <div id="display">
                                                             @if (!string.IsNullOrEmpty(Model.LicenseImage))
                                                             {
-                                                                <img id="currentImage" src="~/files/license/@Model.LicenseImage" alt="Ảnh mặt trước GPLX" style="max-width: 100%; max-height: 100%; border-radius: 10px;" />
+                                                                <img id="currentImage" src="~/files/license/@(string.IsNullOrEmpty(Model.LicenseImage) ? "/~files/license/BỘ GTVT MOT.png" : Model.LicenseImage)" alt="Ảnh mặt trước GPLX" style="max-width: 100%; max-height: 100%; border-radius: 10px;" />
                                                             }
                                                             else
                                                             {
