@@ -100,7 +100,7 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="download" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Chi tiết tài khoản</h3>
+                                        <h3 style="color:black">Thông tin GPLX</h3>
                                         <div class="account-details-form">
                                             <form asp-controller="Accounts" asp-action="licenseDetails" enctype="multipart/form-data" method="post">
                                                 <input type="hidden" asp-for="CustomerId" />
@@ -110,7 +110,8 @@
                                                 </div>
                                                 <div class="single-input-item mb-3">
                                                     <label for="email" class="required mb-1">Số giấy phép lái xe</label>
-                                                    <input type="tel" asp-for="LicenseNumber" placeholder="số giấy phép lái xe" />
+                                                    <label class="small-label" style="color:#808080">Dãy 12 chứ số ở mặt trước GPLX</label>
+                                                    <input type="tel" asp-for="LicenseNumber" placeholder="0000-0000-0000" />
                                                 </div>
                                                 <div class="single-input-item mb-3">
                                                     <label for="email" class="required mb-1">Ngày sinh</label>
@@ -120,16 +121,26 @@
                                                 <fieldset>
                                                     <legend>Cập nhật Ảnh</legend>
                                                     <div class="single-input-item mb-3">
-                                                        <label for="img" class="required mb-1">Ảnh đại diện</label>
-                                                        <input type="file" name="img"/>
+                                                        <label for="img" class="required mb-1">Ảnh mặt trước GPLX</label>
+                                                        <input type="file" id="imageInput" name="img" />
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <img src="~/files/license/@Model.LicenseImage" alt="Ảnh đại diện" style="max-width: 500px; max-height: 500px;" />
+                                                    <div id="display-container" class="mb-3">
+                                                        <div id="display">
+                                                            @if (!string.IsNullOrEmpty(Model.LicenseImage))
+                                                            {
+                                                                <img id="currentImage" src="~/files/license/@Model.LicenseImage" alt="Ảnh mặt trước GPLX" style="max-width: 100%; max-height: 100%; border-radius: 10px;" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <p id="noImageText">Chưa có ảnh nào được cập nhật.</p>
+                                                            }
+                                                        </div>
                                                     </div>
+
                                                 </fieldset>
 
 
-                                                <div class="single-input-item single-item-button">
+                                                <div class="single-input-item single-item-button mt-5">
                                                     <button type="submit" class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
                                                 </div>
                                             </form>

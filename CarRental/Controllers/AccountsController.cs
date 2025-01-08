@@ -122,6 +122,7 @@ namespace CarRental.Controllers
                 }*/
                 
                 _context.SaveChanges();
+                Function._UserName = customer.Name;
                 return RedirectToAction("Index", "Accounts");
 
             }

@@ -1,0 +1,52 @@
+﻿#display-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    width: auto;
+}
+
+/*#display {
+    width: 375px;
+    height: auto;*/ /* Tự điều chỉnh chiều cao theo ảnh */
+    /*border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #display img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 10px;
+        
+    }*/
+
+#display {
+    width: 500px; /* Chiều rộng mong muốn */
+    height: 300px; /* Chiều cao mong muốn */
+    border-radius: 10px;
+    background-image: url('/files/license/BỘ GTVT MOT.png'); /* Ảnh mặc định */
+    background-size: cover; /* Ảnh sẽ phủ kín vùng */
+    background-position: center; /* Ảnh sẽ được căn giữa */
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ẩn phần thừa của ảnh */
+}
+
+    #display img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 10px;
+        object-fit: cover; /* Đảm bảo ảnh vừa khít container */
+    }
+
+
+#noImageText {
+    font-size: 14px;
+    color: gray;
+    text-align: center;
+}
