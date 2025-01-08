@@ -1,5 +1,5 @@
 ﻿@Model News
-@model CarRental.Models.NewsComment
+
 @{
     List<NewsComment> newsComments = ViewBag.newsComment;
 }
@@ -103,17 +103,17 @@
                                 <div class="row">
                                     <div class="col-12 col-custom">
                                         <div class="input-item mt-4 mb-4">
-                                            <textarea asp-for="Detail" cols="30" rows="5" name="comment" class="border rounded-0 w-100 custom-textarea input-area" placeholder="Message"></textarea>
+                                            <textarea  cols="30" rows="5" name="comment" class="border rounded-0 w-100 custom-textarea input-area" placeholder="Message"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-custom">
                                         <div class="input-item mb-4">
-                                            <input asp-for="Name" class="border rounded-0 w-100 input-area name" type="text" placeholder="Name">
+                                            <input  class="border rounded-0 w-100 input-area name" type="text" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-custom">
                                         <div class="input-item mb-4">
-                                            <input asp-for="Email" class="border rounded-0 w-100 input-area email" type="text" placeholder="Email">
+                                            <input  class="border rounded-0 w-100 input-area email" type="text" placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="col-12 col-custom mt-40">

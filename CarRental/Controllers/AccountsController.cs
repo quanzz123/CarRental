@@ -150,7 +150,7 @@ namespace CarRental.Controllers
             
         }
         [HttpPost]
-        public IActionResult licenseDetails(Customer c, IFormFile img)
+        public IActionResult licenseDetails(Customer c, IFormFile? img)
         {
             if (!Function.IsLogin())
             {
@@ -183,12 +183,15 @@ namespace CarRental.Controllers
                     {
                         customer.LicenseImage = uploadedImagePath; // Lưu đường dẫn hoặc tên file vào thuộc tính Avartar
                     }
+                } else
+                {
+                    customer.LicenseImage = customer.LicenseImage;
                 }
 
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Accounts");
             }
-            return View();
+            return View(c);
         }
         [HttpGet]
         public IActionResult editAdress()
