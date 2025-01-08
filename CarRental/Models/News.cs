@@ -34,4 +34,6 @@ public partial class News
     public string? ModifiedBy { get; set; }
 
     public bool IsActive { get; set; }
+
+    public virtual ICollection<NewsComment> NewsComments { get; set; } = new List<NewsComment>();
 }

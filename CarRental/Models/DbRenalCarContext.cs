@@ -47,6 +47,8 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<News> News { get; set; }
 
+    public virtual DbSet<NewsComment> NewsComments { get; set; }
+
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
     public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
@@ -55,7 +57,6 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -310,6 +311,24 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.SeoKeywords).HasMaxLength(250);
             entity.Property(e => e.SeoTitle).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
+        });
+
+        modelBuilder.Entity<NewsComment>(entity =>
+        {
+            entity.HasKey(e => e.CommentId);
+
+            entity.ToTable("NewsComment");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Detail).HasMaxLength(200);
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.IsActive).HasColumnName("isActive");
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Phone).HasMaxLength(50);
+
+            entity.HasOne(d => d.News).WithMany(p => p.NewsComments)
+                .HasForeignKey(d => d.NewsId)
+                .HasConstraintName("FK_NewsComment_News");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
