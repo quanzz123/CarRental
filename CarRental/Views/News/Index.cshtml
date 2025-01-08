@@ -1,0 +1,47 @@
+﻿
+<div class="breadcrumbs-area position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-content position-relative section-content">
+                    <h3 class="title-3">Blog Grid Fullwidth</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blog-main-area">
+    <div class="container container-default custom-area">
+        <div class="row">
+            <div class="col-lg-12 col-12 col-custom widget-mt">
+                <!-- Shop Wrapper Start -->
+                <div class="row">
+
+                    @await Component.InvokeAsync("News")
+                </div>
+                <!-- Shop Wrapper End -->
+                <!-- Bottom Toolbar Start -->
+                <div class="row">
+                    <div class="col-sm-12 col-custom">
+                        <div class="toolbar-bottom">
+                            <div class="pagination">
+                                <ul>
+                                    <li class="current">1</li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li class="next"><a href="#">next</a></li>
+                                    <li><a href="#">&gt;&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Toolbar End -->
+            </div>
+        </div>
+    </div>
+</div>
