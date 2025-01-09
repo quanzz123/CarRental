@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.ViewModels.CartItemsVM>
+﻿@model CarRental.ViewModels.CartVM
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -72,19 +72,21 @@
                     <div class="checkbox-form">
                         <h3>Billing Details</h3>
                         <div class="row">
-
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Tiền cọc <span class="required">*</span></label>
-                                    <input id="deposit" placeholder="Nhập tiền cọc" type="number">
+                            <div class="different-address">
+                                <div class="order-notes mt-3">
+                                    <div class="checkout-form-list checkout-form-list-2">
+                                        <label>Order Notes</label>
+                                        <textarea id="notes" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-custom">
+                          @*   <div class="col-md-6 col-custom">
                                 <div class="checkout-form-list">
-                                    <label>Ngày trả <span class="required">*</span></label>
-                                    <input id="orderReturn" placeholder="Nhập ngày trả" type="date">
+                                    <label>Lời nhắn <span class="required">*</span></label>
+                                    <textarea id="notes" placeholder="Nhập lời nhắn" ></textarea>
                                 </div>
-                            </div>
+                            </div> *@
+                            
                             <button type="submit" class="btn flosun-button secondary-btn black-color rounded-0 w-100">Place Order</button>
 
 
@@ -96,38 +98,37 @@
             </div>
             <div class="col-lg-6 col-12 col-custom">
                 <div class="your-order">
-                    <h3>Your order</h3>
+                    <h3>Bảng tính giá</h3>
                     <div class="your-order-table table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="cart-product-name">Product</th>
-                                    <th class="cart-product-total">Total</th>
+                                    <th class="cart-product-name">Nội dung</th>
+                                    <th class="cart-product-total">Tổng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
-                                {
+                                
                                     <tr class="cart_item">
                                         <td class="cart-product-name">
-                                            @item.CarName<strong class="product-quantity">
-                                                × @item.Quantity
+                                            Thành tiền<strong class="product-quantity">
+                                                
                                             </strong>
                                         </td>
-                                        <td class="cart-product-total text-center"><span class="amount">£@item.PriceTotal</span></td>
+                                        <td class="cart-product-total text-center"><span class="amount">@Model.Total đ</span></td>
                                     </tr>
 
-                                }
+                                
 
                             </tbody>
                             <tfoot>
                                 <tr class="cart-subtotal">
-                                    <th>Cart Subtotal</th>
-                                    <td class="text-center"><span class="amount">£@Model.Sum(p => p.PriceTotal)</span></td>
+                                    <th>Thanh toán giữ chỗ</th>
+                                    <td class="text-center"><span class="amount">@Model.Deposit đ</span></td>
                                 </tr>
                                 <tr class="order-total">
-                                    <th>Order Total</th>
-                                    <td class="text-center"><strong><span class="amount">£@Model.Sum(p => p.PriceTotal)</span></strong></td>
+                                    <th>Thanh toán khi nhận xe</th>
+                                    <td class="text-center"><strong><span class="amount">@Model.Payment</span></strong></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -198,8 +199,8 @@
                 e.preventDefault(); // Ngăn chặn submit form mặc định
 
                 var formData = {
-                    Deposit: $("#deposit").val(),
-                    OrderReturn: $("#orderReturn").val(),
+                    Notes: $("#notes").val(),
+                    
                 };
 
                 $.ajax({

@@ -4,7 +4,65 @@
     List<Car> productRelated = ViewBag.productRelated;
     List<CarReview> productReviews = ViewBag.productRviews;
 }
+@section style {
+    <style>
+        /* Căn chỉnh form-group */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
 
+        /* Điều chỉnh giao diện của ô nhập ngày */
+        input[type="date"] {
+            position: relative;
+            padding-right: 40px; /* Thêm khoảng trống để tránh biểu tượng */
+            height: 45px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+            /* Điều chỉnh biểu tượng cuốn lịch */
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                position: absolute;
+                right: 10px; /* Đẩy biểu tượng ra xa mép phải */
+                top: 50%; /* Căn giữa theo chiều dọc */
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #555; /* Màu của biểu tượng */
+            }
+
+            /* Thay đổi border khi hover */
+            input[type="date"]:hover {
+                border-color: #007bff;
+            }
+
+            /* Hiệu ứng khi focus */
+            input[type="date"]:focus {
+                border-color: #007bff;
+                box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+
+            /* Biểu tượng lịch */
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+
+        /* Tùy chỉnh nhãn */
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+    </style>
+}
 
 <!-- Breadcrumb Area Start Here -->
 <div class="breadcrumbs-area position-relative">
@@ -111,21 +169,51 @@
                     </div>
                     <p class="desc-content mb-5">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
                     <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId">
-                        <div class="quantity-with_btn mb-5">
-                            <div class="quantity">
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="1" type="text" name="quantity">
-                                    <div class="dec qtybutton">-</div>
-                                    <div class="inc qtybutton">+</div>
+                        <!-- Hàng chứa quantity và ngày tháng -->
+                        <div class="row align-items-center mb-3">
+                            <!-- Quantity -->
+                            <div class="col-md-3">
+                                <div class="quantity">
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box" value="1" type="text" name="quantity">
+                                        <div class="dec qtybutton">-</div>
+                                        <div class="inc qtybutton">+</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="add-to_cart">
-                                <button asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" class="btn product-cart button-icon flosun-button dark-btn">Add to cart</button>
-                                <a class="btn flosun-button secondary-btn secondary-border rounded-0" href="wishlist.html">Add to wishlist</a>
+
+                            <!-- Ngày nhận xe -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="pickupDate">Ngày nhận xe:</label>
+                                    <input id="pickupDate" name="pickupDate" type="date" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <!-- Ngày trả xe -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="returnDate">Ngày trả xe:</label>
+                                    <input id="returnDate" name="returnDate" type="date" class="form-control" required>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- Hàng chứa nút Add to cart và Add to wishlist -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" class="ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100">
+                                    Add to cart
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <a class="btn flosun-button secondary-btn secondary-border rounded-0 w-100" href="wishlist.html">
+                                    Add to wishlist
+                                </a>
+                            </div>
+                        </div>
                     </form>
+
                     <div class="social-share mb-4">
                         <span>Share :</span>
                         <a href="#"><i class="fa fa-facebook-square facebook-color"></i></a>

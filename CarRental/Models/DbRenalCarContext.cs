@@ -57,6 +57,7 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -148,6 +149,7 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.Deposit).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Notes).HasMaxLength(50);
             entity.Property(e => e.Payment).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
@@ -338,7 +340,9 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.CarId).HasColumnName("CarID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.PickupDate).HasColumnType("datetime");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.ReturnDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
