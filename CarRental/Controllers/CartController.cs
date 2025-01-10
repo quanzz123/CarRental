@@ -241,19 +241,7 @@ namespace CarRental.Controllers
                     Notes = model.Notes,
                 };
 
-                if (model.paymentmethod == "Thanh toán VNPay")
-                {
-                    var vnPayModel = new VnPaymentRequestModel
-                    {
-                        Amount = (double)deposit,
-                        CreatedDate = DateTime.Now,
-                        Description = $"{Function._UserName} {Function._Phone}",
-                        FullName = Function._UserName,
-                        OrderId = new Random().Next(1000, 100000)
-                    };
-                    var paymentUrl = _vnpayServices.CreatePaymentUrl(HttpContext, vnPayModel);
-                    return Json(new { success = true, redirectUrl = paymentUrl });
-                }
+                
 
 
 
@@ -281,7 +269,20 @@ namespace CarRental.Controllers
 
                         HttpContext.Session.Set<List<CartItemsVM>>(CART_KEY, new List<CartItemsVM>());
                         transaction.Commit();
+                        if (model.paymentmethod == "Thanh toán VNPay")
+                        {
+                            var vnPayModel = new VnPaymentRequestModel
+                            {
+                                Amount = (double)deposit,
+                                CreatedDate = DateTime.Now,
+                                Description = $"{Function._UserName} {Function._Phone}",
+                                FullName = Function._UserName,
+                                OrderId = new Random().Next(1000, 100000)
+                            };
+                            var paymentUrl = _vnpayServices.CreatePaymentUrl(HttpContext, vnPayModel);
 
+                            return Json(new { success = true, redirectUrl = paymentUrl });
+                        }
                         // Trả về URL của trang profile
                         return Json(new { success = true, redirectUrl = Url.Action("Index", "Accounts") });
                     }
@@ -291,6 +292,7 @@ namespace CarRental.Controllers
                         return Json(new { success = false, message = "Đã xảy ra lỗi. Vui lòng thử lại.", error = ex.Message });
                     }
                 }
+
                 
             }
 
