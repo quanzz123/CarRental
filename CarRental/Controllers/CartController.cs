@@ -1,7 +1,9 @@
 ﻿using CarRental.Extensions;
 using CarRental.Models;
+using CarRental.Services;
 using CarRental.Utilities;
 using CarRental.ViewModels;
+using Humanizer.Localisation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +13,13 @@ namespace CarRental.Controllers
     public class CartController : Controller
     {
         private readonly DbRenalCarContext _context;
-        public CartController(DbRenalCarContext context)
+        private readonly IVnpayServices _vnpayServices;
+
+        public CartController(DbRenalCarContext context, IVnpayServices vnpayServices)
         {
+
             _context = context;
+            _vnpayServices = vnpayServices;
         }
         string CART_KEY = "MYCART";
         public List<CartItemsVM> CART => HttpContext.Session.Get<List<CartItemsVM>>(CART_KEY) ?? new List<CartItemsVM> ();
@@ -202,6 +208,9 @@ namespace CarRental.Controllers
 
             if (ModelState.IsValid)
             {
+               
+
+
                 var cart = CART;
                 var customerID = Function._AccountId;
                 var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == customerID);
@@ -220,7 +229,7 @@ namespace CarRental.Controllers
                 
                 decimal price = cart.Sum(p => p.PriceTotal);
                 decimal deposit = (30*price)/100;
-                decimal payment = price - deposit;
+                decimal payments = price - deposit;
                 var order = new CarRentalOrder
                 {
                     CustomerId = customerID,
@@ -228,11 +237,24 @@ namespace CarRental.Controllers
                     Deposit = deposit,
                     //ReturnDate = DateOnly.FromDateTime(cart.Max(p => p.returnDate)),
                     StatusId = 1,
-                    Payment = payment,
+                    Payment = payments,
                     Notes = model.Notes,
                 };
 
-              
+                if (model.paymentmethod == "Thanh toán VNPay")
+                {
+                    var vnPayModel = new VnPaymentRequestModel
+                    {
+                        Amount = (double)deposit,
+                        CreatedDate = DateTime.Now,
+                        Description = $"{Function._UserName} {Function._Phone}",
+                        FullName = Function._UserName,
+                        OrderId = new Random().Next(1000, 100000)
+                    };
+                    var paymentUrl = _vnpayServices.CreatePaymentUrl(HttpContext, vnPayModel);
+                    return Json(new { success = true, redirectUrl = paymentUrl });
+                }
+
 
 
                 using (var transaction = _context.Database.BeginTransaction())
@@ -343,6 +365,28 @@ namespace CarRental.Controllers
         public IActionResult Success()
         {
             return View();
+        }
+
+        public IActionResult PaymentFail()
+        {
+            return View();
+        }
+
+        public IActionResult PaymentCallBack() {
+            var response = _vnpayServices.PaymentExecute(Request.Query);
+
+            if (response == null || response.VnPayResponseCode != "00")
+            {
+                TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayResponseCode}";
+                return RedirectToAction("PaymentFail");
+            }
+
+
+            // Lưu đơn hàng vô database
+
+            TempData["Message"] = $"Thanh toán VNPay thành công";
+            return RedirectToAction("Success", "Cart");
+            
         }
     }
     

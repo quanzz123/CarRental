@@ -14,5 +14,6 @@ namespace CarRental.ViewModels
         public DateTime? OrderReturn {  get; set; }
         public int StatusID { get; set; }
         public string Notes { get; set; }
+        public string paymentmethod { get; set; }
     }
 }
