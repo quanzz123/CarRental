@@ -202,18 +202,18 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-            $(document).ready(function () {
-
-
-             // Lấy giá trị từ checkbox
-             var paymentMethod = $("#ship-box").is(":checked") ? "Thanh toán COD" : "Thanh toán VNPay";
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
             $("#checkoutForm").submit(function (e) {
                 e.preventDefault(); // Ngăn chặn submit form mặc định
 
+                // Lấy giá trị từ checkbox mỗi lần submit
+                var paymentMethod = $("#ship-box").is(":checked") ? "Thanh toán VNPay" : "Thanh toán COD";
+
                 var formData = {
                     Notes: $("#notes").val(),
-                    paymentmethod: paymentMethod // Thêm giá trị payment vào dữ liệu gửi
+                    paymentmethod: paymentMethod // Thêm giá trị paymentMethod vào dữ liệu gửi
                 };
 
                 $.ajax({
@@ -235,6 +235,8 @@
                 });
             });
         });
+    </script>
+
 
     </script>
 
