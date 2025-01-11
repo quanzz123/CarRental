@@ -3,6 +3,7 @@
     public class OrderDetailVM
     {
         public int OrderDetailID { get; set; }
+        public int OrderID { get; set; }
         public string CarName { get; set; }
         public string Image {  get; set; }
         public int Quantity { get; set; }
