@@ -162,11 +162,10 @@
                             // Thêm bình luận mới vào danh sách hiện tại
                             appendNewReview(reviewData);
                             // Xóa nội dung các ô input sau khi gửi
-                            $("#r_name").val("");
-                            $("#r_email").val("");
-                            $("#r_comment").val("");
-                            $(".ajax-rating i").removeClass("fa-star").addClass("fa-star-o");
-                            selectedRating = 0; // Reset rating
+                            $("#n_name").val("");
+                            $("#n_email").val("");
+                            $("#n_comment").val("");
+                           
                         },
                     error: function() {
                             Swal.fire({
