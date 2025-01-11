@@ -154,8 +154,8 @@
                         <h2 class="product-title">@Model.CarName</h2>
                     </div>
                     <div class="price-box mb-2">
-                        <span class="regular-price">$80.00</span>
-                        <span class="old-price"><del>$90.00</del></span>
+                        <span class="regular-price">@Model.SalePrice.Value.ToString("N0")đ/ngày</span>
+                        <span class="old-price"><del>@Model.Price.Value.ToString("N0")đ</del></span>
                     </div>
                     <div class="product-rating mb-3">
                         <i class="fa fa-star"></i>
@@ -167,7 +167,7 @@
                     <div class="sku mb-3">
                         <span>SKU: 12345</span>
                     </div>
-                    <p class="desc-content mb-5">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
+                    <p class="desc-content mb-5">Vị trí : @Model.Descriptions</p>
                     <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId">
                         <!-- Hàng chứa quantity và ngày tháng -->
                         <div class="row align-items-center mb-3">
@@ -246,8 +246,8 @@
                 <div class="tab-content mb-text" id="myTabContent">
                     <div class="tab-pane fade show active" id="connect-1" role="tabpanel" aria-labelledby="home-tab">
                         <div class="desc-content">
-                            <p class="mb-3">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.</p>
-                            <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+                            <p class="mb-3">@Html.Raw(Model.Details)</p>
+                            @* <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p> *@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="connect-2" role="tabpanel" aria-labelledby="profile-tab">
