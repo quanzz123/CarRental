@@ -1,5 +1,6 @@
 ﻿using CarRental.Models;
 using CarRental.Utilities;
+using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +76,26 @@ namespace CarRental.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(o);
+        }
+        public IActionResult OrderDetails(int? id)
+        {
+            var orderItems = _context.OrderDetails
+                .Where(od => od.OrderId == id)
+                .Join(_context.Cars,
+                        od => od.CarId,
+                        c => c.CarId,
+                        (od, c) => new OrderDetailVM
+                        {
+                            OrderDetailID = od.OrderId,
+                            CarName = c.CarName,
+                            Image = c.Image,
+                            Quantity = (int)od.Quantity,
+                            pickupDate = (DateTime)od.PickupDate,
+                            returnDate = (DateTime)od.ReturnDate,
+
+                        })
+                .ToList();
+            return View(orderItems);
         }
     }
 }
