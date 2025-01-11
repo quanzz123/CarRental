@@ -16,7 +16,6 @@ namespace CarRental.Controllers
             return View();
         }
         [Route("/news/{alias}-{id}.html")]
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.News == null)
@@ -28,7 +27,7 @@ namespace CarRental.Controllers
             {
                 return NotFound();
             }
-            
+            ViewBag.newsComment = _context.NewsComments.Where(r => r.NewsId == news.NewsId).ToList();
             return View(news);
 
         }
