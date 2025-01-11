@@ -2,7 +2,7 @@
 
 @{
     List<NewsComment> newsComments = ViewBag.newsComment;
-} 
+}
 
 <div class="blog-area-wrapper">
     <!-- Breadcrumb Area Start Here -->
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="breadcrumb-content position-relative section-content">
-                        <h3 class="title-3">News Details Fullwidth</h3>
+                        <h3 class="title-3">Blog Details Fullwidth</h3>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li>Blog</li>
@@ -27,7 +27,7 @@
         <div class="container container-default custom-area">
             <div class="row">
                 <div class="col-12 col-custom widget-mt">
-    <!-- Blog Details wrapper Area Start -->
+                    <!-- Blog Details wrapper Area Start -->
                     <div class="blog-post-details">
                         <figure class="blog-post-thumb mb-5">
                             <img src="~/assets/images/blog/@Model.Image" alt="Blog Image">
@@ -35,7 +35,7 @@
                         <section class="blog-post-wrapper product-summery">
                             <div class="section-content section-title">
                                 <h2 class="section-title-2 mb-3">@Model.Title</h2>
-                                <p class="mb-4">@Model.Description</p>
+                                <p class="mb-4">@Model.Detail</p>
 
 
                             </div>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="comment-area-wrapper mt-5">
                                 <div class="comments-view-area">
-                                    <h3 class="mb-5"> @(newsComments != null ? $"{newsComments.Count} Comments" : "No Comments Available")</h3>
+                                    <h3 class="mb-5"> @newsComments.Count Comments</h3>
                                     @foreach (var item in newsComments)
                                     {
                                         <div class="single-comment-wrap mb-4 d-flex">
@@ -82,6 +82,9 @@
                                                         </div>
                                                     </div>
 
+
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -91,11 +94,41 @@
                             </div>
                         </section>
                     </div>
-  <!-- Blog Details Wrapper Area End -->
-                    
+                    <!-- Blog Details Wrapper Area End -->
+                    <!-- Blog Comments Area Start Here -->
+                    <form action="#">
+                        <div class="comment-box">
+                            <h3>Leave A Comment</h3>
+                            <form asp-action="Reviews">
+                                <div class="row">
+                                    <div class="col-12 col-custom">
+                                        <div class="input-item mt-4 mb-4">
+                                            <textarea  cols="30" rows="5" name="comment" class="border rounded-0 w-100 custom-textarea input-area" placeholder="Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-custom">
+                                        <div class="input-item mb-4">
+                                            <input  class="border rounded-0 w-100 input-area name" type="text" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-custom">
+                                        <div class="input-item mb-4">
+                                            <input  class="border rounded-0 w-100 input-area email" type="text" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-custom mt-40">
+
+                                        <button type="submit" class="btn flosun-button primary-btn rounded-0 w-100">Post comment</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </form>
+                    <!-- Blog Comments Area End Here -->
                 </div>
             </div>
         </div>
     </div>
     <!-- Blog Main Area End Here -->
-</div> 
+</div>

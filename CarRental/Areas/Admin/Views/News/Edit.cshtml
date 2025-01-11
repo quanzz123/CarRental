@@ -1,0 +1,138 @@
+﻿@model CarRental.Models.News
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Chỉnh sửa bài viết</h3>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Chỉnh sửa bài viết</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="NewsId" />
+
+                        <div class="form-group">
+                            <label asp-for="Title">Tiêu đề</label>
+                            <input asp-for="Title" class="form-control" placeholder="Nhập tiêu đề">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        @*  <div class="form-group">
+                            <label asp-for="CategoryId">Danh mục</label>
+                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div> *@
+
+                        <<div class="form-group">
+                            <label asp-for="Image">Ảnh</label>
+                            <div class="input-group mb-3">
+                                <button class="btn btn-primary" type="button" onclick="openDialog()"
+                                        id="button-addon1">
+                                    Chọn ảnh
+                                </button>
+                                <input asp-for="Image" type="text" class="form-control" id="file_input"
+                                       aria-label="Example text with button addon"
+                                       aria-describedby="button-addon1">
+                            </div>
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description">Mô tả</label>
+                            <input asp-for="Description" class="form-control" placeholder="Nhập mô tả">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Detail">Chi tiết</label>
+                            <textarea asp-for="Detail" id="DetailEditor" class="form-control"></textarea>
+                            <span asp-validation-for="Detail" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SeoTitle">SEO Tiêu đề</label>
+                            <input asp-for="SeoTitle" class="form-control" placeholder="Nhập tiêu đề SEO">
+                            <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SeoDescription">SEO Mô tả</label>
+                            <textarea asp-for="SeoDescription" class="form-control" placeholder="Nhập mô tả SEO"></textarea>
+                            <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SeoKeywords">SEO Từ khóa</label>
+                            <input asp-for="SeoKeywords" class="form-control" placeholder="Nhập từ khóa SEO">
+                            <span asp-validation-for="SeoKeywords" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="IsActive" class="control-label">
+                                @Html.CheckBox("IsActive") Hiển thị
+                            </label>
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div>
+
+                        <div class="btn-group">
+                            <input type="submit" value="Lưu" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-danger">Quay lại</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#DetailEditor').summernote({
+            height: 300,
+            placeholder: 'Nhập nội dung chi tiết...',
+            tabsize: 2,
+            lang: 'vi-VN',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>
+
+@{
+    var summernote = new CarRental.Areas.Admin.Models.SummerNote("#Detail");
+    <partial name="_SummerNote" model="summernote" />
+}
+

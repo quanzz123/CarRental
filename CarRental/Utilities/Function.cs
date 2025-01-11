@@ -49,22 +49,59 @@ namespace CarRental.Utilities
             }
             return true;     
         }
+        /* public static string UploadImage(IFormFile image, string folder)
+         {
+             try
+             {
+                 var FullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", folder, image.FileName);
+                 using (var myfile = new FileStream(FullPath, FileMode.CreateNew))
+                 {
+                     image.CopyTo(myfile);
+                 }
+                 return image.FileName;
+             } catch(Exception ex)
+             {
+                 return string.Empty;
+             }
+
+
+         }*/
+
         public static string UploadImage(IFormFile image, string folder)
         {
             try
             {
-                var FullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", folder, image.FileName);
-                using (var myfile = new FileStream(FullPath, FileMode.CreateNew))
+                // Tạo tên file duy nhất bằng cách thêm timestamp
+                var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                var extension = Path.GetExtension(image.FileName);
+                var uniqueFileName = $"{fileName}_{DateTime.Now:yyyyMMddHHmmssfff}{extension}";
+
+                // Xây dựng đường dẫn đầy đủ để lưu file
+                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", folder, uniqueFileName);
+
+                // Kiểm tra và tạo thư mục nếu chưa tồn tại
+                var directory = Path.GetDirectoryName(fullPath);
+                if (!Directory.Exists(directory))
                 {
-                    image.CopyTo(myfile);
+                    Directory.CreateDirectory(directory);
                 }
-                return image.FileName;
-            } catch(Exception ex)
+
+                // Lưu file vào thư mục
+                using (var myFile = new FileStream(fullPath, FileMode.Create))
+                {
+                    image.CopyTo(myFile);
+                }
+
+                // Trả về tên file duy nhất
+                return uniqueFileName;
+            }
+            catch (Exception ex)
             {
+                // Log lỗi nếu cần
+                Console.WriteLine($"Error uploading image: {ex.Message}");
                 return string.Empty;
             }
-
-           
         }
+
     }
 }
