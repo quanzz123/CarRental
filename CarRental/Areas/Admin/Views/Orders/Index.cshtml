@@ -58,7 +58,7 @@
                                             <th>#</th>
                                             <th>Mã đơn</th>
                                             <th>Ngày đặt</th>
-                                            <th>Ngày trả</th>
+                                            
                                             <th>Trạng thái</th>
                                             <th>Người đặt</th>
                                             <th>Chức năng</th>
@@ -75,12 +75,12 @@
                                                 <td class="text-bold-500">@(i++)</td>
                                                 <td>@Html.DisplayFor(modeitem => item.OrderId)</td>
                                                 <td class="text-bold-500">@Html.DisplayFor(modeitem => item.OrderDate)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.ReturnDate)</td>
+                                                @* <td>@Html.DisplayFor(modeitem => item.ReturnDate)</td> *@
                                                 <td>@Html.DisplayFor(modeitem => item.Status.StatusDescription)</td>
                                                 <td>@Html.DisplayFor(modeitem => item.Customer.FullName)</td>
 
                                                 <td>
-                                                    <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success">Sửa</a>
+                                                    <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success">Sửa</a>
                                                     <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Xoá</a>
                                                 </td>
                                             </tr>
