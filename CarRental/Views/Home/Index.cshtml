@@ -120,7 +120,10 @@
                                                     <img src="@item.Image" alt="" class="product-image-1 w-100">
                                                     <img src="@item.Image" alt="" class="product-image-2 position-absolute w-100">
                                                 </a>
-                                                <span class="onsale">Sale!</span>
+                                                @if(item.IsSale) {
+                                                    <span class="onsale">Giảm!</span>
+
+                                                }
                                                 <div class="add-action d-flex flex-column position-absolute">
                                                     <a href="compare.html" title="Compare">
                                                         <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" title="Compare"></i>
@@ -160,8 +163,8 @@
                                                     }
                                                     else
                                                     {
-                                                        <span class="regular-price ">$@item.SalePrice</span>
-                                                        <span class="old-price"><del>$@item.Price</del></span>
+                                                        <span class="regular-price ">$@item.SalePrice.Value.ToString("N0")/Ngày</span>
+                                                        <span class="old-price"><del>$@item.Price.Value.ToString("N0")</del></span>
                                                     }
 
 

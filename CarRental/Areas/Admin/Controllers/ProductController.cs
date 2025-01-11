@@ -109,7 +109,7 @@ namespace CarRental.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 c.Alias = CarRental.Utilities.Function.TitleSlugGenerationAlias(c.CarName);
-
+               
                 _context.Cars.Update(c);
                 _context.SaveChanges();
                 return RedirectToAction("Index");

@@ -10,7 +10,10 @@
                         <img src="@item.Image" alt="" class="product-image-1 w-100">
                         <img src="@item.Image" alt="" class="product-image-2 position-absolute w-100">
                     </a>
-                    <span class="onsale">Sale!</span>
+                    @if(item.IsSale) {
+                        <span class="onsale">Sale!</span>
+                    }
+                    
                     <div class="add-action d-flex flex-column position-absolute">
                         <a href="compare.html" title="Compare">
                             <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" title="Compare"></i>

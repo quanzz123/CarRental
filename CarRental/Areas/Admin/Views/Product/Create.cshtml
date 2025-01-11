@@ -152,6 +152,14 @@
 
                                     <span asp-validation-for="IsActive" class="text-danger"></span>
                                 </div>
+                                <div class="form-group">
+                                    <label asp-for="IsSale" class="control-label">
+                                        @Html.CheckBox("IsActive", false)
+                                       sản phẩm sale
+                                    </label>
+
+                                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                                </div>
                                 <div class="btn-group mb-3">
                                     <div class="form-group">
                                         <input type="submit" value="Create" class="btn btn-primary" />
