@@ -218,14 +218,29 @@
     <script>
         $(document).ready(function () {
              $(".ajax-add-to-cart").click(function () {
+                const productId = $(this).data("id"); // Lấy ID sản phẩm
+                const pickupDate = $("#pickupDate").val(); // Lấy ngày nhận xe
+                const returnDate = $("#returnDate").val(); // Lấy ngày trả xe
+
+                // Kiểm tra giá trị ngày tháng
+                if (!pickupDate || !returnDate) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Thông báo",
+                        text: "Vui lòng chọn ngày nhận và ngày trả xe!"
+                    });
+                    return;
+                }
                  $.ajax({
                        url: "/Cart/AddToCart",
                       type: "POST",
-                      data: {
-                          id: $(this).data("id"),
-                          quantity: 1,
-                          type: "ajax"
-                      },
+                      data: JSON.stringify({
+                            id: productId,
+                            quantity: 1,
+                            pickupDate: pickupDate,
+                            returnDate: returnDate,
+                            type: "ajax"
+                        }),
                       success: function(data) {
                           console.log(data);
                                   Swal.fire({

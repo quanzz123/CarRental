@@ -1,4 +1,5 @@
 ﻿using CarRental.Models;
+using CarRental.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         //đăng nhập rồi nhưng chưa có quyền thì sẽ chuyển tới địa chỉ này
         options.AccessDeniedPath = "/AccessDenied";
     });
+
+builder.Services.AddSingleton<IVnpayServices,VnPayService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

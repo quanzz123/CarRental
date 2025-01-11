@@ -265,7 +265,8 @@ namespace CarRental.Controllers
                             CarName = c.CarName,
                             Image = c.Image,
                             Quantity = (int)od.Quantity,
-                            Price = (decimal)c.Price,
+                            pickupDate = (DateTime)od.PickupDate,
+                            returnDate = (DateTime)od.ReturnDate,
 
                         })
                 .ToList();

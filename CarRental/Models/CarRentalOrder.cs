@@ -19,6 +19,8 @@ public partial class CarRentalOrder
 
     public DateOnly? ReturnDate { get; set; }
 
+    public string? Notes { get; set; }
+
     public virtual Customer Customer { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();

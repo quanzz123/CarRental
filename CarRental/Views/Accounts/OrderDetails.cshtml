@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <!-- Breadcrumb Area Start Here -->
 <div class="breadcrumbs-area position-relative">
     <div class="container">
@@ -34,10 +35,11 @@
                             <tr>
                                 <th class="pro-thumbnail">Hình ảnh</th>
                                 <th class="pro-title">Tên xe</th>
-                                <th class="pro-price">Giá</th>
+                                <th class="pro-price">Ngày nhận xe</th>
+                                <th class="pro-price">Ngày trả xe</th>
                                 <th class="pro-quantity">Số lượng</th>
-                                <th class="pro-subtotal">Tổng</th>
-                                <th class="pro-remove">Huỷ</th>  
+                                
+                                @* <th class="pro-remove">Huỷ</th *@>  
                             </tr>
                         </thead>
                         <tbody>
@@ -45,14 +47,15 @@
                                 <tr>
                                     <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="@item.Image" alt="Product" /></a></td>
                                     <td class="pro-title"><a href="#"> @item.CarName</a></td>
-                                    <td class="pro-price"><span>$@item.Price</span></td>
+                                    <td class="pro-price"><span>@item.pickupDate.ToString("dd-MM-yyyy")</span></td>
+                                    <td class="pro-price"><span>@item.returnDate.ToString("dd-MM-yyyy")</span></td>
                                     <td class="pro-quantity">
                                         <div class="quantity">
                                             <p>@item.Quantity</p>
                                         </div>
                                     </td>
-                                    <td class="pro-subtotal"><span>$@item.Total</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
+                                    @* <td class="pro-subtotal"><span>$@item.Total</span></td> *@
+                                    @* <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td> *@
                                 </tr>
                             }
                             
