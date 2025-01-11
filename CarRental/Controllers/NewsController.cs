@@ -31,5 +31,44 @@ namespace CarRental.Controllers
             return View(news);
 
         }
+        public async Task<IActionResult> Comment(string name, string email, string detail, int id)
+        {
+            try
+            {
+                // Tạo đối tượng review mới
+                NewsComment r = new NewsComment
+                {
+                    Name = name,
+                    Email = email,
+                    CreatedDate = DateTime.Now,
+                    Detail = detail,
+                    NewsId = id,
+                  
+
+                };
+
+                // Thêm vào DbSet và lưu vào cơ sở dữ liệu
+                _context.NewsComments.Add(r);
+                await _context.SaveChangesAsync(); // Sử dụng await để đảm bảo dữ liệu được lưu
+
+
+                // Trả về dữ liệu của review vừa được thêm
+                return Json(new
+                {
+                    //status = true,
+                    name = r.Name,
+                    email = r.Email,
+                    detail = r.Detail,
+                
+
+                });
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi (nếu cần) và trả về trạng thái thất bại
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
     }
 }

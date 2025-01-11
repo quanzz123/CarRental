@@ -30,12 +30,12 @@
                     <!-- Blog Details wrapper Area Start -->
                     <div class="blog-post-details">
                         <figure class="blog-post-thumb mb-5">
-                            <img src="~/assets/images/blog/@Model.Image" alt="Blog Image">
+                            <img src="@Model.Image" alt="Blog Image">
                         </figure>
                         <section class="blog-post-wrapper product-summery">
                             <div class="section-content section-title">
                                 <h2 class="section-title-2 mb-3">@Model.Title</h2>
-                                <p class="mb-4">@Model.Detail</p>
+                                <p class="mb-4">@Model.Description</p>
 
 
                             </div>
@@ -71,7 +71,7 @@
                                                 <div class="comment-footer d-flex justify-content-between">
                                                     <div class="pro_review mb-5">
                                                         <div class="review_thumb">
-                                                            <img alt="review images" src="assets/images/review/1.jpg">
+                                                           @*  <img alt="review images" src="assets/images/review/1.jpg"> *@
                                                         </div>
                                                         <div class="review_details">
                                                             <div class="review_info mb-2">
@@ -103,22 +103,22 @@
                                 <div class="row">
                                     <div class="col-12 col-custom">
                                         <div class="input-item mt-4 mb-4">
-                                            <textarea  cols="30" rows="5" name="comment" class="border rounded-0 w-100 custom-textarea input-area" placeholder="Message"></textarea>
+                                            <textarea id="n-comment" cols="30" rows="5" name="comment" class="border rounded-0 w-100 custom-textarea input-area" placeholder="Message"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-custom">
                                         <div class="input-item mb-4">
-                                            <input  class="border rounded-0 w-100 input-area name" type="text" placeholder="Name">
+                                            <input id="n-name"  class="border rounded-0 w-100 input-area name" type="text" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-custom">
                                         <div class="input-item mb-4">
-                                            <input  class="border rounded-0 w-100 input-area email" type="text" placeholder="Email">
+                                            <input id="n-email" class="border rounded-0 w-100 input-area email" type="text" placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="col-12 col-custom mt-40">
 
-                                        <button type="submit" class="btn flosun-button primary-btn rounded-0 w-100">Post comment</button>
+                                        <button id="n-submit" type="submit" class="btn flosun-button primary-btn rounded-0 w-100" data-id="@Model.NewsId">Post comment</button>
                                     </div>
                                 </div>
                             </form>
@@ -132,3 +132,58 @@
     </div>
     <!-- Blog Main Area End Here -->
 </div>
+
+    @section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+
+           $("#n-submit").click(function() {
+                    const reviewData = {
+                        name: $("#n-name").val(),
+                        email: $("#n-email").val(),
+                        detail: $("#n-comment").val(),
+                        id: $(this).data("id"),
+
+                    };
+                $.ajax({
+                    url : "/News/Comment",
+                    type : "POST",
+                    data : reviewData,
+                    success: function(data) {
+                            console.log(data);
+                            Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                            });
+                            // Thêm bình luận mới vào danh sách hiện tại
+                            appendNewReview(reviewData);
+                            // Xóa nội dung các ô input sau khi gửi
+                            $("#r_name").val("");
+                            $("#r_email").val("");
+                            $("#r_comment").val("");
+                            $(".ajax-rating i").removeClass("fa-star").addClass("fa-star-o");
+                            selectedRating = 0; // Reset rating
+                        },
+                    error: function() {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Something went wrong!",
+                                footer: '<a href="#">Why do I have this issue?</a>'
+                            });
+                    }
+                });
+            });
+
+
+       
+
+        
+        });
+    </script>
+}
+    
