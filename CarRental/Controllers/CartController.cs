@@ -35,11 +35,14 @@ namespace CarRental.Controllers
             var cart = CART;
             // lấy thông tin sản phảm từ DB
             var product = _context.Cars.FirstOrDefault(p => p.CarId == id);
-            // Kiểm tra logic ngày tháng
-            if (returnDate <= pickupDate)
+
+            /*if (returnDate <= pickupDate)
             {
-                return Json(new { success = false, message = "Ngày trả xe phải lớn hơn ngày nhận xe." });
-            }
+                TempData["ErrorMessage"] = "Ngày trả xe phải lớn hơn ngày nhận xe.";
+                return RedirectToAction("product", new { alias = product.Alias, id = id });
+            }*/
+
+          
 
             // Xử lý thêm sản phẩm vào giỏ hàng
             int rentalDays = (returnDate - pickupDate).Days;

@@ -187,6 +187,7 @@
                                 <div class="form-group">
                                     <label for="pickupDate">Ngày nhận xe:</label>
                                     <input id="pickupDate" name="pickupDate" type="date" class="form-control" required>
+
                                 </div>
                             </div>
 
@@ -195,24 +196,73 @@
                                 <div class="form-group">
                                     <label for="returnDate">Ngày trả xe:</label>
                                     <input id="returnDate" name="returnDate" type="date" class="form-control" required>
+                                    <!-- Hiển thị lỗi nếu có -->
+                                    @if (TempData["ErrorMessage"] != null)
+                                    {
+                                        <small class="text-danger">@TempData["ErrorMessage"]</small>
+                                    }
                                 </div>
                             </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    // Lấy ngày hiện tại
+                                    const today = new Date();
+
+                                    // Chuyển đổi ngày hiện tại thành định dạng yyyy-mm-dd
+                                    const day = String(today.getDate()).padStart(2, '0');
+                                    const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+                                    const year = today.getFullYear();
+                                    const currentDate = `${year}-${month}-${day}`;
+
+                                    // Áp dụng ngày hiện tại vào thuộc tính 'min' của các input
+                                    $('#pickupDate').attr('min', currentDate);
+                                    $('#returnDate').attr('min', currentDate);
+
+                                    // Lắng nghe sự kiện thay đổi trên trường Ngày trả xe
+                                    $('#returnDate').on('input', function () {
+                                        const pickupDate = new Date($('#pickupDate').val());
+                                        const returnDate = new Date($('#returnDate').val());
+
+                                        // Lấy ngày mà không có giờ (chỉ lấy phần năm, tháng, ngày)
+                                        const pickupDateOnly = new Date(pickupDate.getFullYear(), pickupDate.getMonth(), pickupDate.getDate());
+                                        const returnDateOnly = new Date(returnDate.getFullYear(), returnDate.getMonth(), returnDate.getDate());
+
+                                        // Kiểm tra nếu ngày trả không hợp lệ
+                                        if (returnDateOnly <= pickupDateOnly) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Lỗi',
+                                                text: 'Ngày trả xe phải lớn hơn ngày nhận xe!',
+                                                confirmButtonText: 'Đóng',
+                                                willClose: () => {
+                                                    // Xóa giá trị ngày trả nếu có lỗi
+                                                    $('#returnDate').val('');
+                                                }
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
 
                         <!-- Hàng chứa nút Add to cart và Add to wishlist -->
                         <div class="row">
                             <div class="col-md-6">
-                                <button asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" class="ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100">
-                                    Add to cart
+                                <button type="submit" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" type="submit" class="ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100">
+                                    Thêm vào giỏ hàng
                                 </button>
                             </div>
                             <div class="col-md-6">
                                 <a class="btn flosun-button secondary-btn secondary-border rounded-0 w-100" href="wishlist.html">
-                                    Add to wishlist
+                                    Yêu thích
                                 </a>
                             </div>
                         </div>
+                     
                     </form>
+                  
 
                     <div class="social-share mb-4">
                         <span>Share :</span>
@@ -530,7 +580,12 @@
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+         
+            
+        //
         $(document).ready(function () {
+           
+
             let selectedRating = 0; // Lưu số sao được chọn
 
             $(".ajax-rating i").on("click", function () {
@@ -625,5 +680,7 @@
             return starsHtml;
         }
         });
+
+         
     </script>
 }
