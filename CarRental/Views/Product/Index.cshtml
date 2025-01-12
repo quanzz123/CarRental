@@ -71,67 +71,25 @@
                 <aside class="sidebar_widget widget-mt">
                     <div class="widget_inner">
                         <div class="widget-list widget-mb-1">
-                            <h3 class="widget-title">Search</h3>
+                            <h3 class="widget-title">Tìm kiếm</h3>
                             <div class="search-box">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">
+                                        <button class="btn btn-outline-secondary" id="searchButton" type="button">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="widget-list widget-mb-1">
-                            <h3 class="widget-title">Menu Categories</h3>
-                            <!-- Widget Menu Start -->
-                            <nav>
-                                <ul class="mobile-menu p-0 m-0">
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Birthday Boqutets</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Aster</a></li>
-                                            <li><a href="#">Aubrieta</a></li>
-                                            <li><a href="#">Basket of Gold</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Funeral Flowers</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Cleome</a></li>
-                                            <li><a href="#">Columbine</a></li>
-                                            <li><a href="#">Coneflower</a></li>
-                                            <li><a href="#">Corepsis</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Interior Decor</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Calendula</a></li>
-                                            <li><a href="#">Castor Bean</a></li>
-                                            <li><a href="#">Catmint</a></li>
-                                            <li><a href="#">Chives</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Custom Orders</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Lily</a></li>
-                                            <li><a href="#">Rose</a></li>
-                                            <li><a href="#">Sunflower</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <!-- Widget Menu End -->
-                        </div>
+                        
                         <div class="widget-list widget-mb-1">
                             <h3 class="widget-title">Lọc theo giá</h3>
                             <form id="priceFilterForm">
                                 <div id="slider-range"></div>
-                                <button type="button" id="filterButton">Filter</button>
-                                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                <button  type="button" id="filterButton">Filter</button>
+                                <input  type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
                                 
                             </form>
                             <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
@@ -299,6 +257,30 @@
                        }
                  });
              });
+
+                 // Xử lý tìm kiếm khi nhấn nút
+        $("#searchButton").on("click", function () {
+            const searchText = $("#searchInput").val().toLowerCase(); // Lấy từ khóa tìm kiếm và chuyển thành chữ thường
+
+            // Duyệt qua danh sách sản phẩm
+            $(".product-area").each(function () {
+                const productName = $(this).find(".product-title a").text().toLowerCase(); // Lấy tên sản phẩm
+
+                // Kiểm tra xem tên sản phẩm có chứa từ khóa không
+                if (productName.includes(searchText)) {
+                    $(this).show(); // Hiển thị sản phẩm
+                } else {
+                    $(this).hide(); // Ẩn sản phẩm
+                }
+            });
+        });
+
+        // Xử lý tìm kiếm khi nhập từ khóa và nhấn Enter
+        $("#searchInput").on("keyup", function (e) {
+            if (e.key === "Enter") {
+                $("#searchButton").click(); // Gọi sự kiện click của nút tìm kiếm
+            }
+        });
         });
     </script>
 }
