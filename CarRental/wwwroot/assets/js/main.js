@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
 	"use strict";
 	/*----------------------------------------
 	   Sticky Menu Activation
@@ -338,7 +338,7 @@
 	/*--------------------------------
 	Price Slider Active
 	-------------------------------- */
-	$( "#slider-range" ).slider({
+	/*$( "#slider-range" ).slider({
         range: true,
         min: 0,
         max: 500,
@@ -348,7 +348,44 @@
        }
     });
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+       " - $" + $( "#slider-range" ).slider( "values", 1 ) );*/
+	// Thiết lập thanh trượt
+	$("#slider-range").slider({
+		range: true,
+		min: 0,
+		max: 1000000, // Giá trị tối đa (1 triệu)
+		values: [0, 1000000], // Giá trị mặc định
+		slide: function (event, ui) {
+			$("#amount").val(
+				ui.values[0].toLocaleString() + "đ - " + ui.values[1].toLocaleString() + "đ"
+			);
+		}
+	});
+
+	// Hiển thị giá trị mặc định của thanh trượt
+	$("#amount").val(
+		$("#slider-range").slider("values", 0).toLocaleString() + "đ - " +
+		$("#slider-range").slider("values", 1).toLocaleString() + "đ"
+	);
+
+	// Xử lý khi nhấn nút lọc
+	$("#filterButton").on("click", function () {
+		const minPrice = $("#slider-range").slider("values", 0); // Giá trị thấp nhất
+		const maxPrice = $("#slider-range").slider("values", 1); // Giá trị cao nhất
+
+		// Lọc các sản phẩm
+		$(".product-area").each(function () {
+			// Lấy giá sản phẩm từ text (giả sử giá hiển thị ở .regular-price)
+			const productPrice = parseInt($(this).find("#filterprice").text().replace(/\D/g, ''));
+
+			// Kiểm tra xem giá sản phẩm có nằm trong khoảng giá không
+			if (productPrice >= minPrice && productPrice <= maxPrice) {
+				$(this).show(); // Hiển thị sản phẩm
+			} else {
+				$(this).hide(); // Ẩn sản phẩm
+			}
+		});
+	});
 	/*----------------------------------------
 		Bootstrap 5 Tooltip
 	------------------------------------------*/

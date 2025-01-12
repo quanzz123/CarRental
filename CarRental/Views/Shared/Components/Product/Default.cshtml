@@ -44,9 +44,11 @@
                       
                     </div>
                     <div class="price-box">
-                        <span class="regular-price ">@item.SalePrice.Value.ToString("N0")đ/ngày</span>
+                        <span id="filterprice" class="regular-price ">@item.SalePrice.Value.ToString("N0")đ/ngày</span>
                         <span class="old-price"><del>@item.Price.Value.ToString("N0")đ</del></span>
                     </div>
+                   
+                   
                     <button type="button" data-id="@item.CarId" class="btn product-cart ajax-add-to-cart">Add to Cart</button>
                 </div>
                 <div class="product-content-listview">
@@ -61,8 +63,8 @@
                         <i class="fa fa-star-o"></i>
                     </div>
                     <div class="price-box">
-                        <span class="regular-price ">$60.00</span>
-                        <span class="old-price"><del>$70.00</del></span>
+                        <span class="regular-price ">@item.SalePrice.Value.ToString("N0")đ/ngày</span>
+                        <span class="old-price"><del>@item.Price.Value.ToString("N0")đ</del></span>
                     </div>
                     <p class="desc-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere metus vitae arcu imperdiet, id aliquet ante scelerisque. Sed sit amet sem vitae urna fringilla tempus.</p>
                     <div class="button-listview">

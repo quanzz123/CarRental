@@ -43,7 +43,7 @@ namespace CarRental.Areas.Admin.Controllers
                            }).ToList();
            status.Insert(0, new SelectListItem()
             {
-                Text = "--select--",
+                Text = "",
                 Value = string.Empty,
             });
             ViewBag.orderstatus = status;

@@ -127,15 +127,53 @@
                             <!-- Widget Menu End -->
                         </div>
                         <div class="widget-list widget-mb-1">
-                            <h3 class="widget-title">Price Filter</h3>
-                            <!-- Widget Menu Start -->
-                            <form action="#">
+                            <h3 class="widget-title">Lọc theo giá</h3>
+                            <form id="priceFilterForm">
                                 <div id="slider-range"></div>
-                                <button type="submit">Filter</button>
-                                <input type="text" name="text" id="amount" />
+                                <button type="button" id="filterButton">Filter</button>
+                                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                
                             </form>
-                            <!-- Widget Menu End -->
+                            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+                            <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+                            <script>
+                                $(function () {
+                                    // Thiết lập thanh trượt
+                                    $("#slider-range").slider({
+                                        range: true,
+                                        min: 0,
+                                        max: 1000000, // Giá trị tối đa (đồng)
+                                        values: [100000, 500000], // Giá trị mặc định
+                                        slide: function (event, ui) {
+                                            $("#amount").val(ui.values[0].toLocaleString() + "đ - " + ui.values[1].toLocaleString() + "đ");
+                                        }
+                                    });
+                                    $("#amount").val(
+                                        $("#slider-range").slider("values", 0).toLocaleString() + "đ - " +
+                                        $("#slider-range").slider("values", 1).toLocaleString() + "đ"
+                                    );
+
+                                    // Xử lý khi nhấn nút lọc
+                                    $("#filterButton").on("click", function () {
+                                        const minPrice = $("#slider-range").slider("values", 0);
+                                        const maxPrice = $("#slider-range").slider("values", 1);
+
+                                        // Duyệt qua tất cả các sản phẩm và lọc theo giá
+                                        $(".product-area").each(function () {
+                                            const productPrice = parseInt($(this).find(".regular-price").text().replace(/\D/g, '')); // Lấy giá trị số từ text
+                                            if (productPrice >= minPrice && productPrice <= maxPrice) {
+                                                $(this).show(); // Hiển thị sản phẩm nếu trong khoảng giá
+                                            } else {
+                                                $(this).hide(); // Ẩn sản phẩm nếu không trong khoảng giá
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+
                         </div>
+
                         <div class="widget-list widget-mb-1">
                             <h3 class="widget-title">Categories</h3>
                             <div class="sidebar-body">
