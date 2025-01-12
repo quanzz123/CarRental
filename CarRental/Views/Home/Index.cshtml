@@ -11,10 +11,12 @@
             <div class="intro11-section swiper-slide slide-1 slide-bg-1 bg-position">
                 <!-- Intro Content Start -->
                 <div class="intro11-content text-left">
-                    <h3 class="title-slider text-uppercase">Top Trend</h3>
-                    <h2 class="title" style="color:#eceff8">2022 Flower Trend</h2>
-                    <p class="desc-content" style="color:#eceff8">Lorem ipsum dolor sit amet, pri autem nemore bonorum te. Autem fierent ullamcorper ius no, nec ea quodsi invenire. </p>
-                    <a href="product-details.html" class="btn flosun-button secondary-btn theme-color  rounded-0">Shop Now</a>
+                    <h3 class="title-slider text-uppercase">Hot</h3>
+                    <h2 class="title" style="color:#eceff8">Cho thuê xe tự lái</h2>
+                    <p class="desc-content" style="color:#eceff8">Siêu ưu đãi đến từ ReCar </p>
+                    <a href="#product-countdown" class="btn flosun-button secondary-btn theme-color rounded-0">Cùng đến nào</a>
+                   
+
                 </div>
                 <!-- Intro Content End -->
             </div>
@@ -24,7 +26,7 @@
                     <h3 class="title-slider black-slider-title text-uppercase">Collection</h3>
                     <h2 class="title" style="color:#eceff8">Flowers and Candle <br> Birthday Gift</h2>
                     <p class="desc-content" style="color:#eceff8">Lorem ipsum dolor sit amet, pri autem nemore bonorum te. Autem fierent ullamcorper ius no, nec ea quodsi invenire. </p>
-                    <a href="product-details.html" class="btn flosun-button secondary-btn rounded-0">Shop Now</a>
+                    <a href="product" class="btn flosun-button secondary-btn rounded-0">Shop Now</a>
                 </div>
                 <!-- Intro Content End -->
             </div>
@@ -563,6 +565,23 @@
                  });
              });
         });
-        
+
+        // Xử lý nút "Cùng đến nào" để cuộn đến phần tử mục tiêu
+               $("#scroll-to-countdown").click(function (e) {
+                   e.preventDefault();
+                   const targetElement = document.querySelector('.product-countdown-area.mt-text-3');
+                   if (targetElement) {
+                       targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                   } else {
+                       console.error("Không tìm thấy phần tử .product-countdown-area.mt-text-3");
+                   }
+               });
+           });
     </script>
+
+    <!-- Nút Cùng đến nào -->
+    <a href="javascript:void(0)" class="btn flosun-button secondary-btn theme-color rounded-0" id="scroll-to-countdown">Cùng đến nào</a>
 }
+
+
+
