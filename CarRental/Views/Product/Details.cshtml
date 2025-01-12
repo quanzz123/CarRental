@@ -221,7 +221,7 @@
                                     $('#returnDate').attr('min', currentDate);
 
                                     // Lắng nghe sự kiện thay đổi trên trường Ngày trả xe
-                                    $('#returnDate').on('input', function () {
+                                    $('#returnDate, #pickupDate').on('input', function () {
                                         const pickupDate = new Date($('#pickupDate').val());
                                         const returnDate = new Date($('#returnDate').val());
 
@@ -251,7 +251,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <button type="submit" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" type="submit" class="ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100">
-                                    Thêm vào giỏ hàng
+                                    Chọn thuê
                                 </button>
                             </div>
                             <div class="col-md-6">
@@ -264,7 +264,7 @@
                     </form>
                   
 
-                    <div class="social-share mb-4">
+                    <div class="social-share mb-4 mt-3">
                         <span>Share :</span>
                         <a href="#"><i class="fa fa-facebook-square facebook-color"></i></a>
                         <a href="#"><i class="fa fa-twitter-square twitter-color"></i></a>
