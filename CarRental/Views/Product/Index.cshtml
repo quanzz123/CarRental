@@ -44,7 +44,7 @@
                 <!--shop toolbar end-->
                 <!-- Shop Wrapper Start -->
                 <div class="row shop_wrapper grid_3">
-                    @await Component.InvokeAsync("Product")
+                    @await Component.InvokeAsync("Product", new { typeId = ViewBag.TypeId })
                 </div>
                 <!-- Shop Wrapper End -->
                 <!-- Bottom Toolbar Start -->
@@ -131,18 +131,8 @@
                             </script>
 
                         </div>
-
-                        <div class="widget-list widget-mb-1">
-                            <h3 class="widget-title">Categories</h3>
-                            <div class="sidebar-body">
-                                <ul class="sidebar-list">
-                                    <li><a href="#">All Product</a></li>
-                                    <li><a href="#">Best Seller (5)</a></li>
-                                    <li><a href="#">Featured (4)</a></li>
-                                    <li><a href="#">New Products (6)</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        @await Component.InvokeAsync("Categories")
+                        
                         <div class="widget-list widget-mb-2">
                             <h3 class="widget-title">Color</h3>
                             <div class="sidebar-body">

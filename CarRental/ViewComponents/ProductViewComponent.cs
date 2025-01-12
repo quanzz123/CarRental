@@ -13,12 +13,17 @@ namespace CarRental.ViewComponents
             _context = context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke(int? typeId)
         {
-            var items = _context.Cars.Include(m => m.Type).OrderByDescending(m => m.CarId);
-            //var items = _context.Cars.OrderByDescending(m => m.CarId);
+            var categories = _context.Cars.AsQueryable();
 
-            return await Task.FromResult<IViewComponentResult>(View(items));
+            // Nếu cần lọc theo typeId (nếu có)
+            if (typeId.HasValue)
+            {
+                categories = categories.Where(c => c.TypeId == typeId.Value);
+            }
+
+            return View(categories.ToList());
         }
     }
 }

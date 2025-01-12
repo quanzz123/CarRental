@@ -16,9 +16,9 @@ namespace CarRental.Controllers
             _context = context;
         }
         /*[Route("/Product/Index.html")]*/
-        public IActionResult Index()
+        public IActionResult Index(int? TypeId)
         {
-            
+            ViewBag.TypeId = TypeId;
             return View();
         }
         
