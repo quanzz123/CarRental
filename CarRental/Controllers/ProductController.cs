@@ -76,6 +76,7 @@ namespace CarRental.Controllers
             ViewBag.RentalDates = rentalDates;
             return View(product);
         }
+        //
         [HttpPost]
         public async Task<IActionResult> Reviews(string name,string email, string detail, int id, int star)
         {
