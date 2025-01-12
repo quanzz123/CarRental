@@ -1,6 +1,6 @@
 ﻿@model CarRental.Models.News
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,18 +15,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Thêm mới</h3>
-                    @* <p class="text-subtitle text-muted">
-                        Give textual form controls like input upgrade with
-                        custom styles,
-                        sizing, focus states, and more.
-                    </p> *@
+                    <h3>Xóa tin tức</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Input</li>
+                            <li class="breadcrumb-item"><a href="/Admin/Dashboard">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="/Admin/News">Tin tức</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Xóa</li>
                         </ol>
                     </nav>
                 </div>
@@ -35,96 +31,66 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Xoá xe</h4>
+                    <h4 class="card-title">Xác nhận xóa</h4>
                 </div>
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md-12">
+                            <h5 class="text-danger">Bạn có chắc chắn muốn xóa tin tức này không?</h5>
+                            <p class="text-warning">Lưu ý: Tất cả bình luận liên quan đến tin tức này cũng sẽ bị xóa.</p>
+                            <div asp-validation-summary="All" class="text-danger"></div>
 
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <dl class="row">
+                                <dt class="col-sm-2">Tiêu đề:</dt>
+                                <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
 
-                            <div class="form-group">
-                                <label>tiêu đề:</label> <br />
-                                @Html.DisplayFor(mode => mode.Title)
+                                <dt class="col-sm-2">Mô tả:</dt>
+                                <dd class="col-sm-10">@Html.DisplayFor(model => model.Description)</dd>
 
-                            </div>
-                            <div class="form-group">
-                                <label>Mô tả: </label> <br />
-                                @Html.DisplayFor(mode => mode.Description)
+                                <dt class="col-sm-2">Hình ảnh:</dt>
+                                <dd class="col-sm-10">
+                                    <img src="@Model.Image" alt="@Model.Title" width="200" height="200" class="img-thumbnail" />
+                                </dd>
 
-                            </div>
-                            <div class="form-group">
-                                <label>Hình ảnh: </label> <br />
+                                <dt class="col-sm-2">Chi tiết:</dt>
+                                <dd class="col-sm-10">@Html.Raw(Model.Detail)</dd>
 
-                                <img src="@Html.DisplayFor(mode => mode.Image)" width="200" height="200" />
+                                <dt class="col-sm-2">Người tạo:</dt>
+                                <dd class="col-sm-10">@Html.DisplayFor(model => model.CreatedBy)</dd>
 
+                                <dt class="col-sm-2">Người sửa:</dt>
+                                <dd class="col-sm-10">@Html.DisplayFor(model => model.ModifiedBy)</dd>
 
-                            </div>
-                            <div class="form-group">
+                                <dt class="col-sm-2">Hiển thị:</dt>
+                                <dd class="col-sm-10">@(Model.IsActive ? "Có" : "Không")</dd>
 
-                                <label for="exampleFormControlTextarea1" class="form-label">
-                                    Chi tiết:
-                                </label> <br />
-                                @Html.Raw(Model.Detail)
+                                <dt class="col-sm-2">Số bình luận:</dt>
+                                <dd class="col-sm-10">@Model.NewsComments.Count</dd>
+                            </dl>
 
-                            </div>
-                            <div class="form-group">
-                                <label>Người tạo:</label>
-                                @Html.DisplayFor(model => model.CreatedBy)
-
-                            </div>
-                            <div class="form-group">
-                                <label>Người sửa:</label>
-                                @Html.DisplayFor(model => model.ModifiedBy)
-
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">
-
-                                    Hiển thị:
-                                </label>
-                                @Html.DisplayFor(model => model.IsActive)
-
-
-                            </div>
-
-                            <form asp-action="Delete">
+                            <form asp-action="Delete" method="post">
                                 <input type="hidden" asp-for="NewsId" />
-                                <div class="btn-group mb-3">
-                                    <div class="form-group">
-                                        <input type="submit" value="Delete" class="btn btn-primary" />
-                                    </div>|
-                                    <div class="form-group">
-                                        <a asp-action="Index" class="btn btn-danger">Quay lại</a>
-
-                                    </div>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-danger">Xóa</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
                                 </div>
                             </form>
-
-
-
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
-
-
-
     </div>
 
     <footer>
         <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
-                <p>2021 &copy; Mazer</p>
+                <p>2023 &copy; Quản trị CarRental</p>
             </div>
             <div class="float-end">
                 <p>
-                    Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
+                    Được tạo bởi <span class="text-danger"><i class="bi bi-heart"></i></span> <a href="http://example.com">Công ty của bạn</a>
                 </p>
             </div>
         </div>

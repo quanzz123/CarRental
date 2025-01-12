@@ -160,6 +160,7 @@ namespace CarRental.Areas.Admin.Controllers
             }
 
             var news = await _context.News
+                .Include(n => n.NewsComments)
                 .FirstOrDefaultAsync(m => m.NewsId == id);
             if (news == null)
             {
@@ -174,15 +175,43 @@ namespace CarRental.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var news = await _context.News.FindAsync(id);
-            if (news != null)
+            var news = await _context.News
+                .Include(n => n.NewsComments)
+                .FirstOrDefaultAsync(m => m.NewsId == id);
+
+            if (news == null)
             {
-                _context.News.Remove(news);
+                return NotFound();
             }
 
-            await _context.SaveChangesAsync();
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Xóa tất cả bình luận liên quan
+                    _context.NewsComments.RemoveRange(news.NewsComments);
+
+                    // Xóa bài viết tin tức
+                    _context.News.Remove(news);
+
+                    await _context.SaveChangesAsync();
+
+                    // Commit transaction nếu mọi thứ thành công
+                    await transaction.CommitAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    // Rollback transaction nếu có lỗi
+                    await transaction.RollbackAsync();
+                    // Xử lý lỗi và thông báo cho người dùng
+                    ModelState.AddModelError("", "Không thể xóa bài viết tin tức này. Vui lòng thử lại sau.");
+                    return View(news);
+                }
+            }
+
             return RedirectToAction(nameof(Index));
         }
+    
 
         private bool NewsExists(int id)
         {
