@@ -1,6 +1,8 @@
 ﻿using CarRental.Models;
 using CarRental.Utilities;
+using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Areas.Admin.Controllers
@@ -23,6 +25,77 @@ namespace CarRental.Areas.Admin.Controllers
             }
             var order = _context.CarRentalOrders.OrderByDescending(o => o.OrderId).Include(o=>o.Customer).Include(o=>o.Status).ToList();
             return View(order);
+        }
+        
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var order = _context.CarRentalOrders
+                        .Include(o => o.Customer)
+                        .FirstOrDefault(o => o.OrderId == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+            var Odstatus = (from o in _context.OrderStatuses
+                            select new SelectListItem()
+                            {
+                                Text = o.StatusDescription,
+                                Value = o.StatusId.ToString(),
+                            }).ToList();
+            Odstatus.Insert(0, new SelectListItem()
+            {
+                    Text = "--Trạng thái",
+                    Value = "0",
+            });
+            ViewBag.OrderStatus = Odstatus;
+            return View(order);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(CarRentalOrder o)
+        {
+            if (ModelState.IsValid)
+            { // Nạp đơn hàng hiện tại từ database
+                var existingOrder = _context.CarRentalOrders
+                                            .Include(order => order.Customer)
+                                            .FirstOrDefault(order => order.OrderId == o.OrderId);
+
+                if (existingOrder == null)
+                {
+                    return NotFound();
+                }
+                existingOrder.StatusId = o.StatusId;
+
+                _context.CarRentalOrders.Update(existingOrder);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(o);
+        }
+        public IActionResult OrderDetails(int? id)
+        {
+            var orderItems = _context.OrderDetails
+                .Where(od => od.OrderId == id)
+                .Join(_context.Cars,
+                        od => od.CarId,
+                        c => c.CarId,
+                        (od, c) => new OrderDetailVM
+                        {
+                            OrderDetailID = od.OrderId,
+                            CarName = c.CarName,
+                            Image = c.Image,
+                            Quantity = (int)od.Quantity,
+                            pickupDate = (DateTime)od.PickupDate,
+                            returnDate = (DateTime)od.ReturnDate,
+
+                        })
+                .ToList();
+            return View(orderItems);
         }
     }
 }

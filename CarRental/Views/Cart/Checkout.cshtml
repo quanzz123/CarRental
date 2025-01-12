@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.ViewModels.CartItemsVM>
+﻿@model CarRental.ViewModels.CartVM
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,7 +23,7 @@
 </div>
 <!-- Breadcrumb Area End Here -->
 <!-- Checkout Area Start Here -->
-<div class="checkout-area mt-no-text">
+<div class="checkout-area mt-no-text" style="margin-bottom:500px">
     <div class="container custom-container">
         <div class="row">
             <div class="col-12 col-custom">
@@ -68,24 +68,34 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-12 col-custom">
-                <form id="checkoutForm">
+                <form id="checkoutForm" >
                     <div class="checkbox-form">
                         <h3>Billing Details</h3>
                         <div class="row">
-
-                            <div class="col-md-6 col-custom">
-                                <div class="checkout-form-list">
-                                    <label>Tiền cọc <span class="required">*</span></label>
-                                    <input id="deposit" placeholder="Nhập tiền cọc" type="number">
+                            <div class="different-address">
+                                <div class="order-notes mt-3">
+                                    <div class="checkout-form-list checkout-form-list-2">
+                                        <label>Order Notes</label>
+                                        <textarea  id="notes" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    </div>
+                                </div>
+                                <div class="ship-different-title">
+                                    <div>
+                                        <input id="ship-box" type="checkbox">
+                                        <label for="ship-box">Thanh toán bằng VnPay</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-custom">
+                          @*   <div class="col-md-6 col-custom">
                                 <div class="checkout-form-list">
-                                    <label>Ngày trả <span class="required">*</span></label>
-                                    <input id="orderReturn" placeholder="Nhập ngày trả" type="date">
+                                    <label>Lời nhắn <span class="required">*</span></label>
+                                    <textarea id="notes" placeholder="Nhập lời nhắn" ></textarea>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn flosun-button secondary-btn black-color rounded-0 w-100">Place Order</button>
+                            </div> *@
+                            <button type="submit" class="btn flosun-button secondary-btn black-color rounded-0 w-100 mt-4">Thanh toán</button>
+                            @* <button type="submit" name="paymentmethod" class="btn flosun-button secondary-btn black-color rounded-0 w-100" value="Thanh toán COD" /><button>
+                            <input type="submit" name="paymentmethod" class="btn flosun-button secondary-btn black-color rounded-0 w-100 mt-2" value="Thanh toán VNPay" />
+                             *@
 
 
 
@@ -96,43 +106,42 @@
             </div>
             <div class="col-lg-6 col-12 col-custom">
                 <div class="your-order">
-                    <h3>Your order</h3>
+                    <h3>Bảng tính giá</h3>
                     <div class="your-order-table table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="cart-product-name">Product</th>
-                                    <th class="cart-product-total">Total</th>
+                                    <th class="cart-product-name">Nội dung</th>
+                                    <th class="cart-product-total">Tổng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
-                                {
+                                
                                     <tr class="cart_item">
                                         <td class="cart-product-name">
-                                            @item.CarName<strong class="product-quantity">
-                                                × @item.Quantity
+                                            Thành tiền<strong class="product-quantity">
+                                                
                                             </strong>
                                         </td>
-                                        <td class="cart-product-total text-center"><span class="amount">£@item.PriceTotal</span></td>
+                                        <td class="cart-product-total text-center"><span class="amount">@Model.Total đ</span></td>
                                     </tr>
 
-                                }
+                                
 
                             </tbody>
                             <tfoot>
                                 <tr class="cart-subtotal">
-                                    <th>Cart Subtotal</th>
-                                    <td class="text-center"><span class="amount">£@Model.Sum(p => p.PriceTotal)</span></td>
+                                    <th>Thanh toán giữ chỗ</th>
+                                    <td class="text-center"><span class="amount">@Model.Deposit đ</span></td>
                                 </tr>
                                 <tr class="order-total">
-                                    <th>Order Total</th>
-                                    <td class="text-center"><strong><span class="amount">£@Model.Sum(p => p.PriceTotal)</span></strong></td>
+                                    <th>Thanh toán khi nhận xe</th>
+                                    <td class="text-center"><strong><span class="amount">@Model.Payment</span></strong></td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
-                    <div class="payment-method">
+                    @* <div class="payment-method">
                         <div class="payment-accordion">
                             <div id="accordion">
                                 <div class="card">
@@ -182,7 +191,7 @@
                                 <button class="btn flosun-button secondary-btn black-color rounded-0 w-100">Place Order</button>
                             </div>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -193,13 +202,18 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-                $(document).ready(function () {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
             $("#checkoutForm").submit(function (e) {
                 e.preventDefault(); // Ngăn chặn submit form mặc định
 
+                // Lấy giá trị từ checkbox mỗi lần submit
+                var paymentMethod = $("#ship-box").is(":checked") ? "Thanh toán VNPay" : "Thanh toán COD";
+
                 var formData = {
-                    Deposit: $("#deposit").val(),
-                    OrderReturn: $("#orderReturn").val(),
+                    Notes: $("#notes").val(),
+                    paymentmethod: paymentMethod // Thêm giá trị paymentMethod vào dữ liệu gửi
                 };
 
                 $.ajax({
@@ -221,6 +235,8 @@
                 });
             });
         });
+    </script>
+
 
     </script>
 

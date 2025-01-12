@@ -29,7 +29,9 @@ public partial class Car
 
     public string? Alias { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsSale { get; set; }
+
+    public bool IsActive { get; set; }
 
     public string? Details { get; set; }
 

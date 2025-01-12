@@ -1,10 +1,8 @@
-﻿@using CarRental.Models;
-@model IList<Car>
+﻿@model IEnumerable<CarRental.ViewModels.OrderDetailVM>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "OrderDetails";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <div id="main">
     <header class="mb-3">
         <a href="#" class="burger-btn d-block d-xl-none">
@@ -37,7 +35,7 @@
                     <div class="card">
                         <div class="card-header">
                             @* <h4 class="card-title">Hoverable rows</h4> *@
-                            <a asp-action="Create" class="btn btn-info">Thêm mới</a>
+                            <a asp-controller="Orders" asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-return-left"></i>Quay lại</a>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -55,14 +53,12 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tiêu đề</th>
-                                            <th>Hạng xe</th>
-                                            <th>Alias</th>
-                                            <th>Giá</th>
-                                            <th>Giá giảm</th>
-                                            <th>Ảnh</th>
-                                            <th>Hiện</th>
-                                            <th>Sale</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tên xe</th>
+                                            <th>Số lượng</th>
+                                            <th>Ngày nhận xe</th>
+                                            <th>Ngày trả xe</th>
+                                            
                                             <th>Chức năng</th>
                                         </tr>
                                     </thead>
@@ -74,26 +70,19 @@
                                         {
 
                                             <tr>
+
                                                 <td class="text-bold-500">@(i++)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.CarName)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.TypeId)</td>
-                                                <td class="text-bold-500">@Html.DisplayFor(modeitem => item.Alias)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.Price)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.SalePrice)</td>
-
                                                 <td>  <img src="@Html.DisplayFor(modeitem => item.Image)" alt="Alternate Text" width="50" height="50" /></td>
-                                                @* <td>@Html.DisplayFor(modeitem => item.IsActive)</td> *@
-                                                <td>
-                                                    <input asp-for="@item.IsActive" type="checkbox" disabled="disabled"  />
+                                                <td>@Html.DisplayFor(modeitem => item.CarName)</td>
+                                                <td>@Html.DisplayFor(modeitem => item.Quantity)</td>
+                                                <td class="text-bold-500">@item.pickupDate.ToString("dd-MM-yyyy")</td>
+                                                <td>@item.returnDate.ToString("dd-MM-yyyy")</td>
+                    
 
-                                                </td>
+                                                
                                                 <td>
-                                                    <input asp-for="@item.IsSale" type="checkbox" disabled="disabled"  />
-
-                                                </td>
-                                                <td>
-                                                    <a asp-action="Edit" asp-route-id="@item.CarId" class="btn btn-success">Sửa</a>
-                                                    <a asp-action="Delete" asp-route-id="@item.CarId" class="btn btn-danger">Xoá</a>
+                                                    <a asp-action="Edit" asp-route-id="@item.OrderDetailID" class="btn btn-success">Sửa</a>
+                                                    <a asp-action="Delete" asp-route-id="@item.OrderDetailID" class="btn btn-danger">Xoá</a>
                                                 </td>
                                             </tr>
                                         }

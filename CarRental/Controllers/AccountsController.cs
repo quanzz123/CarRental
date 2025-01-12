@@ -265,11 +265,47 @@ namespace CarRental.Controllers
                             CarName = c.CarName,
                             Image = c.Image,
                             Quantity = (int)od.Quantity,
-                            Price = (decimal)c.Price,
+                            pickupDate = (DateTime)od.PickupDate,
+                            returnDate = (DateTime)od.ReturnDate,
 
                         })
                 .ToList();
+            ViewBag.OrderId = id; // Lưu OrderId vào ViewBag
             return View(orderItems);
         }
+        [HttpPost]
+        public IActionResult CancelOrder(int orderId)
+        {
+            // Kiểm tra nếu người dùng đã đăng nhập
+            if (!Function.IsLogin())
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để tiếp tục." });
+            }
+
+            // Lấy thông tin đơn hàng từ cơ sở dữ liệu
+            var order = _context.CarRentalOrders.FirstOrDefault(o => o.OrderId == orderId);
+
+            // Kiểm tra nếu đơn hàng không tồn tại
+            if (order == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy đơn hàng." });
+            }
+
+            // Kiểm tra nếu đơn hàng đã được trả
+            if (order.StatusId == 2) // Giả sử StatusId=2 là trạng thái "Đã hủy"
+            {
+                return Json(new { success = false, message = "Đơn hàng đã được hủy." });
+            }
+
+            // Cập nhật trạng thái đơn hàng thành "Đã hủy" (StatusId = 2)
+            order.StatusId = 2;
+
+            // Lưu thay đổi vào cơ sở dữ liệu
+            _context.SaveChanges();
+
+            // Trả về phản hồi thành công
+            return Json(new { success = true, message = "Đơn hàng đã được hủy." });
+        }
+
     }
 }

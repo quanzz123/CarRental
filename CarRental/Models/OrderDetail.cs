@@ -17,5 +17,9 @@ public partial class OrderDetail
 
     public int? Quantity { get; set; }
 
+    public DateTime? PickupDate { get; set; }
+
+    public DateTime? ReturnDate { get; set; }
+
     public virtual CarRentalOrder Order { get; set; } = null!;
 }
