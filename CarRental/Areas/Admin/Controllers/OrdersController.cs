@@ -15,18 +15,44 @@ namespace CarRental.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? filterStatusId)
         {
-            //kiem tra trang thai dang nhap
+            // Kiểm tra trạng thái đăng nhập
             if (!Function.IsLogin())
             {
-
                 return RedirectToAction("Index", "Login");
             }
-            var order = _context.CarRentalOrders.OrderByDescending(o => o.OrderId).Include(o=>o.Customer).Include(o=>o.Status).ToList();
-            return View(order);
+
+            // Truy vấn đơn hàng
+            var orders = _context.CarRentalOrders
+                                 .OrderByDescending(o => o.OrderId)
+                                 .Include(o => o.Customer)
+                                 .Include(o => o.Status)
+                                 .AsQueryable();
+
+            // Áp dụng bộ lọc nếu có
+            if (filterStatusId.HasValue)
+            {
+                orders = orders.Where(o => o.StatusId == filterStatusId.Value);
+            }
+            var status = (from c in _context.OrderStatuses
+                           select new SelectListItem()
+                           {
+                               Text = c.StatusDescription,
+                               Value = c.StatusId.ToString(),
+                           }).ToList();
+           status.Insert(0, new SelectListItem()
+            {
+                Text = "--select--",
+                Value = string.Empty,
+            });
+            ViewBag.orderstatus = status;
+            
+
+            return View(orders.ToList());
         }
-        
+
+
         public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)

@@ -37,57 +37,61 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            @* <h4 class="card-title">Hoverable rows</h4> *@
-                            <a asp-action="Create" class="btn btn-info">Thêm mới</a>
+                            <!-- Dropdown Lọc Trạng Thái -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select id="filterStatusDropdown" class="form-control">
+                                        <option value="all" selected>-- Tất cả trạng thái --</option>
+                                        @foreach (var status in ViewBag.orderstatus)
+                                        {
+                                            <option value="@status.Value">@status.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="card-content">
-                            <div class="card-body">
-                                @*  <p>
-                                    Add <code class="highlighter-rouge">.table-hover</code> to enable a hover
-                                    state on table
-                                    rows
-                                    within a
-                                    <code class="highlighter-rouge">&lt;tbody&gt;</code>.
-                                </p> *@
-                            </div>
-                            <!-- table hover -->
+                            <!-- Bảng Danh Sách Đơn Hàng -->
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0">
+                                <table class="table table-hover mb-0" id="ordersTable">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Mã đơn</th>
                                             <th>Ngày đặt</th>
-                                            
                                             <th>Trạng thái</th>
                                             <th>Người đặt</th>
                                             <th>Chức năng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{
-                                            int i = 0;
-                                        }
-                                        @foreach (var item in Model)
+                                        @if (Model != null && Model.Any())
                                         {
-
+                                            int i = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr data-status-id="@item.StatusId">
+                                                    <td class="text-bold-500">@i++</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
+                                                    <td class="text-bold-500">@Html.DisplayFor(modelItem => item.OrderDate)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Status.StatusDescription)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Customer.FullName)</td>
+                                                    <td>
+                                                        <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success">Sửa</a>
+                                                        <a asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@item.OrderId" class="btn btn-info">Chi tiết</a>
+                                                        <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Xóa</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
                                             <tr>
-                                                <td class="text-bold-500">@(i++)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.OrderId)</td>
-                                                <td class="text-bold-500">@Html.DisplayFor(modeitem => item.OrderDate)</td>
-                                                @* <td>@Html.DisplayFor(modeitem => item.ReturnDate)</td> *@
-                                                <td>@Html.DisplayFor(modeitem => item.Status.StatusDescription)</td>
-                                                <td>@Html.DisplayFor(modeitem => item.Customer.FullName)</td>
-
-                                                <td>
-                                                    <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success">Sửa</a>
-                                                    <a asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@item.OrderId" class="btn btn-info">Chi tiết</a>
-                                                    <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Xoá</a>
-                                                </td>
+                                                <td colspan="6" class="text-center text-muted">Không có đơn hàng nào được tìm thấy.</td>
                                             </tr>
                                         }
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -96,6 +100,22 @@
                 </div>
             </div>
         </section>
+        <script>
+            document.getElementById('filterStatusDropdown').addEventListener('change', function () {
+                const selectedStatus = this.value; // Lấy giá trị trạng thái được chọn
+                const rows = document.querySelectorAll('#ordersTable tbody tr'); // Lấy tất cả các hàng trong bảng
+
+                rows.forEach(row => {
+                    const statusId = row.getAttribute('data-status-id'); // Lấy trạng thái của đơn hàng từ data-status-id
+                    if (selectedStatus === 'all' || statusId === selectedStatus) {
+                        row.style.display = ''; // Hiện hàng
+                    } else {
+                        row.style.display = 'none'; // Ẩn hàng
+                    }
+                });
+            });
+        </script>
+
         <!-- Hoverable rows end -->
         <!-- Contextual classes start -->
 
