@@ -62,7 +62,7 @@ namespace CarRental.Areas.Admin.Controllers
             if (ModelState.IsValid)
             { // Nạp đơn hàng hiện tại từ database
                 var existingOrder = _context.CarRentalOrders
-                                            .Include(order => order.Customer)
+                                            .Include(order => order.Customer) .Include(c=> c.OrderDetails)
                                             .FirstOrDefault(order => order.OrderId == o.OrderId);
 
                 if (existingOrder == null)
@@ -70,7 +70,19 @@ namespace CarRental.Areas.Admin.Controllers
                     return NotFound();
                 }
                 existingOrder.StatusId = o.StatusId;
-
+                // Nếu trạng thái là "đã hủy" hoặc "đã thanh lý", cập nhật IsActive của xe về true
+                if (o.StatusId == 2 || o.StatusId == 5)
+                {
+                    foreach (var detail in existingOrder.OrderDetails)
+                    {
+                        var car = _context.Cars.FirstOrDefault(c => c.CarId == detail.CarId);
+                        if (car != null)
+                        {
+                            car.IsActive = true;
+                            _context.Cars.Update(car);
+                        }
+                    }
+                }
                 _context.CarRentalOrders.Update(existingOrder);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
