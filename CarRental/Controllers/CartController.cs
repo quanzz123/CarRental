@@ -101,6 +101,8 @@ namespace CarRental.Controllers
                 });
             }
             ViewBag.MiniCart = cart;
+            Function._pickupDate = pickupDate.ToString("dd-MM-yyyy");
+            Function._returnDate = returnDate.ToString("dd-MM-yyyy");
             return RedirectToAction("Index");
         }
         public IActionResult CheckoutSummary()
@@ -264,12 +266,22 @@ namespace CarRental.Controllers
                             Quantity = item.Quantity,
                             PickupDate = item.pickupDate,
                             ReturnDate = item.returnDate,
-                            
+
                         }).ToList();
+
+                        
 
                         _context.AddRange(orderDetails);
                         _context.SaveChanges();
-
+                        
+                        // Cập nhật trạng thái IsActive của xe
+                        var carIds = cart.Select(item => item.CartId).ToList(); // Lấy danh sách ID của xe trong giỏ hàng
+                        var carsToUpdate = _context.Cars.Where(c => carIds.Contains(c.CarId)).ToList(); // Lấy danh sách xe từ DB
+                        foreach (var car in carsToUpdate)
+                        {
+                            car.IsActive = false; // Đặt thuộc tính IsActive thành false
+                        }
+                        _context.SaveChanges(); // Lưu thay đổi
                         HttpContext.Session.Set<List<CartItemsVM>>(CART_KEY, new List<CartItemsVM>());
                         transaction.Commit();
                         if (model.paymentmethod == "Thanh toán VNPay")

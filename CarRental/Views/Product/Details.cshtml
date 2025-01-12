@@ -1,4 +1,5 @@
 ﻿@model Car
+@using CarRental.Utilities;
 @{
     // List<Car> productFeatured = ViewBag.productFeatured;
     List<Car> productRelated = ViewBag.productRelated;
@@ -196,11 +197,7 @@
                                 <div class="form-group">
                                     <label for="returnDate">Ngày trả xe:</label>
                                     <input id="returnDate" name="returnDate" type="date" class="form-control" required>
-                                    <!-- Hiển thị lỗi nếu có -->
-                                    @if (TempData["ErrorMessage"] != null)
-                                    {
-                                        <small class="text-danger">@TempData["ErrorMessage"]</small>
-                                    }
+                                 
                                 </div>
                             </div>
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -221,7 +218,7 @@
                                     $('#returnDate').attr('min', currentDate);
 
                                     // Lắng nghe sự kiện thay đổi trên trường Ngày trả xe
-                                    $('#returnDate').on('input', function () {
+                                    $('#returnDate, #pickupDate').on('input', function () {
                                         const pickupDate = new Date($('#pickupDate').val());
                                         const returnDate = new Date($('#returnDate').val());
 
@@ -246,13 +243,26 @@
                                 });
                             </script>
                         </div>
+                        @if(Model.IsActive == false) {
+                       
+                        <div class="row">
+                                <p class="desc-content" style="color:red"><i class="bi bi-exclamation-triangle-fill"></i>Xe đang bận</p>
+                        </div>
+                        }
+                     
 
                         <!-- Hàng chứa nút Add to cart và Add to wishlist -->
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" type="submit" class="ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100">
-                                    Thêm vào giỏ hàng
+                                @{
+                                    var buttonClass = Model.IsActive
+                                    ? "ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100"
+                                    : "ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100 disabled";
+                                }
+                                <button   type="submit" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" type="submit" class="@buttonClass" >
+                                    Chọn thuê
                                 </button>
+                                
                             </div>
                             <div class="col-md-6">
                                 <a class="btn flosun-button secondary-btn secondary-border rounded-0 w-100" href="wishlist.html">
@@ -264,7 +274,7 @@
                     </form>
                   
 
-                    <div class="social-share mb-4">
+                    <div class="social-share mb-4 mt-3">
                         <span>Share :</span>
                         <a href="#"><i class="fa fa-facebook-square facebook-color"></i></a>
                         <a href="#"><i class="fa fa-twitter-square twitter-color"></i></a>
@@ -578,7 +588,20 @@
 </div>
 <!--Product Area End-->
 @section scripts {
+  
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('click', function (event) {
+            if (event.target.matches('.disabled')) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Thông báo',
+                    text: 'Xe này hiện không khả dụng!',
+                });
+            }
+        });
+    </script>
     <script>
          
             

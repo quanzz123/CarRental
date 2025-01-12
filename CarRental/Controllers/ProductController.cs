@@ -62,6 +62,18 @@ namespace CarRental.Controllers
                 // Cập nhật session
                 HttpContext.Session.Set("RecentProducts", recentProducts);
             }
+            // Lấy danh sách ngày thuê liên quan đến xe
+            var rentalDates = _context.OrderDetails
+                .Where(od => od.CarId == id)
+                .Select(od => new
+                {
+                    od.PickupDate,
+                    od.ReturnDate
+                })
+                .ToList();
+
+            // Truyền dữ liệu sang View
+            ViewBag.RentalDates = rentalDates;
             return View(product);
         }
         [HttpPost]
