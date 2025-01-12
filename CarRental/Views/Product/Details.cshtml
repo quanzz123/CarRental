@@ -155,8 +155,8 @@
                         <h2 class="product-title">@Model.CarName</h2>
                     </div>
                     <div class="price-box mb-2">
-                        <span class="regular-price">@Model.SalePrice.Value.ToString("N0")đ/ngày</span>
-                        <span class="old-price"><del>@Model.Price.Value.ToString("N0")đ</del></span>
+                        <span class="regular-price">@Model.SalePrice.Value.ToString("N0") đ/Ngày</span>
+                        <span class="old-price"><del>@Model.Price.Value.ToString("N0") đ</del></span>
                     </div>
                     <div class="product-rating mb-3">
                         <i class="fa fa-star"></i>
@@ -197,7 +197,7 @@
                                 <div class="form-group">
                                     <label for="returnDate">Ngày trả xe:</label>
                                     <input id="returnDate" name="returnDate" type="date" class="form-control" required>
-                                 
+
                                 </div>
                             </div>
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -243,26 +243,27 @@
                                 });
                             </script>
                         </div>
-                        @if(Model.IsActive == false) {
-                       
-                        <div class="row">
+                        @if (Model.IsActive == false)
+                        {
+
+                            <div class="row">
                                 <p class="desc-content" style="color:red"><i class="bi bi-exclamation-triangle-fill"></i>Xe đang bận</p>
-                        </div>
+                            </div>
                         }
-                     
+
 
                         <!-- Hàng chứa nút Add to cart và Add to wishlist -->
                         <div class="row">
                             <div class="col-md-6">
                                 @{
-                                    var buttonClass = (bool)Model.IsActive
+                                    var buttonClass = Model.IsActive
                                     ? "ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100"
                                     : "ajax-add-to-cart btn product-cart button-icon flosun-button dark-btn w-100 disabled";
                                 }
-                                <button   type="submit" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" type="submit" class="@buttonClass" >
+                                <button type="submit" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.CarId" type="submit" class="@buttonClass">
                                     Chọn thuê
                                 </button>
-                                
+
                             </div>
                             <div class="col-md-6">
                                 <a class="btn flosun-button secondary-btn secondary-border rounded-0 w-100" href="wishlist.html">
@@ -270,9 +271,9 @@
                                 </a>
                             </div>
                         </div>
-                     
+
                     </form>
-                  
+
 
                     <div class="social-share mb-4 mt-3">
                         <span>Share :</span>
@@ -422,7 +423,7 @@
                                         <th><i class="bi bi-fuel-pump-fill" style="margin-right:10px"></i>Nhiên Liệu</th>
                                         <th><i class="bi bi-fire" style="margin-right:10px"></i>Tiêu hao</th>
                                     </tr>
-                          
+
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -431,9 +432,9 @@
                                         <td>Xăng</td>
                                         <td>Số tự dộng</td>
                                     </tr>
-                                    
-                                   
-                               
+
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -497,8 +498,8 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$@item.SalePrice</span>
-                                            <span class="old-price"><del>$@item.Price</del></span>
+                                            <span class="regular-price ">@Model.SalePrice.Value.ToString("N0") đ/Ngày</span>
+                                            <span class="old-price"><del>@Model.Price.Value.ToString("N0") đ</del></span>
                                         </div>
                                         <a href="cart.html" class="btn product-cart">Add to Cart</a>
                                     </div>
@@ -588,7 +589,7 @@
 </div>
 <!--Product Area End-->
 @section scripts {
-  
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('click', function (event) {
@@ -603,11 +604,11 @@
         });
     </script>
     <script>
-         
-            
+
+
         //
         $(document).ready(function () {
-           
+
 
             let selectedRating = 0; // Lưu số sao được chọn
 
@@ -704,6 +705,6 @@
         }
         });
 
-         
+
     </script>
 }
