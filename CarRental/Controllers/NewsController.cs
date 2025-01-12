@@ -16,7 +16,7 @@ namespace CarRental.Controllers
             return View();
         }
         [Route("/news/{alias}-{id}.html")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string alias, int? id)
         {
             if (id == null || _context.News == null)
             {
