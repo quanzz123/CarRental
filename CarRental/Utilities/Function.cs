@@ -13,6 +13,9 @@ namespace CarRental.Utilities
         public static string _MessageEmail = string.Empty;
         public static string _address = String.Empty;
         public static string _Phone = String.Empty;
+        public static string _pickupDate = String.Empty;
+        public static string _returnDate = String.Empty;
+
         //public static string CART_KEY = "MYCART";
         public static string TitleSlugGenerationAlias(string title)
         {
