@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="col-12 col-custom mt-40">
 
-                                        <button id="n-submit" type="submit" class="btn flosun-button primary-btn rounded-0 w-100" data-id="@Model.BlogId">Tải lên</button>
+                                        <button id="n-subbmit" type="submit" class="btn flosun-button primary-btn rounded-0 w-100" data-id="@Model.BlogId">Tải lên</button>
                                     </div>
                                 </div>
                             </form> 
@@ -140,16 +140,16 @@
     <script>
         $(document).ready(function () {
 
-           $("#n-submit").click(function() {
+           $("#n-subbmit").click(function() {
                     const reviewData = {
-                        name: $('#name').val(),
-                        email: $('#email').val(),
-                        detail: $('#detail').val(),                       
-                        blogId: $(this).data("blogId"),
+                        name: $('#n-name').val(),
+                        email: $('#n-email').val(),
+                        detail: $('#n-detail').val(),                       
+                        blogId: $(this).data("id"),
 
                     };
                  $.ajax({
-                    url : "/Blog/Comment",
+                    url : "/Blog/AddBlogComment",
                     type : "POST",
                     data : reviewData,
                     success: function(data) {
