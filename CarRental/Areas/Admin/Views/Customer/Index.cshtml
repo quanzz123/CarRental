@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRental.Models.CarRentalOrder>
+﻿@model IEnumerable<CarRental.Models.Customer>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -38,17 +38,17 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- Dropdown Lọc Trạng Thái -->
-                            <div class="row mb-3">
+                         @*    <div class="row mb-3">
                                 <div class="col-md-4">
                                     <select id="filterStatusDropdown" class="form-control">
                                         <option value="all" selected>-- Tất cả trạng thái --</option>
                                         @foreach (var status in ViewBag.orderstatus)
                                         {
-                                            <option value="@status.Value">@status.Text</option>
+                                                <option value="@status.Value">@status.Text</option>
                                         }
                                     </select>
                                 </div>
-                            </div>
+                            </div> *@
 
 
                         </div>
@@ -59,10 +59,11 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Mã đơn</th>
-                                            <th>Ngày đặt</th>
-                                            <th>Trạng thái</th>
-                                            <th>Người đặt</th>
+                                            <th>Mã khách hàng</th>
+                                            <th>Tên</th>
+                                            <th>Tên hiển thị</th>
+                                            <th>Email</th>
+                                            <th>Ngày sinh</th>
                                             <th>Chức năng</th>
                                         </tr>
                                     </thead>
@@ -72,25 +73,30 @@
                                             int i = 1;
                                             foreach (var item in Model)
                                             {
-                                                <tr data-status-id="@item.StatusId">
-                                                    <td class="text-bold-500">@(i++)</td>
-                                                    <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
-                                                    <td class="text-bold-500">@Html.DisplayFor(modelItem => item.OrderDate)</td>
-                                                    <td>@Html.DisplayFor(modelItem => item.Status.StatusDescription)</td>
-                                                    <td><a asp-controller="Customer" asp-action="Details" asp-route-id="@item.CustomerId" >@Html.DisplayFor(modelItem => item.Customer.FullName)</a></td>
-                                                    <td>
-                                                        <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success">Sửa</a>
-                                                        <a asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@item.OrderId" class="btn btn-info">Chi tiết</a>
-                                                        <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Xóa</a>
-                                                    </td>
-                                                </tr>
+                                                        <tr data-status-id="@item.CustomerId">
+                                                            <td class="text-bold-500">@(i++)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
+                                                            <td class="text-bold-500">@Html.DisplayFor(modelItem => item.FullName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item. Email)</td>
+                                                            <td>
+                                                                @(item.DateofBirth.HasValue
+                                                                    ? item.DateofBirth.Value.ToString("dd-MM-yyyy")
+                                                                    : "N/A")
+                                                            </td>
+                                                            <td>
+                                                                @* <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-success">Sửa</a> *@
+                                                                <a asp-controller="Customer" asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-info">Chi tiết</a>
+                                                                @* <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Xóa</a> *@
+                                                            </td>
+                                                        </tr>
                                             }
                                         }
                                         else
                                         {
-                                            <tr>
-                                                <td colspan="6" class="text-center text-muted">Không có đơn hàng nào được tìm thấy.</td>
-                                            </tr>
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-muted">Không có đơn hàng nào được tìm thấy.</td>
+                                                </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -101,19 +107,7 @@
             </div>
         </section>
         <script>
-            document.getElementById('filterStatusDropdown').addEventListener('change', function () {
-                const selectedStatus = this.value; // Lấy giá trị trạng thái được chọn
-                const rows = document.querySelectorAll('#ordersTable tbody tr'); // Lấy tất cả các hàng trong bảng
-
-                rows.forEach(row => {
-                    const statusId = row.getAttribute('data-status-id'); // Lấy trạng thái của đơn hàng từ data-status-id
-                    if (selectedStatus === 'all' || statusId === selectedStatus) {
-                        row.style.display = ''; // Hiện hàng
-                    } else {
-                        row.style.display = 'none'; // Ẩn hàng
-                    }
-                });
-            });
+   ;
         </script>
 
         <!-- Hoverable rows end -->
