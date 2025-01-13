@@ -45,6 +45,8 @@ public partial class DbRenalCarContext : DbContext
 
     public virtual DbSet<Menu> Menus { get; set; }
 
+    public virtual DbSet<Message> Messages { get; set; }
+
     public virtual DbSet<News> News { get; set; }
 
     public virtual DbSet<NewsComment> NewsComments { get; set; }
@@ -297,6 +299,24 @@ public partial class DbRenalCarContext : DbContext
             entity.Property(e => e.Alias).HasMaxLength(150);
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Title).HasMaxLength(150);
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.MessageId).HasName("PK__Messages__C87C037CA928974D");
+
+            entity.Property(e => e.MessageId).HasColumnName("MessageID");
+            entity.Property(e => e.AccountId).HasColumnName("AccountID");
+            entity.Property(e => e.MessageType)
+                .HasMaxLength(20)
+                .HasDefaultValue("text");
+            entity.Property(e => e.SentAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Account).WithMany(p => p.Messages)
+                .HasForeignKey(d => d.AccountId)
+                .HasConstraintName("FK__Messages__Accoun__084B3915");
         });
 
         modelBuilder.Entity<News>(entity =>
