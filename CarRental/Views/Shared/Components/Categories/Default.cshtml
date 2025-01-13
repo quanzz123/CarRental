@@ -3,6 +3,7 @@
     <h3 class="widget-title">Hạng xe</h3>
     <div class="sidebar-body">
         <ul class="sidebar-list">
+            <li><a asp-controller="Product" asp-action="Index">Tất cả xe</a></li>
             @foreach(var item in Model) {
                 <li><a href="/Product/Index?TypeId=@item.TypeId">@item.CarTypeName</a></li>
             }
